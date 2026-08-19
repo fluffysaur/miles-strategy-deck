@@ -1,0 +1,22 @@
+{
+  "name": "miles-strategy-deck",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluffysaur/miles-strategy-deck.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fluffysaur/miles-strategy-deck/issues"
+  },
+  "homepage": "https://github.com/fluffysaur/miles-strategy-deck#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}

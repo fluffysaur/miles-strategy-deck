@@ -137,29 +137,30 @@
             .content-grid {
                 display: grid;
                 grid-template-columns: 310px 1fr;
-                gap: 24px;
-                height: calc(100% - 70px);
+                gap: 22px;
+                height: calc(100% - 68px);
             }
             .left-panel {
                 display: flex;
                 flex-direction: column;
-                gap: 14px;
+                gap: 10px;
+                justify-content: flex-start;
             }
             .card-preview {
                 background: #ffffff;
                 border: 2px solid #e2e8f0;
                 border-radius: 14px;
-                padding: 14px;
+                padding: 10px;
                 text-align: center;
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                min-height: 150px;
+                height: 120px;
             }
             .card-preview img {
                 width: 100%;
-                max-height: 135px;
+                max-height: 100px;
                 object-fit: contain;
                 border-radius: 8px;
                 filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
@@ -172,24 +173,55 @@
                 background: #ffffff;
                 border: 1px solid #e2e8f0;
                 border-radius: 12px;
-                padding: 12px 14px;
-                font-size: 11.5px;
+                padding: 11px 13px;
+                font-size: 11px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
             }
-            .card-meta div {
+            .meta-row {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 6px;
+                align-items: center;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #f1f5f9;
             }
-            .card-meta div:last-child {
-                margin-bottom: 0;
+            .meta-row:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
             }
             .meta-lbl {
                 color: #64748b;
                 font-weight: 600;
+                font-size: 10.5px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .meta-lbl i {
+                width: 13px;
+                color: #94a3b8;
+                text-align: center;
+                font-size: 10.5px;
             }
             .meta-val {
                 color: #0f172a;
                 font-weight: 700;
+                font-size: 11px;
+                text-align: right;
+            }
+            .meta-val.val-green {
+                color: #15803d;
+            }
+            .meta-val.val-blue {
+                color: #0284c7;
+            }
+            .meta-val.val-red {
+                color: #b91c1c;
+            }
+            .meta-val.val-purple {
+                color: #7e22ce;
             }
 
             .right-panel {
@@ -197,15 +229,19 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
                 height: 100%;
+                align-content: stretch;
             }
             .info-box {
                 background: #ffffff;
                 border: 1px solid #e2e8f0;
                 border-radius: 12px;
-                padding: 12px 14px;
+                padding: 13px 15px;
                 font-size: 11.5px;
-                line-height: 1.45;
+                line-height: 1.48;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
             }
             .info-box h4 {
                 font-size: 12px;
@@ -443,6 +479,7 @@
                 border: 1px solid #e2e8f0;
                 border-radius: 12px;
                 overflow: hidden;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
             }
             table {
                 width: 100%;
@@ -452,13 +489,17 @@
             }
             th {
                 background: #f8fafc;
-                padding: 6px 8px;
+                padding: 6px 10px;
                 font-weight: 700;
                 color: #475569;
                 border-bottom: 2px solid #e2e8f0;
             }
+            th.th-center,
+            td.td-center {
+                text-align: center;
+            }
             td {
-                padding: 4.5px 8px;
+                padding: 4px 10px;
                 border-bottom: 1px solid #f1f5f9;
                 color: #1e293b;
                 vertical-align: middle;
@@ -651,7 +692,7 @@
                         </div>
                         <div class="port-feature-text">
                             <h4>HeyMax Optimization Guide <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
-                            <p>Instant MCC search, Visa cap &amp; min spend tracker, stack extra Max Miles</p>
+                            <p>Instant MCC search, Visa cap tracker, stack extra Max Miles</p>
                         </div>
                     </div>
                     <div
@@ -708,14 +749,29 @@
                             />
                         </div>
                         <div class="card-meta">
-                            <div>
-                                <span class="meta-lbl">Partners:</span
-                                ><span class="meta-val">11+ Airlines & Hotels</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-gauge-high"></i> Earn Rate:</span>
+                                <span class="meta-val val-green">4.0 MPD (10X Points)</span>
                             </div>
-                            <div><span class="meta-lbl">Points Expiry:</span><span class="meta-val">5 Years</span></div>
-                            <div>
-                                <span class="meta-lbl">Transfer Fee:</span
-                                ><span class="meta-val">S$27.25 per block</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-chart-pie"></i> Monthly Cap:</span>
+                                <span class="meta-val">S$1,000 / statement mo</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-divide"></i> Rounding:</span>
+                                <span class="meta-val val-green">S$1.00 blocks</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-receipt"></i> Annual Fee:</span>
+                                <span class="meta-val">S$196.20 (First yr free)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-clock"></i> Expiry:</span>
+                                <span class="meta-val">5 Years</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Fee:</span>
+                                <span class="meta-val">S$27.25 (11+ Partners)</span>
                             </div>
                         </div>
                     </div>
@@ -728,8 +784,7 @@
                                 ></i>
                                 Primary Use
                             </h4>
-                            Default for <strong>all online shopping</strong>, online food delivery, Grab rides, and
-                            overseas spend via Amaze pairing.
+                            Default for <strong>all online shopping</strong>, online food delivery (GrabFood, Foodpanda), Grab rides, and in-person overseas spend via Amaze pairing.
                         </div>
                         <div class="info-box">
                             <h4>
@@ -739,33 +794,15 @@
                                 ></i>
                                 Sign-Up Bonus
                             </h4>
-                            Up to 30,000 bonus Citi Miles / ThankYou points upon meeting qualifying min spend.
-                        </div>
-                        <div class="info-box">
-                            <h4>
-                                <i
-                                    class="fa-solid fa-chart-pie"
-                                    style="color: #6366f1"
-                                ></i>
-                                Monthly Cap &amp; Min Spend
-                            </h4>
-                            <strong>S$1,000 cap per statement month</strong> (earns 10X points = 4.0 MPD). No minimum
-                            spend required.
-                        </div>
-                        <div class="info-box rounding-box">
-                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
-                            Points earned in <strong>S$1.00 blocks</strong> (min spend S$1.00). High rounding efficiency
-                            with minimal orphaned spend.
+                            Up to 30,000 bonus Citi Miles / ThankYou points with qualifying sign-up spend.
                         </div>
                         <div class="info-box alert-box">
-                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch</h4>
-                            <strong>No offline mobile contactless!</strong> Tapping via Apple/Google Pay in stores earns
-                            only 0.4 MPD base rate.
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch: No Contactless</h4>
+                            <strong>No offline mobile contactless!</strong> Tapping via Apple/Google Pay in retail stores earns only 0.4 MPD base rate. Must use online checkout or Amaze.
                         </div>
                         <div class="info-box perk-box">
                             <h4><i class="fa-solid fa-link"></i> Note: Instarem Amaze Pairing</h4>
-                            Link Citi Rewards to <strong>Amaze</strong> to convert in-person offline foreign currency
-                            spend into online spend!
+                            Link Citi Rewards to <strong>Amaze</strong> to convert in-person offline foreign currency spend into online spend, earning 4.0 MPD with 0% bank FX fees!
                         </div>
                     </div>
                 </div>
@@ -807,21 +844,29 @@
                             />
                         </div>
                         <div class="card-meta">
-                            <div>
-                                <span class="meta-lbl">Partners:</span
-                                ><span class="meta-val">11+ Airlines & Hotels</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-gauge-high"></i> Earn Rate:</span>
+                                <span class="meta-val val-blue">1.2 Local / 2.0 FCY MPD</span>
                             </div>
-                            <div>
-                                <span class="meta-lbl">Points Expiry:</span
-                                ><span
-                                    class="meta-val"
-                                    style="color: #15803d"
-                                    >Never Expire</span
-                                >
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-infinity"></i> Monthly Cap:</span>
+                                <span class="meta-val val-green">Uncapped</span>
                             </div>
-                            <div>
-                                <span class="meta-lbl">Transfer Fee:</span
-                                ><span class="meta-val">S$27.25 per block</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-divide"></i> Rounding:</span>
+                                <span class="meta-val val-green">S$1.00 blocks</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-receipt"></i> Annual Fee:</span>
+                                <span class="meta-val">S$196.20 (10k renewal miles)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-clock"></i> Expiry:</span>
+                                <span class="meta-val val-green">Never Expire</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Fee:</span>
+                                <span class="meta-val">S$27.25 (11+ Partners)</span>
                             </div>
                         </div>
                     </div>
@@ -834,8 +879,7 @@
                                 ></i>
                                 Primary Use
                             </h4>
-                            <strong>Sign-up reward harvesting</strong> and general <strong>catch-all card</strong> when
-                            4.0 MPD caps are exhausted.
+                            <strong>Sign-up reward harvesting</strong> and reliable general <strong>catch-all card</strong> when specialized 4.0 MPD monthly caps are exhausted.
                         </div>
                         <div class="info-box">
                             <h4>
@@ -845,31 +889,15 @@
                                 ></i>
                                 Sign-Up Bonus
                             </h4>
-                            Up to 30,000 bonus miles with annual fee payment and S$800 spend in first 2 months.
-                        </div>
-                        <div class="info-box">
-                            <h4>
-                                <i
-                                    class="fa-solid fa-chart-pie"
-                                    style="color: #6366f1"
-                                ></i>
-                                Monthly Cap &amp; Min Spend
-                            </h4>
-                            <strong>No spend cap</strong>. Base rates: 1.2 MPD (Local) and 2.0 MPD (Foreign Currency).
-                            No minimum spend.
-                        </div>
-                        <div class="info-box rounding-box">
-                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
-                            Points earned in <strong>S$1.00 blocks</strong> (min spend S$1.00). High rounding efficiency
-                            with minimal orphaned spend.
+                            Up to 30,000 bonus miles with annual fee payment and qualifying spend in first 2 months.
                         </div>
                         <div class="info-box perk-box">
-                            <h4><i class="fa-solid fa-plane-circle-check"></i> Key Perks</h4>
-                            Includes <strong>2 complimentary airport lounge visits</strong> annually via Priority Pass.
+                            <h4><i class="fa-solid fa-plane-circle-check"></i> Airport Lounge Access</h4>
+                            Includes <strong>2 complimentary airport lounge visits</strong> annually via Priority Pass for the cardholder.
                         </div>
                         <div class="info-box alert-box">
-                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch</h4>
-                            Points pool separately from Citi Rewards (requires separate S$27.25 transfer fee).
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch: No Pooling</h4>
+                            Points pool separately from Citi Rewards (requires separate S$27.25 transfer fee when converting to airline miles).
                         </div>
                     </div>
                 </div>
@@ -911,47 +939,42 @@
                             />
                         </div>
                         <div class="card-meta">
-                            <div>
-                                <span class="meta-lbl">Partners:</span
-                                ><span class="meta-val">KrisFlyer, Asia Miles</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-gauge-high"></i> Earn Rate:</span>
+                                <span class="meta-val val-green">4.0 MPD (UNI$10 / S$5)</span>
                             </div>
-                            <div><span class="meta-lbl">Points Expiry:</span><span class="meta-val">2 Years</span></div>
-                            <div>
-                                <span class="meta-lbl">Transfer Fee:</span
-                                ><span class="meta-val">S$27.25 (Pooled with Lady's)</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-chart-pie"></i> Monthly Cap:</span>
+                                <span class="meta-val">S$600 Tap + S$600 Online</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-divide"></i> Rounding:</span>
+                                <span class="meta-val val-red">S$5.00 blocks</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-receipt"></i> Annual Fee:</span>
+                                <span class="meta-val">S$196.20 (First yr free)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-clock"></i> Expiry:</span>
+                                <span class="meta-val">2 Years</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Fee:</span>
+                                <span class="meta-val">S$27.25 (Pooled with Lady's)</span>
                             </div>
                         </div>
                     </div>
                     <div class="right-panel">
-                        <div class="info-box">
-                            <h4>
-                                <i
-                                    class="fa-solid fa-chart-pie"
-                                    style="color: #6366f1"
-                                ></i>
-                                Monthly Cap &amp; Min Spend
-                            </h4>
-                            • <strong>S$600/cal mo</strong>: Mobile contactless (Apple/Google Pay in-store)<br />
-                            • <strong>S$600/cal mo</strong>: Selected online transactions<br />
-                            Earns <strong>UNI$10 per S$5 (4.0 MPD)</strong> with no minimum spend!
-                        </div>
                         <div class="info-box perk-box">
                             <h4>
                                 <i
                                     class="fa-solid fa-cart-shopping"
                                     style="color: #15803d"
                                 ></i>
-                                Selected Online Whitelist (MCCs)
+                                Dual Cap &amp; Online Whitelist
                             </h4>
-                            • <strong>Dining &amp; Delivery</strong>: MCC 5811, 5812, 5814 (GrabFood, Foodpanda)<br />
-                            • <strong>Entertainment</strong>: MCC 7832 (Cinemas), 7922 (SISTIC tickets)<br />
-                            • <strong>Shopping</strong>: MCC 5311 (HeyMax vouchers), 5611–5699 (Fashion), 5732
-                            (Electronics)
-                        </div>
-                        <div class="info-box rounding-box">
-                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
-                            Points earned strictly in <strong>S$5.00 blocks</strong>. Transactions below S$5.00 earn 0
-                            miles; avoid odd sums below $5 multiples.
+                            Two separate S$600 calendar month caps: <strong>Mobile Contactless</strong> (in-store Apple/Google Pay) and <strong>Selected Online</strong> (Dining MCC 5811/5812/5814, HeyMax vouchers MCC 5311, Cinemas, Fashion).
                         </div>
                         <div class="info-box">
                             <h4>
@@ -959,18 +982,17 @@
                                     class="fa-solid fa-bus"
                                     style="color: #0284c7"
                                 ></i>
-                                SimplyGo Transport
+                                SimplyGo Public Transport
                             </h4>
-                            SimplyGo taps are aggregated at month-end and rounded to the nearest $5 block (counts toward
-                            the contactless S$600 cap).
+                            SimplyGo bus/train taps are aggregated at month-end and rounded to the nearest $5 block (counts toward the contactless S$600 cap).
                         </div>
                         <div class="info-box alert-box">
                             <h4><i class="fa-solid fa-ban"></i> Physical Card Ban</h4>
-                            Must tap phone via Apple/Google Pay. Swiping/tapping physical card earns 0.4 MPD only.
+                            Must tap phone via Apple/Google Pay. Swiping or tapping the physical plastic card earns 0.4 MPD only.
                         </div>
                         <div class="info-box alert-box">
                             <h4><i class="fa-solid fa-triangle-exclamation"></i> SMART$ Merchants</h4>
-                            Avoid SMART$ stores (Giant, Cold Storage, Guardian) — earns SMART$ rebate instead of UNI$.
+                            Avoid SMART$ stores (Giant, Cold Storage, Guardian) — earns SMART$ rebate instead of UNI$. Use Citi Rewards for these instead.
                         </div>
                     </div>
                 </div>
@@ -1012,14 +1034,29 @@
                             />
                         </div>
                         <div class="card-meta">
-                            <div>
-                                <span class="meta-lbl">Partners:</span
-                                ><span class="meta-val">KrisFlyer, Asia Miles</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-gauge-high"></i> Earn Rate:</span>
+                                <span class="meta-val val-green">4.0 MPD (UNI$10 / S$5)</span>
                             </div>
-                            <div><span class="meta-lbl">Points Expiry:</span><span class="meta-val">2 Years</span></div>
-                            <div>
-                                <span class="meta-lbl">Transfer Fee:</span
-                                ><span class="meta-val">S$27.25 (Pooled with PPV)</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-chart-pie"></i> Monthly Cap:</span>
+                                <span class="meta-val">S$1,000 / calendar mo</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-divide"></i> Rounding:</span>
+                                <span class="meta-val val-red">S$5.00 blocks</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-receipt"></i> Annual Fee:</span>
+                                <span class="meta-val">S$196.20 (First yr free)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-clock"></i> Expiry:</span>
+                                <span class="meta-val">2 Years</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Fee:</span>
+                                <span class="meta-val">S$27.25 (Pooled with PPV)</span>
                             </div>
                         </div>
                     </div>
@@ -1030,39 +1067,21 @@
                                     class="fa-solid fa-bullseye"
                                     style="color: #0284c7"
                                 ></i>
-                                Primary Use
+                                Primary Use &amp; Categories
                             </h4>
-                            Dedicated spending on 1 chosen category (e.g. <strong>Dining</strong>, Fashion, Travel,
-                            Entertainment, or Family).
-                        </div>
-                        <div class="info-box">
-                            <h4>
-                                <i
-                                    class="fa-solid fa-chart-pie"
-                                    style="color: #6366f1"
-                                ></i>
-                                Monthly Cap &amp; Min Spend
-                            </h4>
-                            <strong>S$1,000 cap per calendar month</strong> on 1 selected category. Switch category
-                            quarterly. Open to all genders!
-                        </div>
-                        <div class="info-box rounding-box">
-                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
-                            Points earned strictly in <strong>S$5.00 blocks</strong>. Transactions below S$5.00 earn 0
-                            miles; avoid odd sums below $5 multiples.
+                            Dedicated 4.0 MPD on 1 chosen category (e.g. <strong>Dining</strong>, Fashion, Travel, Entertainment, or Family). Open to all genders!
                         </div>
                         <div class="info-box perk-box">
-                            <h4><i class="fa-solid fa-layer-group"></i> Points Pooling</h4>
-                            UNI$ pool directly with UOB PPV — redeem together to pay a single S$27.25 conversion fee!
+                            <h4><i class="fa-solid fa-layer-group"></i> Points Pooling with PPV</h4>
+                            UNI$ pool directly with UOB PPV into a shared balance — redeem together to pay a single S$27.25 conversion fee!
                         </div>
                         <div class="info-box alert-box">
-                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch</h4>
-                            Non-selected categories earn 0.4 MPD only. Remember to lock in preferred category each
-                            quarter.
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Category Selection Catch</h4>
+                            Non-selected categories earn 0.4 MPD only. Remember to confirm or switch your preferred category quarterly via UOB TMRW.
                         </div>
                         <div class="info-box alert-box">
-                            <h4><i class="fa-solid fa-triangle-exclamation"></i> SMART$ Blacklist</h4>
-                            Subject to UOB SMART$ merchant exclusions.
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> SMART$ Merchant Blacklist</h4>
+                            Subject to UOB SMART$ merchant exclusions (e.g. Cold Storage, Guardian). Earns SMART$ rebate instead of UNI$.
                         </div>
                     </div>
                 </div>
@@ -1104,20 +1123,29 @@
                             />
                         </div>
                         <div class="card-meta">
-                            <div>
-                                <span class="meta-lbl">Crediting:</span><span class="meta-val">Direct Auto-Credit</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-gauge-high"></i> Earn Rate:</span>
+                                <span class="meta-val val-blue">3.0 SIA / 2.4 MPD / 1.2 Base</span>
                             </div>
-                            <div>
-                                <span class="meta-lbl">Transfer Fee:</span
-                                ><span
-                                    class="meta-val"
-                                    style="color: #15803d"
-                                    >S$0 (Free)</span
-                                >
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-infinity"></i> Monthly Cap:</span>
+                                <span class="meta-val val-green">Uncapped (No Limit)</span>
                             </div>
-                            <div>
-                                <span class="meta-lbl">KF Expiry:</span
-                                ><span class="meta-val">3 Years in KrisFlyer</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-divide"></i> Rounding:</span>
+                                <span class="meta-val val-red">S$5.00 blocks (1.2 Base)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-receipt"></i> Annual Fee:</span>
+                                <span class="meta-val">S$196.20 (10k renewal miles)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-clock"></i> KF Expiry:</span>
+                                <span class="meta-val">3 Years in KrisFlyer</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Fee:</span>
+                                <span class="meta-val val-green">S$0 (Free Auto-Credit)</span>
                             </div>
                         </div>
                     </div>
@@ -1131,36 +1159,26 @@
                                 Primary Use &amp; Rates
                             </h4>
                             • <strong>3.0 MPD</strong>: SIA Group (SIA, Scoot, KrisShop, Kris+, Pelago)<br />
-                            • <strong>2.4 MPD</strong>: Dining, Food Delivery, Online Shopping &amp; Travel (Agoda,
-                            Klook), Transport<br />
+                            • <strong>2.4 MPD</strong>: Dining, Food Delivery, Online Shopping &amp; Travel (Agoda, Klook), Transport<br />
                             • <strong>1.2 MPD</strong>: Base catch-all rate
                         </div>
                         <div class="info-box">
                             <h4>
                                 <i
-                                    class="fa-solid fa-gift"
+                                    class="fa-solid fa-plane"
                                     style="color: #10b981"
                                 ></i>
                                 SIA Spend Trigger
                             </h4>
-                            Spend min <strong>S$1,000 annually on SIA Group transactions</strong> (SIA, Scoot, KrisShop,
-                            Kris+) to unlock the <strong>2.4 MPD accelerated rate</strong>!
-                        </div>
-                        <div class="info-box rounding-box">
-                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
-                            Base 1.2 MPD earned in <strong>S$5.00 blocks</strong> (UNI$3 per S$5). Bonus miles
-                            calculated on total eligible annual spend.
+                            Spend min <strong>S$1,000 annually on SIA Group transactions</strong> (SIA, Scoot, KrisShop, Kris+) to unlock the <strong>2.4 MPD accelerated rate</strong>!
                         </div>
                         <div class="info-box perk-box">
                             <h4><i class="fa-solid fa-infinity"></i> Completely Uncapped Miles</h4>
-                            The <strong>2.4 MPD accelerated rate has no earning cap</strong> — perfect for big dining
-                            bills, weddings, large travel bookings, or overflow spend!
+                            The <strong>2.4 MPD accelerated rate has no earning cap</strong> — perfect for big dining bills, weddings, large travel bookings, or overflow spend!
                         </div>
-                        <div class="info-box alert-box full-span">
-                            <h4><i class="fa-solid fa-hourglass-half"></i> Key Catch: Delayed Bonus Crediting</h4>
-                            Earns base 1.2 MPD monthly (free auto-credit). The remaining
-                            <strong>1.2 MPD bonus miles are credited 2 months after the membership year ends</strong>
-                            (arrives 2 to 14 months later).
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-hourglass-half"></i> Delayed Bonus Crediting</h4>
+                            Base 1.2 MPD credited monthly for free. The remaining <strong>1.2 MPD bonus miles are credited 2 months after membership year ends</strong>.
                         </div>
                     </div>
                 </div>
@@ -1202,22 +1220,29 @@
                             />
                         </div>
                         <div class="card-meta">
-                            <div>
-                                <span class="meta-lbl">Annual Fee:</span
-                                ><span
-                                    class="meta-val"
-                                    style="color: #15803d"
-                                    >Free for Life</span
-                                >
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-gauge-high"></i> Earn Rate:</span>
+                                <span class="meta-val val-green">4.0 MPD (10X Points)</span>
                             </div>
-                            <div><span class="meta-lbl">Points Expiry:</span><span class="meta-val">3 Years</span></div>
-                            <div>
-                                <span class="meta-lbl">Transfer Fee:</span
-                                ><span
-                                    class="meta-val"
-                                    style="color: #15803d"
-                                    >S$0 (Free / Instant)</span
-                                >
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-chart-pie"></i> Monthly Cap:</span>
+                                <span class="meta-val">S$1,000 / calendar mo</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-divide"></i> Rounding:</span>
+                                <span class="meta-val val-green">S$1.00 blocks</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-receipt"></i> Annual Fee:</span>
+                                <span class="meta-val val-green">S$0 (Free for Life)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-clock"></i> Expiry:</span>
+                                <span class="meta-val">3 Years</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Fee:</span>
+                                <span class="meta-val val-green">S$0 (Free &amp; Instant)</span>
                             </div>
                         </div>
                     </div>
@@ -1232,30 +1257,23 @@
                             </h4>
                             Online flight/hotel bookings (Agoda, Klook, airlines), dining, and food delivery.
                         </div>
-                        <div class="info-box">
+                        <div class="info-box perk-box">
                             <h4>
                                 <i
-                                    class="fa-solid fa-chart-pie"
-                                    style="color: #6366f1"
+                                    class="fa-solid fa-hand-holding-dollar"
+                                    style="color: #15803d"
                                 ></i>
-                                Monthly Cap &amp; Min Spend
+                                Zero Fees &amp; Instant Transfers
                             </h4>
-                            <strong>S$1,000 cap per calendar month</strong> across online whitelist &amp; dining. No
-                            minimum spend.
-                        </div>
-                        <div class="info-box rounding-box">
-                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
-                            Points earned in <strong>S$1.00 blocks</strong> (min spend S$1.00). High rounding efficiency
-                            with minimal orphaned spend.
+                            <strong>Free for life</strong> with no annual fee ever. Instant fee-free conversions to KrisFlyer and 10+ hotel/airline partners.
                         </div>
                         <div class="info-box alert-box">
                             <h4><i class="fa-solid fa-triangle-exclamation"></i> KrisFlyer Conversion Catch</h4>
-                            KrisFlyer transfers have a revised 1:2.5 ratio (yielding
-                            <strong>~3.3 MPD</strong> equivalent rate). Other partners transfer at 4.0 MPD.
+                            KrisFlyer transfers have a 1:2.5 ratio (yielding <strong>~3.3 MPD</strong> equivalent rate). Other airline partners transfer at full 4.0 MPD.
                         </div>
-                        <div class="info-box alert-box full-span">
+                        <div class="info-box alert-box">
                             <h4><i class="fa-solid fa-ban"></i> Excluded Categories</h4>
-                            Supermarkets (MCC 5411) are excluded from the 4.0 MPD whitelist.
+                            Supermarkets (MCC 5411) are excluded from the 4.0 MPD whitelist. Use Citi Rewards or UOB PPV for groceries instead.
                         </div>
                     </div>
                 </div>
@@ -1297,21 +1315,29 @@
                             />
                         </div>
                         <div class="card-meta">
-                            <div>
-                                <span class="meta-lbl">Partners:</span
-                                ><span class="meta-val">KrisFlyer, Asia Miles</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-gauge-high"></i> Earn Rate:</span>
+                                <span class="meta-val val-blue">3.0 Travel / 1.2 Base / 2.0 FCY</span>
                             </div>
-                            <div>
-                                <span class="meta-lbl">Points Expiry:</span
-                                ><span
-                                    class="meta-val"
-                                    style="color: #15803d"
-                                    >Never Expire</span
-                                >
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-chart-pie"></i> Monthly Cap:</span>
+                                <span class="meta-val">S$1,000 / statement mo (3.0)</span>
                             </div>
-                            <div>
-                                <span class="meta-lbl">Transfer Fee:</span
-                                ><span class="meta-val">S$27.25 per block</span>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-divide"></i> Rounding:</span>
+                                <span class="meta-val val-green">S$1.00 blocks</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-receipt"></i> Annual Fee:</span>
+                                <span class="meta-val">S$196.20 (First yr free)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-clock"></i> Expiry:</span>
+                                <span class="meta-val val-green">Never Expire</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-lbl"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Fee:</span>
+                                <span class="meta-val">S$27.25 per block</span>
                             </div>
                         </div>
                     </div>
@@ -1334,27 +1360,15 @@
                                 ></i>
                                 Sign-Up Bonus
                             </h4>
-                            Up to 45,000 miles promotion upon meeting min spend and fee payment.
+                            Up to 45,000 miles promotion upon meeting qualifying spend and fee payment.
                         </div>
-                        <div class="info-box">
-                            <h4>
-                                <i
-                                    class="fa-solid fa-chart-pie"
-                                    style="color: #6366f1"
-                                ></i>
-                                Monthly Cap &amp; Min Spend
-                            </h4>
-                            <strong>S$1,000 cap per statement month</strong> for 3.0 MPD categories. Base 1.2 MPD is
-                            uncapped. No minimum spend.
+                        <div class="info-box perk-box">
+                            <h4><i class="fa-solid fa-plane-circle-check"></i> Airport Lounge Access</h4>
+                            Includes <strong>2 complimentary airport lounge visits</strong> annually via Priority Pass for the cardholder.
                         </div>
-                        <div class="info-box rounding-box">
-                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
-                            Points earned in <strong>S$1.00 blocks</strong> (min spend S$1.00). High rounding efficiency
-                            with minimal orphaned spend.
-                        </div>
-                        <div class="info-box perk-box full-span">
-                            <h4><i class="fa-solid fa-plane-circle-check"></i> Key Perks</h4>
-                            Includes <strong>2 complimentary airport lounge visits</strong> annually via Priority Pass.
+                        <div class="info-box perk-box">
+                            <h4><i class="fa-solid fa-infinity"></i> Non-Expiring 360° Rewards</h4>
+                            Points never expire in your account, providing maximum flexibility before transferring to KrisFlyer or Asia Miles.
                         </div>
                     </div>
                 </div>
@@ -1409,11 +1423,11 @@
                         style="padding: 8px 12px"
                     >
                         <h4 style="font-size: 12px; color: #0284c7; margin-bottom: 2px">
-                            <i class="fa-brands fa-cc-visa"></i> 2. Cap &amp; Spend Tracker
+                            <i class="fa-brands fa-cc-visa"></i> 2. Cap Tracker
                         </h4>
                         <p style="font-size: 10px; line-height: 1.35; margin: 0">
                             Link Visa cards to auto-track monthly
-                            <strong>S$600 contactless / S$600 online caps</strong> &amp; min spend targets.
+                            <strong>S$600 contactless / S$600 online caps</strong> in real time.
                         </p>
                     </div>
                     <div
@@ -1658,10 +1672,10 @@
                             <tr>
                                 <th>Spend Category</th>
                                 <th>Primary Card</th>
-                                <th>MPD</th>
-                                <th>Cap</th>
-                                <th>Rounding</th>
-                                <th>Notes</th>
+                                <th class="th-center">MPD</th>
+                                <th class="th-center">Monthly Cap</th>
+                                <th class="th-center">Rounding</th>
+                                <th>Strategy &amp; Notes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1674,9 +1688,9 @@
                                     Offline Contactless
                                 </td>
                                 <td><strong>UOB PPV</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$600/mo</span></td>
-                                <td><span class="tag tag-red">$5</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$600</span></td>
+                                <td class="td-center"><span class="tag tag-red">$5</span></td>
                                 <td>Tap phone via Apple/Google Pay in retail stores. Avoid SMART$ stores.</td>
                             </tr>
                             <tr>
@@ -1688,9 +1702,9 @@
                                     Public Transport
                                 </td>
                                 <td><strong>UOB PPV</strong> (SimplyGo)</td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">Shared S$600</span></td>
-                                <td><span class="tag tag-amber">$5 Total</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$600 (Shared)</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$5 agg.</span></td>
                                 <td>Monthly fares aggregated before applying $5 rounding block.</td>
                             </tr>
                             <tr>
@@ -1702,9 +1716,9 @@
                                     Restaurants
                                 </td>
                                 <td><strong>UOB Lady's / HSBC Revo</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$1k/mo each</span></td>
-                                <td><span class="tag tag-amber">$5 / $1</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000 each</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$5 / $1</span></td>
                                 <td>
                                     Lady's (if Dining chosen, $1k cap), HSBC Revo (~3.3 KF); KF UOB for uncapped (2.4).
                                 </td>
@@ -1718,12 +1732,11 @@
                                     Food Delivery
                                 </td>
                                 <td><strong>Citi Rewards / UOB PPV</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$1k / S$600/mo</span></td>
-                                <td><span class="tag tag-amber">$1 / $5</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000 / $600</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$1 / $5</span></td>
                                 <td>
-                                    GrabFood, Foodpanda, Deliveroo via Citi ($1 rounding) or PPV (MCC 5814). Lady's if
-                                    Dining.
+                                    GrabFood, Foodpanda, Deliveroo via Citi ($1 rounding) or PPV (MCC 5814). Lady's if Dining.
                                 </td>
                             </tr>
                             <tr>
@@ -1735,12 +1748,11 @@
                                     Fast Food
                                 </td>
                                 <td><strong>UOB PPV / Citi Rewards</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$600 / S$1k/mo</span></td>
-                                <td><span class="tag tag-amber">$5 / $1</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$600 / $1,000</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$5 / $1</span></td>
                                 <td>
-                                    MCC 5814 in PPV online whitelist &amp; in-store mobile tap; Citi for in-app mobile
-                                    ordering.
+                                    MCC 5814 in PPV online whitelist &amp; in-store mobile tap; Citi for in-app mobile ordering.
                                 </td>
                             </tr>
                             <tr>
@@ -1752,9 +1764,9 @@
                                     Groceries
                                 </td>
                                 <td><strong>Citi Rewards / UOB PPV</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$1k / S$600/mo</span></td>
-                                <td><span class="tag tag-amber">$1 / $5</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000 / $600</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$1 / $5</span></td>
                                 <td>
                                     RedMart/Pandamart via Citi (4.0). NTUC via UOB PPV tap (4.0). Giant/CS are SMART$.
                                 </td>
@@ -1768,12 +1780,11 @@
                                     Cab Bookings
                                 </td>
                                 <td><strong>Citi Rewards / UOB PPV</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$1k / S$600/mo</span></td>
-                                <td><span class="tag tag-amber">$1 / $5</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000 / $600</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$1 / $5</span></td>
                                 <td>
-                                    Grab rides, Gojek, CDG Zig, TADA. Citi Rewards ($1 rounding) or PPV (MCC 4121
-                                    whitelist).
+                                    Grab rides, Gojek, CDG Zig, TADA. Citi Rewards ($1 rounding) or PPV (MCC 4121 whitelist).
                                 </td>
                             </tr>
                             <tr>
@@ -1785,9 +1796,9 @@
                                     Online Shopping
                                 </td>
                                 <td><strong>Citi Rewards</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$1k/mo</span></td>
-                                <td><span class="tag tag-green">$1</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000</span></td>
+                                <td class="td-center"><span class="tag tag-green">$1</span></td>
                                 <td>Default for Lazada, Shopee, Amazon, Taobao, electronics &amp; online shopping.</td>
                             </tr>
                             <tr>
@@ -1799,9 +1810,9 @@
                                     Pharmacy
                                 </td>
                                 <td><strong>UOB PPV / Citi Rewards</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$600 / S$1k/mo</span></td>
-                                <td><span class="tag tag-amber">$5 / $1</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$600 / $1,000</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$5 / $1</span></td>
                                 <td>
                                     Watsons: UOB PPV tap (4.0). Guardian: use Citi Rewards online (offline is SMART$).
                                 </td>
@@ -1815,9 +1826,9 @@
                                     Hotels
                                 </td>
                                 <td><strong>HSBC Revo / SC Journey</strong></td>
-                                <td><span class="tag tag-purple">4.0 / 3.0</span></td>
-                                <td><span class="tag tag-slate">S$1k/mo each</span></td>
-                                <td><span class="tag tag-green">$1</span></td>
+                                <td class="td-center"><span class="tag tag-purple">4.0 / 3.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000 each</span></td>
+                                <td class="td-center"><span class="tag tag-green">$1</span></td>
                                 <td>
                                     HSBC Revo for Agoda/Expedia/direct (4.0); SC Journey for 3.0; Lady's (if Travel).
                                 </td>
@@ -1831,10 +1842,10 @@
                                     Flight Bookings
                                 </td>
                                 <td><strong>HSBC Revo / KF UOB</strong></td>
-                                <td><span class="tag tag-purple">4.0 / 3.0</span></td>
-                                <td><span class="tag tag-slate">S$1k / Uncapped</span></td>
-                                <td><span class="tag tag-amber">$1 / $5</span></td>
-                                <td>HSBC Revo for $1k cap; KF UOB for 3.0 SIA / 2.4 OTA (min S$1k SIA spend/yr).</td>
+                                <td class="td-center"><span class="tag tag-purple">4.0 / 3.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000 / Uncapped</span></td>
+                                <td class="td-center"><span class="tag tag-amber">$1 / $5</span></td>
+                                <td>HSBC Revo for $1k cap; KF UOB for 3.0 SIA / 2.4 OTA (with S$1k SIA spend/yr).</td>
                             </tr>
                             <tr>
                                 <td class="cat-cell">
@@ -1845,9 +1856,9 @@
                                     Overseas (FCY)
                                 </td>
                                 <td><strong>Citi Rewards + Amaze</strong></td>
-                                <td><span class="tag tag-green">4.0</span></td>
-                                <td><span class="tag tag-slate">S$1k/mo</span></td>
-                                <td><span class="tag tag-green">$1</span></td>
+                                <td class="td-center"><span class="tag tag-green">4.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">$1,000</span></td>
+                                <td class="td-center"><span class="tag tag-green">$1</span></td>
                                 <td>Link Citi Rewards to Amaze. Converts offline FCY to online; 0% bank FX fee!</td>
                             </tr>
                             <tr>
@@ -1859,9 +1870,9 @@
                                     Catch-All / Overflow
                                 </td>
                                 <td><strong>Citi PremierMiles</strong></td>
-                                <td><span class="tag tag-blue">1.2 / 2.0</span></td>
-                                <td><span class="tag tag-slate">None</span></td>
-                                <td><span class="tag tag-green">$1</span></td>
+                                <td class="td-center"><span class="tag tag-blue">1.2 / 2.0</span></td>
+                                <td class="td-center"><span class="tag tag-slate">Uncapped</span></td>
+                                <td class="td-center"><span class="tag tag-green">$1</span></td>
                                 <td>Use when 4.0 MPD monthly caps are hit or for non-bonus categories.</td>
                             </tr>
                         </tbody>
