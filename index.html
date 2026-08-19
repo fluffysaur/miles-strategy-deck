@@ -1,0 +1,1806 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Our Couples Miles Strategy</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family:
+                    "Plus Jakarta Sans",
+                    -apple-system,
+                    sans-serif;
+            }
+            body {
+                background-color: #0f172a;
+                color: #1e293b;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 20px;
+            }
+
+            .presentation-container {
+                position: relative;
+                width: 1100px;
+                height: 660px;
+                background: #ffffff;
+                border-radius: 20px;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+                overflow: hidden;
+            }
+
+            .slide {
+                display: none;
+                width: 100%;
+                height: 100%;
+                padding: 38px 48px;
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                position: relative;
+            }
+            .slide.active {
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Header */
+            .slide-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #e2e8f0;
+                padding-bottom: 12px;
+            }
+            .slide-title-wrap h2 {
+                font-size: 26px;
+                font-weight: 800;
+                color: #0f172a;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .slide-title-wrap p {
+                font-size: 13px;
+                color: #64748b;
+                font-weight: 500;
+                margin-top: 3px;
+            }
+            .back-portfolio-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: #f1f5f9;
+                border: 1px solid #cbd5e1;
+                color: #475569;
+                padding: 3px 9px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 700;
+                cursor: pointer;
+                margin-bottom: 6px;
+                transition: all 0.2s ease-in-out;
+            }
+            .back-portfolio-btn:hover {
+                background: #e0f2fe;
+                color: #0284c7;
+                border-color: #38bdf8;
+                transform: translateX(-2px);
+            }
+            .header-links {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+            .milelion-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 8px;
+                font-size: 11px;
+                font-weight: 700;
+                text-decoration: none;
+                background: #0284c7;
+                color: #ffffff;
+                transition: 0.2s;
+            }
+            .milelion-btn:hover {
+                background: #0369a1;
+            }
+            .badge-mpd {
+                background: #10b981;
+                color: #ffffff;
+                padding: 6px 14px;
+                border-radius: 8px;
+                font-weight: 800;
+                font-size: 14px;
+            }
+
+            /* Layouts */
+            .content-grid {
+                display: grid;
+                grid-template-columns: 310px 1fr;
+                gap: 24px;
+                height: calc(100% - 70px);
+            }
+            .left-panel {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+            .card-preview {
+                background: #ffffff;
+                border: 2px solid #e2e8f0;
+                border-radius: 14px;
+                padding: 14px;
+                text-align: center;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 150px;
+            }
+            .card-preview img {
+                width: 100%;
+                max-height: 135px;
+                object-fit: contain;
+                border-radius: 8px;
+                filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
+                transition: transform 0.2s ease;
+            }
+            .card-preview:hover img {
+                transform: scale(1.03);
+            }
+            .card-meta {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 12px 14px;
+                font-size: 11.5px;
+            }
+            .card-meta div {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 6px;
+            }
+            .card-meta div:last-child {
+                margin-bottom: 0;
+            }
+            .meta-lbl {
+                color: #64748b;
+                font-weight: 600;
+            }
+            .meta-val {
+                color: #0f172a;
+                font-weight: 700;
+            }
+
+            .right-panel {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                height: 100%;
+            }
+            .info-box {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 12px 14px;
+                font-size: 11.5px;
+                line-height: 1.45;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            }
+            .info-box h4 {
+                font-size: 12px;
+                font-weight: 700;
+                margin-bottom: 6px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #1e293b;
+            }
+            .info-box.alert-box {
+                border-left: 4px solid #ef4444;
+                background: #fff5f5;
+            }
+            .info-box.alert-box h4 {
+                color: #b91c1c;
+            }
+            .info-box.perk-box {
+                border-left: 4px solid #10b981;
+                background: #f0fdf4;
+            }
+            .info-box.perk-box h4 {
+                color: #15803d;
+            }
+            .info-box.rounding-box {
+                border-left: 4px solid #f59e0b;
+                background: #fffbeb;
+            }
+            .info-box.rounding-box h4 {
+                color: #b45309;
+            }
+            .info-box.full-span {
+                grid-column: span 2;
+            }
+            .tag {
+                display: inline-block;
+                padding: 2px 7px;
+                border-radius: 5px;
+                font-size: 10.5px;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .tag-green {
+                background: #dcfce7;
+                color: #15803d;
+            }
+            .tag-red {
+                background: #fee2e2;
+                color: #b91c1c;
+            }
+            .tag-amber {
+                background: #fef3c7;
+                color: #b45309;
+            }
+            .tag-blue {
+                background: #e0f2fe;
+                color: #0369a1;
+            }
+            .tag-purple {
+                background: #f3e8ff;
+                color: #7e22ce;
+            }
+            .tag-slate {
+                background: #f1f5f9;
+                color: #475569;
+            }
+
+            /* Title Slide */
+            .title-slide {
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
+            }
+            .title-slide h1 {
+                font-size: 42px;
+                font-weight: 800;
+                color: #0f172a;
+                margin-bottom: 12px;
+            }
+            .title-slide p {
+                font-size: 18px;
+                color: #64748b;
+                margin-bottom: 24px;
+            }
+            .tag-group {
+                display: flex;
+                gap: 10px;
+            }
+            .hero-tag {
+                background: #e0f2fe;
+                color: #0369a1;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: 700;
+            }
+
+            /* Portfolio Overview Slide */
+            .portfolio-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+                margin-top: 10px;
+            }
+            .port-card {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 13px 14px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                cursor: pointer;
+                transition: all 0.2s ease-in-out;
+                position: relative;
+            }
+            .port-card:hover {
+                transform: translateY(-3px);
+                border-color: #38bdf8;
+                box-shadow:
+                    0 10px 15px -3px rgba(2, 132, 199, 0.15),
+                    0 4px 6px -4px rgba(2, 132, 199, 0.1);
+            }
+            .port-card-img {
+                height: 40px;
+                width: auto;
+                object-fit: contain;
+                margin-bottom: 6px;
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            }
+            .port-card h4 {
+                font-size: 13px;
+                font-weight: 800;
+                color: #0f172a;
+                margin-bottom: 3px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .port-card h4 i.arrow-icon {
+                font-size: 10px;
+                color: #94a3b8;
+                transition:
+                    transform 0.2s,
+                    color 0.2s;
+            }
+            .port-card:hover h4 i.arrow-icon {
+                color: #0284c7;
+                transform: translateX(3px);
+            }
+            .port-card p {
+                font-size: 10.5px;
+                color: #64748b;
+                margin-bottom: 6px;
+            }
+            .port-card .rate-tag {
+                font-size: 10.5px;
+                font-weight: 700;
+                color: #0284c7;
+                background: #e0f2fe;
+                padding: 2px 7px;
+                border-radius: 5px;
+                display: inline-block;
+                margin-top: auto;
+            }
+            .portfolio-bottom-links {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin-top: 14px;
+            }
+            .port-feature-link {
+                background: #ffffff;
+                border: 1.5px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 10px 14px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+                transition: all 0.2s ease-in-out;
+            }
+            .port-feature-link:hover {
+                transform: translateY(-2px);
+                border-color: #0284c7;
+                box-shadow: 0 6px 12px -2px rgba(2, 132, 199, 0.12);
+            }
+            .port-feature-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                flex-shrink: 0;
+            }
+            .port-feature-text {
+                flex: 1;
+            }
+            .port-feature-text h4 {
+                font-size: 12.5px;
+                font-weight: 800;
+                color: #0f172a;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 2px;
+            }
+            .port-feature-text h4 i.arrow-icon {
+                font-size: 10px;
+                color: #94a3b8;
+                transition:
+                    transform 0.2s,
+                    color 0.2s;
+            }
+            .port-feature-link:hover .port-feature-text h4 i.arrow-icon {
+                transform: translateX(3px);
+                color: #0284c7;
+            }
+            .port-feature-text p {
+                font-size: 10.5px;
+                color: #64748b;
+                margin: 0;
+                line-height: 1.35;
+            }
+
+            /* Cheatsheet Table */
+            .table-container {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 10px;
+                text-align: left;
+            }
+            th {
+                background: #f8fafc;
+                padding: 6px 8px;
+                font-weight: 700;
+                color: #475569;
+                border-bottom: 2px solid #e2e8f0;
+            }
+            td {
+                padding: 4.5px 8px;
+                border-bottom: 1px solid #f1f5f9;
+                color: #1e293b;
+                vertical-align: middle;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            .cat-cell {
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            /* Controls */
+            .controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 1100px;
+                margin-top: 15px;
+                color: #94a3b8;
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .nav-btn {
+                background: #ffffff;
+                border: 1px solid #cbd5e1;
+                color: #0f172a;
+                padding: 8px 18px;
+                border-radius: 8px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: 0.2s;
+            }
+            .nav-btn:hover {
+                background: #f1f5f9;
+                border-color: #94a3b8;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="presentation-container">
+            <!-- Slide 1: Title -->
+            <div
+                class="slide title-slide active"
+                id="slide-1"
+            >
+                <div style="font-size: 40px; color: #0284c7; margin-bottom: 12px">
+                    <i class="fa-solid fa-plane-departure"></i>
+                </div>
+                <h1>Our Couples Miles Strategy</h1>
+                <p>Maximizing 4.0 MPD rewards, sign-up bonuses, and optimizing everyday spend</p>
+                <div class="tag-group">
+                    <span class="hero-tag"><i class="fa-solid fa-credit-card"></i> 7 Cards Portfolio</span>
+                    <span class="hero-tag"><i class="fa-solid fa-magnifying-glass"></i> HeyMax Optimized</span>
+                    <span class="hero-tag"><i class="fa-solid fa-shield-halved"></i> 100% Rounding Block Safe</span>
+                </div>
+            </div>
+
+            <!-- Slide 2: Card Portfolio Overview -->
+            <div
+                class="slide"
+                id="slide-2"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <h2>
+                            <i
+                                class="fa-solid fa-wallet"
+                                style="color: #0284c7"
+                            ></i>
+                            Our Card Portfolio
+                        </h2>
+                        <p>The 7 key credit cards powering our couple miles engine</p>
+                    </div>
+                </div>
+                <div class="portfolio-grid">
+                    <div
+                        class="port-card"
+                        onclick="showSlide(3)"
+                    >
+                        <img
+                            src="images/citi-rewards.png"
+                            alt="Citi Rewards"
+                            class="port-card-img"
+                        />
+                        <h4>Citi Rewards <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                        <p>Online spend &amp; Amaze pairing</p>
+                        <span class="rate-tag">4.0 MPD ($1k Cap)</span>
+                    </div>
+                    <div
+                        class="port-card"
+                        onclick="showSlide(4)"
+                    >
+                        <img
+                            src="images/citi-premiermiles.png"
+                            alt="Citi PremierMiles"
+                            class="port-card-img"
+                        />
+                        <h4>Citi PremierMiles <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                        <p>Sign-up bonus &amp; Catch-all</p>
+                        <span class="rate-tag">1.2 Local / 2.0 FCY</span>
+                    </div>
+                    <div
+                        class="port-card"
+                        onclick="showSlide(5)"
+                    >
+                        <img
+                            src="images/uob-ppv.jpg"
+                            alt="UOB Preferred Platinum Visa"
+                            class="port-card-img"
+                        />
+                        <h4>UOB Preferred Visa <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                        <p>Mobile contactless &amp; Selected online</p>
+                        <span class="rate-tag">4.0 MPD (2x $600 Caps)</span>
+                    </div>
+                    <div
+                        class="port-card"
+                        onclick="showSlide(6)"
+                    >
+                        <img
+                            src="images/uob-ladys.png"
+                            alt="UOB Lady's Card"
+                            class="port-card-img"
+                        />
+                        <h4>UOB Lady's Card <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                        <p>Chosen 10X bonus category</p>
+                        <span class="rate-tag">4.0 MPD ($1k Cap)</span>
+                    </div>
+                    <div
+                        class="port-card"
+                        onclick="showSlide(7)"
+                    >
+                        <img
+                            src="images/uob-krisflyer.jpg"
+                            alt="KrisFlyer UOB Credit Card"
+                            class="port-card-img"
+                        />
+                        <h4>UOB KrisFlyer Card <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                        <p>Uncapped 2.4 / 3.0 MPD spend</p>
+                        <span class="rate-tag">3.0 SIA / 2.4 Uncapped</span>
+                    </div>
+                    <div
+                        class="port-card"
+                        onclick="showSlide(8)"
+                    >
+                        <img
+                            src="images/hsbc-revolution.png"
+                            alt="HSBC Revolution"
+                            class="port-card-img"
+                        />
+                        <h4>HSBC Revolution <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                        <p>Online travel, dining &amp; food</p>
+                        <span class="rate-tag">4.0 MPD ($1k Cap)</span>
+                    </div>
+                    <div
+                        class="port-card"
+                        onclick="showSlide(9)"
+                    >
+                        <img
+                            src="images/sc-journey.png"
+                            alt="Standard Chartered Journey"
+                            class="port-card-img"
+                        />
+                        <h4>SC Journey <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                        <p>Sign-up bonus &amp; Travel spend</p>
+                        <span class="rate-tag">3.0 Travel / 1.2 Base</span>
+                    </div>
+                </div>
+                <!-- Bottom Feature Links: HeyMax & Strategy Cheatsheet -->
+                <div class="portfolio-bottom-links">
+                    <div
+                        class="port-feature-link"
+                        onclick="showSlide(10)"
+                    >
+                        <div
+                            class="port-feature-icon"
+                            style="background: #e0f2fe; color: #0284c7"
+                        >
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div class="port-feature-text">
+                            <h4>HeyMax Optimization Guide <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                            <p>Instant MCC search, Visa cap &amp; min spend tracker, stack extra Max Miles</p>
+                        </div>
+                    </div>
+                    <div
+                        class="port-feature-link"
+                        onclick="showSlide(11)"
+                    >
+                        <div
+                            class="port-feature-icon"
+                            style="background: #f0fdf4; color: #15803d"
+                        >
+                            <i class="fa-solid fa-table-list"></i>
+                        </div>
+                        <div class="port-feature-text">
+                            <h4>Strategy Cheatsheet <i class="fa-solid fa-arrow-right arrow-icon"></i></h4>
+                            <p>Master decision matrix &amp; card pairings across 11 everyday spending categories</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Citi Rewards -->
+            <div
+                class="slide"
+                id="slide-3"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>Citi Rewards Card</h2>
+                        <p>The king of online shopping and foreign currency transactions</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://milelion.com/2026/02/27/review-citi-rewards-credit-card/"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-arrow-up-right-from-square"></i> Milelion Review</a
+                        >
+                        <span class="badge-mpd">4.0 MPD</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <div class="left-panel">
+                        <div class="card-preview">
+                            <img
+                                src="images/citi-rewards.png"
+                                alt="Citi Rewards"
+                                onerror="this.src = 'https://placehold.co/240x150?text=Citi+Rewards'"
+                            />
+                        </div>
+                        <div class="card-meta">
+                            <div>
+                                <span class="meta-lbl">Partners:</span
+                                ><span class="meta-val">11+ Airlines & Hotels</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Expiry:</span><span class="meta-val">5 Years from batch</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Conversion:</span><span class="meta-val">$27.25 per block</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-bullseye"
+                                    style="color: #0284c7"
+                                ></i>
+                                Primary Use
+                            </h4>
+                            Default for <strong>all online shopping</strong>, online food delivery, Grab rides, and
+                            overseas spend via Amaze.
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-gift"
+                                    style="color: #10b981"
+                                ></i>
+                                Sign-Up Bonus
+                            </h4>
+                            Up to 30,000 bonus Citi Miles / ThankYou points upon meeting qualifying min spend.
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-chart-pie"
+                                    style="color: #6366f1"
+                                ></i>
+                                Cap & Min Spend
+                            </h4>
+                            <strong>S$1,000 cap per statement month</strong> (earns 10X points = 4.0 MPD). No minimum
+                            spend required.
+                        </div>
+                        <div class="info-box rounding-box">
+                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
+                            Points earned in <strong>S$1.00 blocks</strong> (min spend S$1). Very clean with minimal
+                            orphaned pennies!
+                        </div>
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch</h4>
+                            <strong>No offline mobile contactless!</strong> Tapping via Apple/Google Pay in stores earns
+                            only 0.4 MPD.
+                        </div>
+                        <div class="info-box perk-box">
+                            <h4><i class="fa-solid fa-link"></i> Note: Instarem Amaze Pairing</h4>
+                            Link Citi Rewards to <strong>Amaze</strong> to convert in-person offline foreign currency
+                            spend into online spend!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Citi PremierMiles -->
+            <div
+                class="slide"
+                id="slide-4"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>Citi PremierMiles Card</h2>
+                        <p>Lucrative sign-up bonus powerhouse and reliable catch-all card</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://milelion.com/2026/05/16/review-citi-premiermiles-card/"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-arrow-up-right-from-square"></i> Milelion Review</a
+                        >
+                        <span class="badge-mpd">1.2 / 2.0 MPD</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <div class="left-panel">
+                        <div class="card-preview">
+                            <img
+                                src="images/citi-premiermiles.png"
+                                alt="Citi PremierMiles"
+                                onerror="this.src = 'https://placehold.co/240x150?text=Citi+PremierMiles'"
+                            />
+                        </div>
+                        <div class="card-meta">
+                            <div>
+                                <span class="meta-lbl">Partners:</span
+                                ><span class="meta-val">11+ Airlines & Hotels</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Expiry:</span
+                                ><span
+                                    class="meta-val"
+                                    style="color: #15803d"
+                                    >Never Expire</span
+                                >
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Conversion:</span><span class="meta-val">$27.25 per block</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-bullseye"
+                                    style="color: #0284c7"
+                                ></i>
+                                Primary Use
+                            </h4>
+                            <strong>Sign-up reward harvesting</strong> and general <strong>catch-all card</strong> when
+                            4 MPD caps are exhausted.
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-gift"
+                                    style="color: #10b981"
+                                ></i>
+                                Sign-Up Bonus
+                            </h4>
+                            Up to 30,000 bonus miles with annual fee payment and S$800 spend in first 2 months.
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-chart-pie"
+                                    style="color: #6366f1"
+                                ></i>
+                                Cap & Min Spend
+                            </h4>
+                            <strong>No spend cap</strong>. Base rates: 1.2 MPD (Local) and 2.0 MPD (Foreign Currency).
+                        </div>
+                        <div class="info-box rounding-box">
+                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
+                            Earned per <strong>S$1.00 block</strong>.
+                        </div>
+                        <div class="info-box perk-box">
+                            <h4><i class="fa-solid fa-plane-circle-check"></i> Key Perks</h4>
+                            Includes <strong>2 complimentary airport lounge visits</strong> annually via Priority Pass.
+                        </div>
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch</h4>
+                            Points pool separately from Citi Rewards (requires separate $27.25 transfer fee).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: UOB PPV -->
+            <div
+                class="slide"
+                id="slide-5"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>UOB Preferred Platinum Visa</h2>
+                        <p>Dual-cap 4.0 MPD powerhouse for mobile contactless &amp; selected online spend</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://milelion.com/2026/03/29/review-uob-preferred-platinum-visa-card/"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-arrow-up-right-from-square"></i> Milelion Review</a
+                        >
+                        <span class="badge-mpd">4.0 MPD (2x $600 Caps)</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <div class="left-panel">
+                        <div class="card-preview">
+                            <img
+                                src="images/uob-ppv.jpg"
+                                alt="UOB PPV"
+                                onerror="this.src = 'https://placehold.co/240x150?text=UOB+PPV'"
+                            />
+                        </div>
+                        <div class="card-meta">
+                            <div>
+                                <span class="meta-lbl">Partners:</span
+                                ><span class="meta-val">KrisFlyer, Asia Miles</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Expiry:</span><span class="meta-val">2 Years from quarter</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Conversion:</span><span class="meta-val">$27.25 per block</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-chart-pie"
+                                    style="color: #6366f1"
+                                ></i>
+                                Split Caps: 2x S$600 / Month
+                            </h4>
+                            • <strong>S$600/cal mo</strong>: Mobile contactless (Apple/Google Pay in-store)<br />
+                            • <strong>S$600/cal mo</strong>: Selected online transactions<br />
+                            Earns <strong>UNI$10 per S$5 (4.0 MPD)</strong> with no minimum spend!
+                        </div>
+                        <div class="info-box perk-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-cart-shopping"
+                                    style="color: #15803d"
+                                ></i>
+                                Selected Online Whitelist (MCCs)
+                            </h4>
+                            • <strong>Dining &amp; Delivery</strong>: MCC 5811, 5812, 5814 (GrabFood, Foodpanda)<br />
+                            • <strong>Entertainment</strong>: MCC 7832 (Cinemas), 7922 (SISTIC tickets)<br />
+                            • <strong>Shopping</strong>: MCC 5311 (HeyMax vouchers, Tangs), 5611–5699 (Fashion), 5732
+                            (Electronics), 5942 (Books)
+                        </div>
+                        <div class="info-box rounding-box">
+                            <h4><i class="fa-solid fa-divide"></i> Rounding Block ($5 Rule)</h4>
+                            Points earned strictly in <strong>S$5.00 blocks</strong> per transaction. Spend of S$4.99
+                            earns 0 miles!
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-bus"
+                                    style="color: #0284c7"
+                                ></i>
+                                SimplyGo Transport
+                            </h4>
+                            SimplyGo taps are aggregated at month-end and rounded to the nearest $5 block (counts toward
+                            the contactless S$600 cap).
+                        </div>
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-ban"></i> Physical Card Ban</h4>
+                            Must tap phone via Apple/Google Pay. Swiping/tapping physical card earns 0.4 MPD only.
+                        </div>
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> SMART$ Merchants</h4>
+                            Avoid SMART$ stores (Giant, Cold Storage, Guardian) — earns SMART$ rebate instead of UNI$.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: UOB Lady's Card -->
+            <div
+                class="slide"
+                id="slide-6"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>UOB Lady's Card</h2>
+                        <p>Targeted 4.0 MPD on your selected lifestyle category</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://milelion.com/2026/08/18/review-uob-ladys-card-ladys-solitaire/"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-arrow-up-right-from-square"></i> Milelion Review</a
+                        >
+                        <span class="badge-mpd">4.0 MPD</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <div class="left-panel">
+                        <div class="card-preview">
+                            <img
+                                src="images/uob-ladys.png"
+                                alt="UOB Lady's Card"
+                                onerror="this.src = 'https://placehold.co/240x150?text=UOB+Lady%27s+Card'"
+                            />
+                        </div>
+                        <div class="card-meta">
+                            <div>
+                                <span class="meta-lbl">Partners:</span
+                                ><span class="meta-val">KrisFlyer, Asia Miles</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Expiry:</span><span class="meta-val">2 Years from quarter</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Points Pool:</span
+                                ><span
+                                    class="meta-val"
+                                    style="color: #15803d"
+                                    >Shared with UOB PPV</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-bullseye"
+                                    style="color: #0284c7"
+                                ></i>
+                                Primary Use
+                            </h4>
+                            Dedicated spending on 1 chosen category (e.g. <strong>Dining</strong>, Fashion, Travel,
+                            Entertainment, or Family).
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-chart-pie"
+                                    style="color: #6366f1"
+                                ></i>
+                                Cap & Min Spend
+                            </h4>
+                            <strong>S$1,000 per calendar month</strong>. Choose category quarterly. Open to all genders!
+                        </div>
+                        <div class="info-box rounding-box">
+                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
+                            Points earned in <strong>S$5.00 blocks</strong> per transaction.
+                        </div>
+                        <div class="info-box perk-box">
+                            <h4><i class="fa-solid fa-layer-group"></i> Points Pooling</h4>
+                            UNI$ pool directly with UOB PPV — redeem together to pay a single conversion fee!
+                        </div>
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> Key Catch</h4>
+                            Non-selected categories earn 0.4 MPD only. Remember to lock in preferred category each
+                            quarter.
+                        </div>
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> SMART$ Blacklist</h4>
+                            Subject to UOB SMART$ merchant exclusions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: UOB KrisFlyer Credit Card -->
+            <div
+                class="slide"
+                id="slide-7"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>KrisFlyer UOB Credit Card</h2>
+                        <p>3.0 MPD on SIA Group and uncapped 2.4 MPD on dining, travel, shopping &amp; transport</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://milelion.com/2026/04/12/review-krisflyer-uob-credit-card/"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-arrow-up-right-from-square"></i> Milelion Review</a
+                        >
+                        <span class="badge-mpd">3.0 SIA / 2.4 MPD</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <div class="left-panel">
+                        <div class="card-preview">
+                            <img
+                                src="images/uob-krisflyer.jpg"
+                                alt="UOB KrisFlyer"
+                                onerror="this.src = 'https://placehold.co/240x150?text=UOB+KrisFlyer'"
+                            />
+                        </div>
+                        <div class="card-meta">
+                            <div>
+                                <span class="meta-lbl">Crediting:</span><span class="meta-val">Direct Auto-Credit</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Conversion Fee:</span
+                                ><span
+                                    class="meta-val"
+                                    style="color: #15803d"
+                                    >S$0 (Free)</span
+                                >
+                            </div>
+                            <div>
+                                <span class="meta-lbl">KF Validity:</span
+                                ><span class="meta-val">3 Years in KrisFlyer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-bullseye"
+                                    style="color: #0284c7"
+                                ></i>
+                                Primary Use &amp; Rates
+                            </h4>
+                            • <strong>3.0 MPD</strong>: SIA Group (SIA, Scoot, KrisShop, Kris+, Pelago)<br />
+                            • <strong>2.4 MPD</strong>: Dining, Food Delivery, Online Shopping &amp; Travel (Agoda,
+                            Klook), Transport<br />
+                            • <strong>1.2 MPD</strong>: Base catch-all rate
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-gift"
+                                    style="color: #10b981"
+                                ></i>
+                                SIA Spend Trigger
+                            </h4>
+                            Spend min <strong>S$1,000 annually on SIA Group transactions</strong> (SIA, Scoot, KrisShop,
+                            Kris+) to unlock the <strong>2.4 MPD accelerated rate</strong>!
+                        </div>
+                        <div class="info-box rounding-box">
+                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
+                            Base 1.2 MPD earned in <strong>S$5.00 blocks</strong> (UNI$3 per S$5). Bonus 1.2 MPD (or 1.8
+                            MPD for SIA) calculated on total eligible sum.
+                        </div>
+                        <div class="info-box perk-box">
+                            <h4><i class="fa-solid fa-infinity"></i> Completely Uncapped Miles</h4>
+                            The <strong>2.4 MPD accelerated rate has no earning cap</strong> — perfect for big dining
+                            bills, weddings, large travel bookings, or overflow spend!
+                        </div>
+                        <div class="info-box alert-box full-span">
+                            <h4><i class="fa-solid fa-hourglass-half"></i> Key Catch: Delayed Bonus Crediting</h4>
+                            Earns base 1.2 MPD monthly (free auto-credit). The remaining
+                            <strong>1.2 MPD bonus miles are credited 2 months after the membership year ends</strong>
+                            (arrives 2 to 14 months later).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: HSBC Revolution -->
+            <div
+                class="slide"
+                id="slide-8"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>HSBC Revolution Card</h2>
+                        <p>Zero annual fee 4.0 MPD card for online travel, dining, and food delivery</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://milelion.com/2026/04/08/review-hsbc-revolution-card/"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-arrow-up-right-from-square"></i> Milelion Review</a
+                        >
+                        <span class="badge-mpd">4.0 MPD</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <div class="left-panel">
+                        <div class="card-preview">
+                            <img
+                                src="images/hsbc-revolution.png"
+                                alt="HSBC Revolution"
+                                onerror="this.src = 'https://placehold.co/240x150?text=HSBC+Revolution'"
+                            />
+                        </div>
+                        <div class="card-meta">
+                            <div>
+                                <span class="meta-lbl">Annual Fee:</span
+                                ><span
+                                    class="meta-val"
+                                    style="color: #15803d"
+                                    >Free for Life</span
+                                >
+                            </div>
+                            <div><span class="meta-lbl">Expiry:</span><span class="meta-val">3 Years</span></div>
+                            <div>
+                                <span class="meta-lbl">Conversion:</span
+                                ><span class="meta-val">HSBC Mileage Scheme</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-bullseye"
+                                    style="color: #0284c7"
+                                ></i>
+                                Primary Use
+                            </h4>
+                            Online flight/hotel bookings (Agoda, Klook, airlines), dining, and food delivery.
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-chart-pie"
+                                    style="color: #6366f1"
+                                ></i>
+                                Cap & Min Spend
+                            </h4>
+                            <strong>S$1,000 per calendar month</strong>. No minimum spend.
+                        </div>
+                        <div class="info-box rounding-box">
+                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
+                            Earned per <strong>S$1.00 block</strong>. Highly friendly for small purchases.
+                        </div>
+                        <div class="info-box alert-box">
+                            <h4><i class="fa-solid fa-triangle-exclamation"></i> KrisFlyer Conversion Catch</h4>
+                            KrisFlyer transfers have a revised 1:2.5 ratio (yielding
+                            <strong>~3.3 MPD</strong> equivalent rate). Other partners transfer at 4.0 MPD.
+                        </div>
+                        <div class="info-box alert-box full-span">
+                            <h4><i class="fa-solid fa-ban"></i> Excluded Categories</h4>
+                            Supermarkets (MCC 5411) are excluded from the 4.0 MPD whitelist.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: SC Journey -->
+            <div
+                class="slide"
+                id="slide-9"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>Standard Chartered Journey Card</h2>
+                        <p>Sign-up bonus harvester &amp; 3.0 MPD on travel, dining &amp; transport</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://milelion.com/2025/09/15/review-standard-chartered-journey-card/"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-arrow-up-right-from-square"></i> Milelion Review</a
+                        >
+                        <span class="badge-mpd">3.0 / 1.2 MPD</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <div class="left-panel">
+                        <div class="card-preview">
+                            <img
+                                src="images/sc-journey.png"
+                                alt="SC Journey"
+                                onerror="this.src = 'https://placehold.co/240x150?text=SC+Journey'"
+                            />
+                        </div>
+                        <div class="card-meta">
+                            <div>
+                                <span class="meta-lbl">Partners:</span
+                                ><span class="meta-val">2 Airlines (KF &amp; Asia Miles)</span>
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Expiry:</span
+                                ><span
+                                    class="meta-val"
+                                    style="color: #15803d"
+                                    >Never Expire</span
+                                >
+                            </div>
+                            <div>
+                                <span class="meta-lbl">Conversion:</span
+                                ><span class="meta-val">360° Rewards Portal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-bullseye"
+                                    style="color: #0284c7"
+                                ></i>
+                                Primary Use
+                            </h4>
+                            Sign-up bonus acquisition and <strong>3.0 MPD on airline tickets, Grab, and dining</strong>.
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-gift"
+                                    style="color: #10b981"
+                                ></i>
+                                Sign-Up Bonus
+                            </h4>
+                            Up to 45,000 miles promotion upon meeting min spend and fee payment.
+                        </div>
+                        <div class="info-box">
+                            <h4>
+                                <i
+                                    class="fa-solid fa-chart-pie"
+                                    style="color: #6366f1"
+                                ></i>
+                                Cap & Min Spend
+                            </h4>
+                            <strong>S$1,000 cap per statement month</strong> for 3.0 MPD category. 1.2 MPD base has no
+                            cap.
+                        </div>
+                        <div class="info-box rounding-box">
+                            <h4><i class="fa-solid fa-divide"></i> Rounding Block</h4>
+                            Earned in <strong>S$1.00 blocks</strong>.
+                        </div>
+                        <div class="info-box perk-box full-span">
+                            <h4><i class="fa-solid fa-plane-circle-check"></i> Key Perks</h4>
+                            Includes <strong>2 complimentary airport lounge visits</strong> annually via Priority Pass.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: HeyMax -->
+            <div
+                class="slide"
+                id="slide-10"
+            >
+                <div class="slide-header">
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>
+                            <i
+                                class="fa-solid fa-wand-magic-sparkles"
+                                style="color: #0284c7"
+                            ></i>
+                            HeyMax Optimization Guide
+                        </h2>
+                        <p>Never guess an MCC code again, track card caps, and stack extra Max Miles</p>
+                    </div>
+                    <div class="header-links">
+                        <a
+                            href="https://heymax.ai"
+                            target="_blank"
+                            class="milelion-btn"
+                            ><i class="fa-solid fa-globe"></i> heymax.ai</a
+                        >
+                    </div>
+                </div>
+                <!-- Top 3 Pillars -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 4px">
+                    <div
+                        class="info-box"
+                        style="padding: 14px"
+                    >
+                        <h4 style="font-size: 13px; color: #0284c7">
+                            <i class="fa-solid fa-shield-halved"></i> 1. Instant MCC Lookup
+                        </h4>
+                        <p style="margin-top: 6px; font-size: 11px; line-height: 1.45">
+                            Search any merchant before paying to verify its exact MCC and immediately see the
+                            top-recommended card in our wallet.
+                        </p>
+                    </div>
+                    <div
+                        class="info-box"
+                        style="padding: 14px"
+                    >
+                        <h4 style="font-size: 13px; color: #0284c7">
+                            <i class="fa-brands fa-cc-visa"></i> 2. Card Limits &amp; Spend Tracker
+                        </h4>
+                        <p style="margin-top: 6px; font-size: 11px; line-height: 1.45">
+                            Link your Visa cards (like UOB PPV) to automatically track monthly
+                            <strong>S$600 contactless / S$600 online caps</strong> and monitor sign-up / promo
+                            <strong>minimum spend</strong> progress!
+                        </p>
+                    </div>
+                    <div
+                        class="info-box"
+                        style="padding: 14px"
+                    >
+                        <h4 style="font-size: 13px; color: #10b981">
+                            <i class="fa-solid fa-layer-group"></i> 3. Stack Extra Max Miles
+                        </h4>
+                        <p style="margin-top: 6px; font-size: 11px; line-height: 1.45">
+                            Earn up to +5 Max Miles/S$1 on vouchers (MCC 5311) and merchant links. Max Miles transfer
+                            1:1 to 25+ airline partners with <strong>zero transfer fees</strong> &amp; no expiry.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Separate 3-Step Routine Banner Card -->
+                <div
+                    style="
+                        margin-top: 12px;
+                        background: #ffffff;
+                        border: 1.5px solid #6366f1;
+                        border-radius: 12px;
+                        padding: 12px 16px;
+                        box-shadow: 0 4px 8px -2px rgba(99, 102, 241, 0.1);
+                    "
+                >
+                    <h4
+                        style="
+                            font-size: 13px;
+                            font-weight: 800;
+                            color: #4338ca;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            margin-bottom: 8px;
+                        "
+                    >
+                        <i class="fa-solid fa-mobile-screen"></i> Quick 3-Step Payment Routine
+                    </h4>
+                    <div
+                        style="
+                            display: grid;
+                            grid-template-columns: 1fr auto 1fr auto 1fr;
+                            gap: 8px;
+                            align-items: center;
+                            font-size: 10.5px;
+                        "
+                    >
+                        <div
+                            style="
+                                background: #f8fafc;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 8px;
+                                padding: 8px;
+                                text-align: center;
+                            "
+                        >
+                            <img
+                                src="images/heymax-step1.jpg"
+                                alt="Step 1 Mockup"
+                                style="
+                                    height: 52px;
+                                    width: auto;
+                                    max-width: 100%;
+                                    border-radius: 4px;
+                                    object-fit: contain;
+                                    margin-bottom: 4px;
+                                    display: block;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                                "
+                            />
+                            <strong style="color: #6366f1; display: block; margin-bottom: 2px">Step 1: Search</strong>
+                            Search merchant in HeyMax app before checkout
+                        </div>
+                        <div style="color: #6366f1; font-weight: 800; font-size: 14px">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div
+                            style="
+                                background: #f8fafc;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 8px;
+                                padding: 8px;
+                                text-align: center;
+                            "
+                        >
+                            <img
+                                src="images/heymax-step2.jpg"
+                                alt="Step 2 Mockup"
+                                style="
+                                    height: 52px;
+                                    width: auto;
+                                    max-width: 100%;
+                                    border-radius: 4px;
+                                    object-fit: contain;
+                                    margin-bottom: 4px;
+                                    display: block;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                                "
+                            />
+                            <strong style="color: #6366f1; display: block; margin-bottom: 2px">Step 2: Confirm</strong>
+                            Check MCC, verify cap, and pick best card
+                        </div>
+                        <div style="color: #6366f1; font-weight: 800; font-size: 14px">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div
+                            style="
+                                background: #f8fafc;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 8px;
+                                padding: 8px;
+                                text-align: center;
+                            "
+                        >
+                            <img
+                                src="images/heymax-step3.jpg"
+                                alt="Step 3 Mockup"
+                                style="
+                                    height: 52px;
+                                    width: auto;
+                                    max-width: 100%;
+                                    border-radius: 4px;
+                                    object-fit: contain;
+                                    margin-bottom: 4px;
+                                    display: block;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                                "
+                            />
+                            <strong style="color: #6366f1; display: block; margin-bottom: 2px">Step 3: Pay</strong>
+                            Pay with right card &amp; stack Max Miles
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Strategy Cheatsheet -->
+            <div
+                class="slide"
+                id="slide-11"
+            >
+                <div
+                    class="slide-header"
+                    style="margin-bottom: 8px"
+                >
+                    <div class="slide-title-wrap">
+                        <button
+                            class="back-portfolio-btn"
+                            onclick="showSlide(2)"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                        </button>
+                        <h2>
+                            <i
+                                class="fa-solid fa-table-list"
+                                style="color: #0284c7"
+                            ></i>
+                            Strategy Cheatsheet
+                        </h2>
+                        <p>Quick decision matrix for everyday couples spending</p>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Spend Category</th>
+                                <th>Primary Card</th>
+                                <th>MPD</th>
+                                <th>Cap</th>
+                                <th>Rounding</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-cart-shopping"
+                                        style="color: #0284c7"
+                                    ></i>
+                                    Online Shopping
+                                </td>
+                                <td><strong>Citi Rewards</strong></td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">S$1k/mo</span></td>
+                                <td><span class="tag tag-green">$1</span></td>
+                                <td>Default for Lazada, Shopee, Grab rides, electronics &amp; online shopping.</td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-globe"
+                                        style="color: #10b981"
+                                    ></i>
+                                    Overseas (FCY)
+                                </td>
+                                <td><strong>Citi Rewards + Amaze</strong></td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">S$1k/mo</span></td>
+                                <td><span class="tag tag-green">$1</span></td>
+                                <td>Link Citi Rewards to Amaze. Converts offline FCY to online; 0% bank FX fee!</td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-mobile-screen-button"
+                                        style="color: #6366f1"
+                                    ></i>
+                                    Offline Contactless
+                                </td>
+                                <td><strong>UOB PPV</strong></td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">S$600/mo</span></td>
+                                <td><span class="tag tag-red">$5</span></td>
+                                <td>Tap phone via Apple/Google Pay in retail stores. Avoid SMART$ stores.</td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-wine-glass"
+                                        style="color: #ec4899"
+                                    ></i>
+                                    Restaurants
+                                </td>
+                                <td><strong>UOB Lady's / HSBC Revo</strong></td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">S$1k/mo each</span></td>
+                                <td><span class="tag tag-amber">$5 / $1</span></td>
+                                <td>
+                                    Lady's (if Dining chosen, $1k cap), HSBC Revo (~3.2 KF); KF UOB for uncapped (2.4).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-burger"
+                                        style="color: #f97316"
+                                    ></i>
+                                    Fast Food
+                                </td>
+                                <td><strong>UOB PPV / Citi Rewards</strong></td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">S$600 / S$1k/mo</span></td>
+                                <td><span class="tag tag-amber">$5 / $1</span></td>
+                                <td>
+                                    MCC 5814 in PPV online whitelist &amp; in-store mobile tap; Citi for GrabFood/Panda.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-basket-shopping"
+                                        style="color: #10b981"
+                                    ></i>
+                                    Groceries
+                                </td>
+                                <td><strong>Citi Rewards / UOB PPV</strong></td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">S$1k / S$600/mo</span></td>
+                                <td><span class="tag tag-amber">$1 / $5</span></td>
+                                <td>
+                                    RedMart/Pandamart via Citi (4.0). NTUC via UOB PPV tap (4.0). Giant/CS are SMART$.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-prescription-bottle-medical"
+                                        style="color: #06b6d4"
+                                    ></i>
+                                    Pharmacy
+                                </td>
+                                <td><strong>UOB PPV / Citi Rewards</strong></td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">S$600 / S$1k/mo</span></td>
+                                <td><span class="tag tag-amber">$5 / $1</span></td>
+                                <td>
+                                    Watsons: UOB PPV tap (4.0). Guardian: use Citi Rewards online (offline is SMART$).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-hotel"
+                                        style="color: #8b5cf6"
+                                    ></i>
+                                    Hotels
+                                </td>
+                                <td><strong>HSBC Revo / SC Journey</strong></td>
+                                <td><span class="tag tag-purple">4.0 / 3.0</span></td>
+                                <td><span class="tag tag-slate">S$1k/mo each</span></td>
+                                <td><span class="tag tag-green">$1</span></td>
+                                <td>
+                                    HSBC Revo for Agoda/Expedia/direct (4.0); SC Journey for 3.0; Lady's (if Travel).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-plane"
+                                        style="color: #3b82f6"
+                                    ></i>
+                                    Flight Bookings
+                                </td>
+                                <td><strong>HSBC Revo / KF UOB</strong></td>
+                                <td><span class="tag tag-purple">4.0 / 3.0</span></td>
+                                <td><span class="tag tag-slate">S$1k / Uncapped</span></td>
+                                <td><span class="tag tag-amber">$1 / $5</span></td>
+                                <td>HSBC Revo for $1k cap; KF UOB for 3.0 SIA / 2.4 OTA (min S$1k SIA spend/yr).</td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-bus-simple"
+                                        style="color: #f59e0b"
+                                    ></i>
+                                    Public Transport
+                                </td>
+                                <td><strong>UOB PPV</strong> (SimplyGo)</td>
+                                <td><span class="tag tag-green">4.0</span></td>
+                                <td><span class="tag tag-slate">Shared S$600</span></td>
+                                <td><span class="tag tag-amber">$5 Total</span></td>
+                                <td>Monthly fares aggregated before applying $5 rounding block.</td>
+                            </tr>
+                            <tr>
+                                <td class="cat-cell">
+                                    <i
+                                        class="fa-solid fa-asterisk"
+                                        style="color: #64748b"
+                                    ></i>
+                                    Catch-All / Overflow
+                                </td>
+                                <td><strong>Citi PremierMiles</strong></td>
+                                <td><span class="tag tag-blue">1.2 / 2.0</span></td>
+                                <td><span class="tag tag-slate">None</span></td>
+                                <td><span class="tag tag-green">$1</span></td>
+                                <td>Use when 4.0 MPD monthly caps are hit or for non-bonus categories.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide Navigation Bar -->
+        <div class="controls">
+            <button
+                class="nav-btn"
+                onclick="prevSlide()"
+            >
+                <i class="fa-solid fa-arrow-left"></i> Previous
+            </button>
+            <span id="slide-num">Slide 1 of 11</span>
+            <button
+                class="nav-btn"
+                onclick="nextSlide()"
+            >
+                Next <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <script>
+            let currentSlide = 1;
+            const totalSlides = 11;
+
+            function showSlide(n) {
+                currentSlide = n;
+                document.querySelectorAll(".slide").forEach((s) => s.classList.remove("active"));
+                const target = document.getElementById(`slide-${n}`);
+                if (target) target.classList.add("active");
+                document.getElementById("slide-num").innerText = `Slide ${n} of ${totalSlides}`;
+            }
+
+            function nextSlide() {
+                if (currentSlide < totalSlides) {
+                    showSlide(currentSlide + 1);
+                }
+            }
+
+            function prevSlide() {
+                if (currentSlide > 1) {
+                    showSlide(currentSlide - 1);
+                }
+            }
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowRight" || e.key === " ") nextSlide();
+                if (e.key === "ArrowLeft") prevSlide();
+            });
+        </script>
+    </body>
+</html>
