@@ -1,0 +1,1058 @@
+/* ==========================================================================
+   Bobo & Bubba Miles Strategy Deck - Shared Stylesheet & Seamless Transitions
+   ========================================================================== */
+
+:root {
+    --primary-blue: #0284c7;
+    --primary-blue-hover: #0369a1;
+    --cute-pink: #ec4899;
+    --cute-pink-hover: #db2777;
+    --cute-purple: #8b5cf6;
+    --cute-green: #10b981;
+    --cute-amber: #f59e0b;
+    --bg-dark: #0f172a;
+    --bg-slide: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    --bg-title: radial-gradient(circle at center, #ffffff 0%, #fff1f2 35%, #f0fdf4 70%, #f0f9ff 100%);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    --shadow-hover: 0 14px 28px -4px rgba(2, 132, 199, 0.15), 0 6px 12px -4px rgba(2, 132, 199, 0.08);
+    --shadow-container: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    --font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background floating cute particles container */
+.cute-particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    bottom: -40px;
+    font-size: 18px;
+    user-select: none;
+    opacity: 0.25;
+    animation: floatParticle 14s linear infinite;
+}
+
+/* Presentation Canvas - Solid container with no jarring reload opacity flash */
+.presentation-container {
+    position: relative;
+    width: 1100px;
+    height: 660px;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: var(--shadow-container);
+    overflow: hidden;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    view-transition-name: presentation-canvas;
+}
+
+/* Base Slide */
+.slide {
+    width: 100%;
+    height: 100%;
+    padding: 36px 48px;
+    background: var(--bg-slide);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: opacity 0.22s ease-in-out, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    view-transition-name: slide-content;
+}
+
+/* Smooth slide transitioning states */
+.slide.slide-fade-out {
+    opacity: 0;
+    transform: translateY(4px) scale(0.995);
+}
+
+.slide.slide-fade-in {
+    animation: slideSmoothEntrance 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideSmoothEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header Component */
+.slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.slide-title-wrap h2 {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.3px;
+}
+
+.slide-title-wrap p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 3px;
+}
+
+.back-portfolio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+    padding: 4px 11px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 6px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.back-portfolio-btn:hover {
+    background: #e0f2fe;
+    color: var(--primary-blue);
+    border-color: #38bdf8;
+    transform: translateX(-3px) scale(1.02);
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.12);
+}
+
+.header-links {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.milelion-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 13px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--primary-blue);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    transition: all 0.2s ease-in-out;
+}
+
+.milelion-btn:hover {
+    background: var(--primary-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(2, 132, 199, 0.35);
+}
+
+.badge-mpd {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
+    letter-spacing: -0.2px;
+}
+
+/* 2-Column Content Grid for Card Slides */
+.content-grid {
+    display: grid;
+    grid-template-columns: 310px 1fr;
+    gap: 22px;
+    height: calc(100% - 68px);
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.card-preview {
+    background: #ffffff;
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-preview::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(25deg);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.card-preview:hover::after {
+    opacity: 1;
+    animation: shimmer 0.9s ease forwards;
+}
+
+.card-preview img {
+    width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-preview:hover img {
+    transform: scale(1.05) translateY(-2px);
+}
+
+.card-meta {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 11px 14px;
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: var(--shadow-card);
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.meta-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.meta-lbl {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 10.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.meta-lbl i {
+    width: 13px;
+    color: #94a3b8;
+    text-align: center;
+    font-size: 10.5px;
+}
+
+.meta-val {
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 11px;
+    text-align: right;
+}
+
+.meta-val.val-green {
+    color: #15803d;
+}
+
+.meta-val.val-blue {
+    color: var(--primary-blue);
+}
+
+.meta-val.val-red {
+    color: #b91c1c;
+}
+
+.meta-val.val-purple {
+    color: #7e22ce;
+}
+
+.right-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    height: 100%;
+    align-content: stretch;
+}
+
+.info-box {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 13px 15px;
+    font-size: 11.5px;
+    line-height: 1.48;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.info-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+.info-box h4 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #1e293b;
+}
+
+.info-box.alert-box {
+    border-left: 4px solid #ef4444;
+    background: #fff5f5;
+}
+
+.info-box.alert-box h4 {
+    color: #b91c1c;
+}
+
+.info-box.perk-box {
+    border-left: 4px solid #10b981;
+    background: #f0fdf4;
+}
+
+.info-box.perk-box h4 {
+    color: #15803d;
+}
+
+.info-box.rounding-box {
+    border-left: 4px solid #f59e0b;
+    background: #fffbeb;
+}
+
+.info-box.rounding-box h4 {
+    color: #b45309;
+}
+
+.info-box.full-span {
+    grid-column: span 2;
+}
+
+.tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: transform 0.2s ease;
+}
+
+.tag:hover {
+    transform: scale(1.06);
+}
+
+.tag-green {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.tag-red {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.tag-amber {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.tag-blue {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.tag-purple {
+    background: #f3e8ff;
+    color: #7e22ce;
+}
+
+.tag-slate {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* ==========================================================================
+   Slide 1: Cute Title Slide Styles
+   ========================================================================== */
+.title-slide {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-title);
+    padding: 24px 36px;
+    position: relative;
+    overflow: hidden;
+}
+
+.title-mascot-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+    animation: floatMascot 4.5s ease-in-out infinite;
+}
+
+.title-mascot-img {
+    width: 155px;
+    height: 155px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4.5px solid #ffffff;
+    box-shadow:
+        0 14px 32px -6px rgba(236, 72, 153, 0.35),
+        0 8px 18px -6px rgba(2, 132, 199, 0.25);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: block;
+}
+
+.title-mascot-img:hover {
+    transform: scale(1.08) rotate(2deg);
+}
+
+.title-mascot-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -8px;
+    background: #ffffff;
+    border: 1.5px solid #fbcfe8;
+    color: #db2777;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.title-slide h1 {
+    font-size: 34px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #0f172a 25%, #0284c7 65%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title-slide p.title-sub {
+    font-size: 14.5px;
+    color: #64748b;
+    margin-bottom: 16px;
+    font-weight: 500;
+    max-width: 650px;
+    line-height: 1.45;
+}
+
+.tag-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.hero-tag {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+}
+
+.hero-tag:hover {
+    transform: translateY(-3px) scale(1.03);
+    animation: badgeWiggle 0.4s ease;
+}
+
+.hero-tag.tag-cute-pink {
+    background: #fdf2f8;
+    color: #be185d;
+    border: 1px solid #fbcfe8;
+}
+
+.hero-tag.tag-cute-blue {
+    background: #f0f9ff;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+
+.hero-tag.tag-cute-green {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.hero-tag.tag-cute-amber {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+}
+
+.start-tour-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #ec4899 100%);
+    color: #ffffff;
+    padding: 11px 26px;
+    border-radius: 25px;
+    font-size: 13.5px;
+    font-weight: 800;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px -3px rgba(2, 132, 199, 0.45);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.start-tour-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 25px -3px rgba(236, 72, 153, 0.5);
+}
+
+.start-tour-btn i {
+    transition: transform 0.2s ease;
+}
+
+.start-tour-btn:hover i {
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Slide 2: Portfolio Overview Slide
+   ========================================================================== */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.port-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 13px 14px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.port-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #0284c7, #ec4899);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.port-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: #38bdf8;
+    box-shadow: var(--shadow-hover);
+}
+
+.port-card:hover::before {
+    opacity: 1;
+}
+
+.port-card-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.port-card:hover .port-card-img {
+    transform: scale(1.08);
+}
+
+.port-card h4 {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.port-card h4 i.arrow-icon {
+    font-size: 10.5px;
+    color: #94a3b8;
+    transition: transform 0.25s, color 0.25s;
+}
+
+.port-card:hover h4 i.arrow-icon {
+    color: var(--primary-blue);
+    transform: translateX(4px);
+}
+
+.port-card p {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    line-height: 1.35;
+}
+
+.port-card .rate-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    background: #e0f2fe;
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: auto;
+}
+
+.portfolio-bottom-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.port-feature-link {
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    box-shadow: var(--shadow-card);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.port-feature-link:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-blue);
+    box-shadow: 0 8px 16px -2px rgba(2, 132, 199, 0.15);
+}
+
+.port-feature-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.port-feature-link:hover .port-feature-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.port-feature-text {
+    flex: 1;
+}
+
+.port-feature-text h4 {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.port-feature-text h4 i.arrow-icon {
+    font-size: 10.5px;
+    color: #94a3b8;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.port-feature-link:hover .port-feature-text h4 i.arrow-icon {
+    transform: translateX(4px);
+    color: var(--primary-blue);
+}
+
+.port-feature-text p {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+}
+
+/* ==========================================================================
+   Slide 11: Strategy Cheatsheet Table
+   ========================================================================== */
+.table-container {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+    text-align: left;
+}
+
+th {
+    background: #f8fafc;
+    padding: 6px 10px;
+    font-weight: 700;
+    color: #475569;
+    border-bottom: 2px solid var(--border-color);
+}
+
+th.th-center,
+td.td-center {
+    text-align: center;
+}
+
+td {
+    padding: 4px 10px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+    vertical-align: middle;
+    transition: background 0.15s ease;
+}
+
+tr:hover td {
+    background: #f8fafc;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.cat-cell {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cat-cell i {
+    width: 16px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Navigation Controls Bar & Interactive Slide Bullets with Tooltips
+   ========================================================================== */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1100px;
+    margin-top: 16px;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.nav-btn {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-btn:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nav-btn.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.slide-indicator-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.slide-counter-badge {
+    background: #1e293b;
+    color: #f8fafc;
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid #334155;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Cute Interactive Slide Bullets / Dots */
+.slide-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    position: relative;
+    padding: 6px 12px;
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.slide-dot-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #64748b;
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.slide-dot:hover {
+    transform: scale(1.55) translateY(-1px);
+    background: #38bdf8;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.85);
+}
+
+.slide-dot.active {
+    width: 22px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #0284c7, #ec4899);
+    box-shadow: 0 0 12px rgba(236, 72, 153, 0.65);
+    transform: scale(1.05);
+}
+
+/* Cute Slide Title Tooltip on Hover */
+.slide-dot-tooltip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: #0f172a;
+    color: #ffffff;
+    padding: 5px 12px;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 100;
+}
+
+.slide-dot-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #0f172a transparent transparent transparent;
+}
+
+.slide-dot-wrap:hover .slide-dot-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* ==========================================================================
+   Keyframes & Cute Animations
+   ========================================================================== */
+@keyframes floatMascot {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(1.5deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(219, 39, 119, 0.45);
+        transform: scale(1.04);
+    }
+}
+
+@keyframes badgeWiggle {
+    0% { transform: translateY(-3px) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(-3deg); }
+    75% { transform: translateY(-3px) rotate(3deg); }
+    100% { transform: translateY(-3px) rotate(0deg); }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) rotate(25deg);
+    }
+    100% {
+        transform: translateX(300%) rotate(25deg);
+    }
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.35;
+    }
+    90% {
+        opacity: 0.35;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+}
+
+.heart-pulse {
+    display: inline-block;
+    animation: heartbeat 1.8s ease-in-out infinite;
+}
