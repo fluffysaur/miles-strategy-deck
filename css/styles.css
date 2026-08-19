@@ -68,28 +68,43 @@ body {
 .presentation-container {
     position: relative;
     width: 1100px;
-    height: 660px;
+    min-height: 660px;
+    height: auto;
     background: #ffffff;
     border-radius: 24px;
     box-shadow: var(--shadow-container);
     overflow: hidden;
+    isolation: isolate;
     z-index: 1;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    view-transition-name: presentation-canvas;
 }
 
 /* Base Slide */
 .slide {
     width: 100%;
-    height: 100%;
-    padding: 36px 48px;
+    min-height: 660px;
+    height: auto;
+    padding: 32px 42px;
     background: var(--bg-slide);
+    border-radius: 24px;
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     opacity: 1;
-    transition: opacity 0.22s ease-in-out, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+        opacity 0.22s ease-in-out,
+        transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     view-transition-name: slide-content;
+}
+
+/* View Transition Canvas Rounded Corners */
+::view-transition-group(slide-content),
+::view-transition-image-pair(slide-content),
+::view-transition-old(slide-content),
+::view-transition-new(slide-content) {
+    border-radius: 24px;
+    overflow: hidden;
 }
 
 /* Smooth slide transitioning states */
@@ -351,9 +366,7 @@ body {
     font-size: 11.5px;
     line-height: 1.48;
     box-shadow: var(--shadow-card);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    display: block;
     transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
 }
@@ -510,6 +523,7 @@ body {
     margin-bottom: 6px;
     letter-spacing: -0.5px;
     background: linear-gradient(135deg, #0f172a 25%, #0284c7 65%, #ec4899 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -679,7 +693,9 @@ body {
 .port-card h4 i.arrow-icon {
     font-size: 10.5px;
     color: #94a3b8;
-    transition: transform 0.25s, color 0.25s;
+    transition:
+        transform 0.25s,
+        color 0.25s;
 }
 
 .port-card:hover h4 i.arrow-icon {
@@ -692,6 +708,11 @@ body {
     color: var(--text-muted);
     margin-bottom: 6px;
     line-height: 1.35;
+}
+
+strong, b {
+    display: inline;
+    font-weight: 700;
 }
 
 .port-card .rate-tag {
@@ -766,7 +787,9 @@ body {
 .port-feature-text h4 i.arrow-icon {
     font-size: 10.5px;
     color: #94a3b8;
-    transition: transform 0.2s, color 0.2s;
+    transition:
+        transform 0.2s,
+        color 0.2s;
 }
 
 .port-feature-link:hover .port-feature-text h4 i.arrow-icon {
@@ -782,27 +805,156 @@ body {
 }
 
 /* ==========================================================================
+   Slide 10: HeyMax Optimization Guide Styles
+   ========================================================================== */
+.heymax-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 2px;
+}
+
+.heymax-pillar-card {
+    padding: 8px 12px;
+}
+
+.heymax-pillar-card h4 {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.heymax-pillar-card p {
+    font-size: 10px;
+    line-height: 1.35;
+    margin: 0;
+}
+
+.heymax-routine-card {
+    margin-top: 10px;
+    background: #ffffff;
+    border: 1.5px solid #6366f1;
+    border-radius: 14px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 12px -2px rgba(99, 102, 241, 0.12);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.heymax-routine-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #4338ca;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.heymax-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 12px;
+    align-items: stretch;
+    flex: 1;
+}
+
+.heymax-step-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.heymax-step-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.12);
+}
+
+.heymax-step-img {
+    height: 260px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: contain;
+    margin-bottom: 8px;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.heymax-step-text strong {
+    color: #4f46e5;
+    display: block;
+    font-size: 11.5px;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.heymax-step-text span {
+    font-size: 10.5px;
+    color: #475569;
+    line-height: 1.35;
+    display: block;
+}
+
+.heymax-step-arrow {
+    color: #6366f1;
+    font-weight: 800;
+    font-size: 20px;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
    Slide 11: Strategy Cheatsheet Table
    ========================================================================== */
+.table-scroll-hint {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
 .table-container {
     background: #ffffff;
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: var(--shadow-card);
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    font-size: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 11.5px;
     text-align: left;
 }
 
 th {
     background: #f8fafc;
-    padding: 6px 10px;
+    padding: 12px 16px;
     font-weight: 700;
+    font-size: 12px;
     color: #475569;
     border-bottom: 2px solid var(--border-color);
 }
@@ -813,10 +965,13 @@ td.td-center {
 }
 
 td {
-    padding: 4px 10px;
+    padding: 11px 16px;
     border-bottom: 1px solid #f1f5f9;
     color: #1e293b;
     vertical-align: middle;
+    font-size: 11.5px;
+    line-height: 1.45;
+    background: #ffffff;
     transition: background 0.15s ease;
 }
 
@@ -830,18 +985,27 @@ tr:last-child td {
 
 .cat-cell {
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    vertical-align: middle;
 }
 
-.cat-cell i {
-    width: 16px;
-    display: inline-flex;
-    justify-content: center;
+.cat-cell-content {
+    display: flex;
     align-items: center;
-    text-align: center;
+    gap: 9px;
+    font-size: 12px;
+}
+
+.cat-cell-content i {
+    width: 18px;
     flex-shrink: 0;
+    text-align: center;
+    font-size: 13.5px;
+}
+
+.cat-cell-content span {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.35;
 }
 
 /* ==========================================================================
@@ -852,11 +1016,31 @@ tr:last-child td {
     justify-content: space-between;
     align-items: center;
     width: 1100px;
+    max-width: 100%;
     margin-top: 16px;
+    padding: 10px 18px;
+    background: rgba(15, 23, 42, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
     color: #94a3b8;
     font-size: 13px;
     font-weight: 600;
-    z-index: 10;
+    z-index: 9999;
+    position: relative;
+    view-transition-name: slide-navigator;
+}
+
+::view-transition-group(slide-navigator) {
+    animation-duration: 0s;
+    z-index: 9999;
+}
+::view-transition-old(slide-navigator),
+::view-transition-new(slide-navigator) {
+    animation: none;
+    mix-blend-mode: normal;
 }
 
 .nav-btn {
@@ -995,7 +1179,8 @@ tr:last-child td {
    Keyframes & Cute Animations
    ========================================================================== */
 @keyframes floatMascot {
-    0%, 100% {
+    0%,
+    100% {
         transform: translateY(0px) rotate(0deg);
     }
     50% {
@@ -1004,7 +1189,8 @@ tr:last-child td {
 }
 
 @keyframes pulseGlow {
-    0%, 100% {
+    0%,
+    100% {
         box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
         transform: scale(1);
     }
@@ -1015,10 +1201,18 @@ tr:last-child td {
 }
 
 @keyframes badgeWiggle {
-    0% { transform: translateY(-3px) rotate(0deg); }
-    25% { transform: translateY(-3px) rotate(-3deg); }
-    75% { transform: translateY(-3px) rotate(3deg); }
-    100% { transform: translateY(-3px) rotate(0deg); }
+    0% {
+        transform: translateY(-3px) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-3px) rotate(-3deg);
+    }
+    75% {
+        transform: translateY(-3px) rotate(3deg);
+    }
+    100% {
+        transform: translateY(-3px) rotate(0deg);
+    }
 }
 
 @keyframes shimmer {
@@ -1048,11 +1242,549 @@ tr:last-child td {
 }
 
 @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.18); }
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.18);
+    }
 }
 
 .heart-pulse {
     display: inline-block;
     animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   Responsive Design & Mobile Optimization Breakpoints
+   ========================================================================== */
+
+/* Tablet Landscape & Small Desktops / Laptops (max-width: 1140px) */
+@media (max-width: 1140px) {
+    .presentation-container {
+        width: 100%;
+        max-width: 1000px;
+        height: auto;
+        min-height: 640px;
+    }
+
+    .controls {
+        width: 100%;
+        max-width: 1000px;
+    }
+
+    .content-grid {
+        grid-template-columns: 280px 1fr;
+        gap: 16px;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Tablet Portrait (max-width: 880px) */
+@media (max-width: 880px) {
+    body {
+        padding: 16px 16px 85px 16px;
+        justify-content: flex-start;
+    }
+
+    .presentation-container {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        border-radius: 20px;
+    }
+
+    .slide {
+        padding: 24px 20px;
+        height: auto;
+        min-height: auto;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    ::view-transition-group(slide-content),
+    ::view-transition-image-pair(slide-content),
+    ::view-transition-old(slide-content),
+    ::view-transition-new(slide-content) {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 16px;
+    }
+
+    .right-panel {
+        grid-template-columns: 1fr 1fr;
+        height: auto;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .portfolio-bottom-links {
+        grid-template-columns: 1fr;
+    }
+
+    .heymax-pillars {
+        grid-template-columns: 1fr;
+    }
+
+    .heymax-steps-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .heymax-step-arrow {
+        transform: rotate(90deg);
+        margin: 4px 0;
+    }
+
+    .heymax-step-img {
+        height: 200px;
+    }
+
+    .table-scroll-hint {
+        display: flex;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 620px;
+    }
+}
+
+/* Mobile Devices & Smartphones (max-width: 680px) */
+@media (max-width: 680px) {
+    body {
+        padding: 10px 10px calc(80px + env(safe-area-inset-bottom, 0px)) 10px;
+        justify-content: flex-start;
+    }
+
+    .presentation-container {
+        width: 100%;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        margin-bottom: 75px;
+    }
+
+    .slide {
+        padding: 18px 14px 26px 14px;
+        border-radius: 16px;
+    }
+
+    ::view-transition-group(slide-content),
+    ::view-transition-image-pair(slide-content),
+    ::view-transition-old(slide-content),
+    ::view-transition-new(slide-content) {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    /* Slide Header */
+    .slide-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+    }
+
+    .slide-title-wrap {
+        width: 100%;
+    }
+
+    .slide-title-wrap h2 {
+        font-size: 20px;
+        gap: 8px;
+        word-break: break-word;
+    }
+
+    .slide-title-wrap p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .header-links {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .milelion-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+
+    .badge-mpd {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+
+    /* Content Grid & Panels */
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .left-panel {
+        gap: 10px;
+    }
+
+    .card-preview {
+        height: 110px;
+        padding: 8px;
+    }
+
+    .card-preview img {
+        max-height: 90px;
+    }
+
+    .card-meta {
+        padding: 10px 12px;
+        gap: 5px;
+    }
+
+    .meta-lbl {
+        font-size: 10px;
+    }
+
+    .meta-val {
+        font-size: 10.5px;
+    }
+
+    .right-panel {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .info-box {
+        padding: 11px 13px;
+        font-size: 11px;
+        display: block;
+    }
+
+    .info-box.full-span {
+        grid-column: span 1;
+    }
+
+    .info-box h4 {
+        font-size: 11.5px;
+    }
+
+    /* Title Slide (Slide 1) */
+    .title-slide {
+        padding: 22px 14px;
+    }
+
+    .title-mascot-img {
+        width: 115px;
+        height: 115px;
+        border-width: 3.5px;
+    }
+
+    .title-mascot-badge {
+        font-size: 10px;
+        padding: 2px 8px;
+    }
+
+    .title-slide h1 {
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+
+    .title-slide p.title-sub {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 12px;
+    }
+
+    .tag-group {
+        gap: 6px;
+        margin-bottom: 16px;
+    }
+
+    .hero-tag {
+        font-size: 10.5px;
+        padding: 4px 9px;
+    }
+
+    .start-tour-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+
+    /* Portfolio Slide (Slide 2) */
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .port-card {
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .port-card-img {
+        height: 34px;
+        margin-bottom: 4px;
+    }
+
+    .port-card h4 {
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+
+    .port-card p {
+        font-size: 9.5px;
+        line-height: 1.3;
+        margin-bottom: 4px;
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .port-card .rate-tag {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    .port-feature-link {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .port-feature-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .port-feature-text h4 {
+        font-size: 11.5px;
+    }
+
+    .port-feature-text p {
+        font-size: 10px;
+    }
+
+    /* Slide 10 (HeyMax) */
+    .heymax-pillars {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .heymax-routine-card {
+        padding: 12px;
+        border-radius: 12px;
+        margin-top: 8px;
+    }
+
+    .heymax-routine-title {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .heymax-steps-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .heymax-step-card {
+        padding: 10px;
+        border-radius: 8px;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+    }
+
+    .heymax-step-img {
+        height: 85px;
+        max-width: 65px;
+        width: auto;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .heymax-step-text {
+        flex: 1;
+    }
+
+    .heymax-step-text strong {
+        font-size: 11px;
+    }
+
+    .heymax-step-text span {
+        font-size: 10px;
+    }
+
+    .heymax-step-arrow {
+        display: none;
+    }
+
+    /* Cheatsheet Table on Mobile */
+    .table-container {
+        border-radius: 12px;
+        margin-bottom: 18px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+    }
+
+    .table-container table {
+        min-width: 720px;
+        font-size: 11px;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-container th {
+        padding: 10px 12px;
+        font-size: 11px;
+        background: #f8fafc;
+        border-bottom: 2px solid #cbd5e1;
+    }
+
+    .table-container td {
+        padding: 10px 12px;
+        font-size: 11px;
+        background: #ffffff;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    /* Fixed & solid sticky first column (Spend Category) */
+    .table-container th:first-child,
+    .table-container td:first-child {
+        position: sticky;
+        left: 0;
+        width: 145px;
+        min-width: 145px;
+        max-width: 145px;
+        box-sizing: border-box;
+        border-right: 2px solid #cbd5e1;
+        border-bottom: 1px solid #e2e8f0;
+        z-index: 10;
+        background-clip: padding-box;
+    }
+
+    .table-container th:first-child {
+        background: #f1f5f9;
+        z-index: 15;
+    }
+
+    .table-container td:first-child {
+        background: #ffffff;
+        box-shadow: 4px 0 8px -2px rgba(0, 0, 0, 0.14);
+    }
+
+    .table-container tr:hover td:first-child {
+        background: #f8fafc;
+    }
+
+    .table-container tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table-container .cat-cell {
+        vertical-align: middle;
+    }
+
+    .table-container .cat-cell-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .table-container .cat-cell-content i {
+        width: 16px;
+        flex-shrink: 0;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .table-container .cat-cell-content span {
+        flex: 1;
+        min-width: 0;
+        line-height: 1.3;
+    }
+
+    /* Sticky Mobile Controls Bar */
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-top: 0;
+        padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px)) 14px;
+        background: rgba(15, 23, 42, 0.96);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.55);
+        z-index: 9999;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        view-transition-name: slide-navigator;
+    }
+
+    .nav-btn {
+        padding: 7px 12px;
+        font-size: 11.5px;
+        border-radius: 8px;
+        min-height: 36px;
+    }
+
+    .slide-indicator-wrap {
+        gap: 6px;
+    }
+
+    .slide-dots {
+        display: none;
+    }
+
+    .slide-counter-badge {
+        font-size: 11.5px;
+        padding: 5px 11px;
+    }
+}
+
+/* Extra Narrow Mobile (max-width: 380px) */
+@media (max-width: 380px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-btn {
+        padding: 6px 9px;
+        font-size: 11px;
+    }
+
+    .slide-counter-badge {
+        font-size: 10.5px;
+        padding: 4px 8px;
+    }
 }

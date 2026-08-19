@@ -105,11 +105,11 @@ function renderSlideBullets(activeIndex) {
  */
 function updateDOMWithDoc(targetDoc, targetFilename) {
     const newContainer = targetDoc.querySelector('.presentation-container');
-    const newControls = targetDoc.querySelector('.controls');
     const newTitle = targetDoc.querySelector('title');
 
     const currentContainer = document.querySelector('.presentation-container');
-    const currentControls = document.querySelector('.controls');
+    const currentBadge = document.querySelector('.slide-counter-badge');
+    const newBadge = targetDoc.querySelector('.slide-counter-badge');
 
     if (newTitle) {
         document.title = newTitle.innerText;
@@ -124,12 +124,51 @@ function updateDOMWithDoc(targetDoc, targetFilename) {
         }
     }
 
-    if (newControls && currentControls) {
-        currentControls.innerHTML = newControls.innerHTML;
+    currentSlideIndex = getSlideIndexFromUrl(targetFilename);
+
+    // Update counter badge without remounting .controls
+    if (currentBadge && newBadge) {
+        currentBadge.innerText = newBadge.innerText;
     }
 
-    currentSlideIndex = getSlideIndexFromUrl(targetFilename);
+    // Update prev/next button states
+    const currentControls = document.querySelector('.controls');
+    if (currentControls) {
+        const navBtns = currentControls.querySelectorAll('.nav-btn');
+        if (navBtns.length >= 2) {
+            const prevBtn = navBtns[0];
+            const nextBtn = navBtns[navBtns.length - 1];
+
+            if (currentSlideIndex === 0) {
+                prevBtn.classList.add('disabled');
+                prevBtn.setAttribute('tabindex', '-1');
+                prevBtn.setAttribute('aria-disabled', 'true');
+                prevBtn.href = '#';
+            } else {
+                prevBtn.classList.remove('disabled');
+                prevBtn.removeAttribute('tabindex');
+                prevBtn.removeAttribute('aria-disabled');
+                prevBtn.href = SLIDES[currentSlideIndex - 1].file;
+            }
+
+            if (currentSlideIndex === TOTAL_SLIDES - 1) {
+                nextBtn.classList.add('disabled');
+                nextBtn.setAttribute('tabindex', '-1');
+                nextBtn.setAttribute('aria-disabled', 'true');
+                nextBtn.href = '#';
+            } else {
+                nextBtn.classList.remove('disabled');
+                nextBtn.removeAttribute('tabindex');
+                nextBtn.removeAttribute('aria-disabled');
+                nextBtn.href = SLIDES[currentSlideIndex + 1].file;
+            }
+        }
+    }
+
     renderSlideBullets(currentSlideIndex);
+
+    // Scroll to top on mobile slide navigation
+    window.scrollTo({ top: 0, behavior: 'instant' });
 
     // Update history state
     try {
@@ -250,6 +289,61 @@ document.addEventListener('keydown', (e) => {
         goToSlide(TOTAL_SLIDES);
     }
 });
+
+/**
+ * Mobile Touch Gesture Navigation (Swipe Left / Swipe Right)
+ */
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+let touchStartTime = 0;
+let isTouchIgnored = false;
+
+document.addEventListener('touchstart', (e) => {
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+
+    const targetEl = (e.target && e.target.nodeType === 1) ? e.target : (e.target ? e.target.parentElement : null);
+
+    // Ignore swipe gesture if touch begins inside the horizontally scrollable table container
+    const isInsideTable = targetEl && targetEl.closest('.table-container, table, thead, tbody, tr, td, th');
+    if (isInsideTable) {
+        isTouchIgnored = true;
+        return;
+    }
+
+    isTouchIgnored = false;
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    touchStartTime = Date.now();
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+    if (isTouchIgnored || !e.changedTouches || e.changedTouches.length === 0) {
+        isTouchIgnored = false;
+        return;
+    }
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    const duration = Date.now() - touchStartTime;
+    handleTouchSwipe(duration);
+}, { passive: true });
+
+function handleTouchSwipe(duration) {
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+    const absX = Math.abs(diffX);
+    const absY = Math.abs(diffY);
+
+    // Ensure horizontal gesture (absX > 45px, horizontal dominant over vertical, quick swipe)
+    if (absX > 45 && absX > absY * 1.3 && duration < 600) {
+        if (diffX < 0) {
+            nextSlide();
+        } else {
+            prevSlide();
+        }
+    }
+}
 
 /**
  * Generate cute floating background particles
