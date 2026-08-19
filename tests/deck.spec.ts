@@ -1,165 +1,141 @@
-import { test, expect } from "@playwright/test";
-import path from "path";
+import { test, expect } from '@playwright/test';
 
-const basePath = path.resolve(__dirname, "..");
+test.describe('Bobo & Bubba Miles Strategy Web App & Deck Mode', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
 
-test.describe("Miles Strategy Deck in slides/ directory", () => {
-    test("verifies root index.html redirects to slides/slide-1-welcome.html", async ({ page }) => {
-        await page.goto(`file://${basePath}/index.html`);
-        await expect(page).toHaveURL(/slides\/slide-1-welcome\.html/);
-        await expect(page.locator("h1")).toContainText("Bobo & Bubba Miles Strategy!");
-        await expect(page.locator(".slide-counter-badge")).toHaveText("Slide 1 of 11");
+  test('renders web app header and main card finder by default', async ({ page }) => {
+    await expect(page.locator('.brand-title')).toContainText('Bobo & Bubba Miles Strategy');
+    await expect(page.locator('.search-input')).toBeVisible();
+    await expect(page.locator('.ribbon-stat-card').first()).toBeVisible();
 
-        // Check active bullet
-        const activeDot = page.locator(".slide-dot.active");
-        await expect(activeDot).toHaveAttribute("aria-label", /1\. Welcome/);
+    // Verify search functionality
+    const searchInput = page.locator('.search-input');
+    await searchInput.fill('Uniqlo');
+    await expect(page.locator('.merchant-card')).toHaveCount(1);
+    await expect(page.locator('.merchant-title')).toContainText('Uniqlo');
+    await expect(page.locator('.rec-card-name')).toContainText('UOB PPV');
+  });
 
-        // Click Start Tour
-        await page.locator(".start-tour-btn").click();
-        await expect(page).toHaveURL(/slides\/slide-2-our-card-portfolio\.html/);
-    });
+  test('shows SMART$ warning when searching restricted merchants like Giant / Cold Storage', async ({ page }) => {
+    const searchInput = page.locator('.search-input');
+    await searchInput.fill('Cold Storage');
+    await expect(page.locator('.merchant-card')).toHaveCount(1);
+    await expect(page.locator('.merchant-warning')).toBeVisible();
+    await expect(page.locator('.merchant-warning')).toContainText('SMART$ merchant');
+  });
 
-    test("verifies portfolio cards navigate to individual card slides in slides/", async ({ page }) => {
-        await page.goto(`file://${basePath}/slides/slide-2-our-card-portfolio.html`);
-        await expect(page.locator("h2")).toContainText("Our Card Portfolio");
+  test('navigates to Cheatsheet Matrix and filters categories with proper category styling', async ({ page }) => {
+    await page.locator('button', { hasText: 'Cheatsheet' }).first().click();
+    await expect(page.locator('.table-title')).toContainText('Strategy Decision Matrix');
+    await expect(page.locator('.matrix-desktop-table')).toBeVisible();
+    await expect(page.locator('.app-table tbody tr').first()).toBeVisible();
 
-        // Click Citi Rewards card
-        await page.locator(".port-card", { hasText: "Citi Rewards" }).click();
-        await expect(page).toHaveURL(/slides\/slide-3-citi-rewards\.html/);
-        await expect(page.locator("h2")).toContainText("Citi Rewards Card");
+    // Verify Spend Category column styling elements
+    const firstCategory = page.locator('.app-table tbody tr .td-category').first();
+    await expect(firstCategory).toBeVisible();
+    await expect(firstCategory.locator('.td-icon-box')).toBeVisible();
 
-        // Click Back to Portfolio
-        await page.locator(".back-portfolio-btn").click();
-        await expect(page).toHaveURL(/slides\/slide-2-our-card-portfolio\.html/);
+    // Filter by dining
+    await page.locator('button', { hasText: 'Dining' }).first().click();
+    await expect(page.locator('.app-table tbody tr')).not.toHaveCount(0);
 
-        // Click Strategy Cheatsheet feature link
-        await page.locator(".port-feature-link", { hasText: "Strategy Cheatsheet" }).click();
-        await expect(page).toHaveURL(/slides\/slide-11-strategy-cheatsheet\.html/);
-        await expect(page.locator("h2")).toContainText("Strategy Cheatsheet");
-    });
+    // Verify separate links for multi-primary card row (e.g. Restaurants has UOB Lady's and HSBC Revo)
+    const diningRow = page.locator('.app-table tbody tr', { hasText: 'Restaurants' });
+    const ladysBtn = diningRow.locator('button', { hasText: "UOB Lady's" });
+    const revoBtn = diningRow.locator('button', { hasText: 'HSBC Revo' });
 
-    test("verifies clickable slide bullets with hover tooltips jump to slides in slides/", async ({ page }) => {
-        await page.goto(`file://${basePath}/slides/slide-1-welcome.html`);
+    await expect(ladysBtn).toBeVisible();
+    await expect(revoBtn).toBeVisible();
 
-        // Check tooltip on bullet hover
-        const dot5Wrap = page.locator(".slide-dot-wrap").nth(4); // 5th slide (UOB PPV)
-        await dot5Wrap.hover();
-        const tooltip = dot5Wrap.locator(".slide-dot-tooltip");
-        await expect(tooltip).toHaveText("5. UOB Preferred Visa 📱");
+    // Click HSBC Revo separate link and verify its modal opens
+    await revoBtn.click();
+    await expect(page.locator('.modal-content')).toBeVisible();
+    await expect(page.locator('.modal-content h2')).toContainText('HSBC Revolution');
+    await page.locator('.modal-close-btn').click();
+    await expect(page.locator('.modal-content')).not.toBeVisible();
 
-        // Click 5th bullet to skip directly to UOB PPV slide
-        await dot5Wrap.locator(".slide-dot").click();
-        await expect(page).toHaveURL(/slides\/slide-5-uob-preferred-platinum-visa\.html/);
-        await expect(page.locator("h2")).toContainText("UOB Preferred Platinum Visa");
+    // Click UOB Lady's separate link and verify its modal opens
+    await ladysBtn.click();
+    await expect(page.locator('.modal-content')).toBeVisible();
+    await expect(page.locator('.modal-content h2')).toContainText("UOB Lady's");
+    await page.locator('.modal-close-btn').click();
+    await expect(page.locator('.modal-content')).not.toBeVisible();
+  });
 
-        // Click 10th bullet (HeyMax Guide)
-        const dot10Wrap = page.locator(".slide-dot-wrap").nth(9);
-        await dot10Wrap.locator(".slide-dot").click();
-        await expect(page).toHaveURL(/slides\/slide-10-heymax-optimization-guide\.html/);
-        await expect(page.locator("h2")).toContainText("HeyMax Optimization Guide");
-    });
+  test('opens Card Wallet and triggers Card Detail modal', async ({ page }) => {
+    await page.locator('button', { hasText: 'Card Wallet' }).first().click();
+    await expect(page.locator('h2')).toContainText('Our 7-Card Portfolio');
 
-    test("verifies keyboard navigation between slides in slides/", async ({ page }) => {
-        await page.goto(`file://${basePath}/slides/slide-1-welcome.html`);
-        await page.keyboard.press("ArrowRight");
-        await expect(page).toHaveURL(/slides\/slide-2-our-card-portfolio\.html/);
+    // Click Citi Rewards
+    await page.locator('.wallet-card', { hasText: 'Citi Rewards' }).click();
+    await expect(page.locator('.modal-content')).toBeVisible();
+    await expect(page.locator('.modal-content h2')).toContainText('Citi Rewards Card');
+    await expect(page.locator('.modal-content')).toContainText('Instarem Amaze');
 
-        await page.keyboard.press("ArrowRight");
-        await expect(page).toHaveURL(/slides\/slide-3-citi-rewards\.html/);
+    // Close modal
+    await page.locator('.modal-close-btn').click();
+    await expect(page.locator('.modal-content')).not.toBeVisible();
+  });
 
-        await page.keyboard.press("ArrowLeft");
-        await expect(page).toHaveURL(/slides\/slide-2-our-card-portfolio\.html/);
-    });
+  test('updates spend and calculates progress in Cap Tracker', async ({ page }) => {
+    await page.locator('button', { hasText: 'Cap Tracker' }).first().click();
+    await expect(page.locator('h2')).toContainText('Bobo & Bubba Monthly Cap Tracker');
 
-    test("verifies mobile screen responsiveness and touch swipe navigation", async ({ page }) => {
-        // Set mobile viewport (iPhone 14 / modern phone: 390 x 844)
-        await page.setViewportSize({ width: 390, height: 844 });
-        await page.goto(`file://${basePath}/slides/slide-1-welcome.html`);
+    // Click quick add +$100 on Bobo PPV
+    const boboCard = page.locator('.cap-card', { hasText: 'Bobo UOB PPV' });
+    await boboCard.locator('button', { hasText: '+$100' }).click();
+    await expect(boboCard).toContainText('$100.00');
 
-        // Check title slide mobile elements
-        await expect(page.locator("h1")).toContainText("Bobo & Bubba Miles Strategy!");
-        await expect(page.locator(".slide-counter-badge")).toHaveText("Slide 1 of 11");
+    // Reload page and verify localStorage persistence
+    await page.reload();
+    await page.locator('button', { hasText: 'Cap Tracker' }).first().click();
+    const boboCardReloaded = page.locator('.cap-card', { hasText: 'Bobo UOB PPV' });
+    await expect(boboCardReloaded).toContainText('$100.00');
+  });
 
-        // Check sticky controls bar at bottom
-        const controls = page.locator(".controls");
-        await expect(controls).toBeVisible();
+  test('switches into Presentation Deck Mode and navigates slides via controls and keyboard', async ({ page }) => {
+    await page.locator('button', { hasText: 'Deck Mode' }).click();
+    await expect(page.locator('.deck-view-container')).toBeVisible();
+    await expect(page.locator('h1')).toContainText('Bobo & Bubba Miles Strategy!');
+    await expect(page.locator('.slide-counter-badge')).toHaveText('Slide 1 of 11');
 
-        // Simulate touch swipe left (swipe to slide 2)
-        await page.evaluate(() => {
-            const createTouchEvent = (type: string, screenX: number, screenY: number) => {
-                const touchObj = {
-                    identifier: Date.now(),
-                    target: document.body,
-                    screenX,
-                    screenY,
-                    clientX: screenX,
-                    clientY: screenY,
-                    pageX: screenX,
-                    pageY: screenY,
-                };
-                const event = new CustomEvent(type, { bubbles: true, cancelable: true }) as CustomEvent & {
-                    touches: (typeof touchObj)[];
-                    changedTouches: (typeof touchObj)[];
-                };
-                event.touches = type === "touchend" ? [] : [touchObj];
-                event.changedTouches = [touchObj];
-                return event;
-            };
+    // Click Next
+    await page.locator('.controls .nav-btn', { hasText: 'Next' }).click();
+    await expect(page.locator('.slide-counter-badge')).toHaveText('Slide 2 of 11');
+    await expect(page.locator('h2')).toContainText('Our Card Portfolio');
 
-            document.dispatchEvent(createTouchEvent("touchstart", 300, 400));
-            setTimeout(() => {
-                document.dispatchEvent(createTouchEvent("touchend", 100, 400));
-            }, 60);
-        });
+    // Keyboard ArrowRight
+    await page.keyboard.press('ArrowRight');
+    await expect(page.locator('.slide-counter-badge')).toHaveText('Slide 3 of 11');
+    await expect(page.locator('h2')).toContainText('Citi Rewards Card');
 
-        // Wait for slide 2 transition
-        await expect(page).toHaveURL(/slides\/slide-2-our-card-portfolio\.html/);
-        await expect(page.locator(".slide-counter-badge")).toHaveText("Slide 2 of 11");
+    // Click bullet dot to skip to slide 11 (Cheatsheet)
+    const dot11 = page.locator('.slide-dot-wrap').nth(10).locator('.slide-dot');
+    await dot11.click();
+    await expect(page.locator('.slide-counter-badge')).toHaveText('Slide 11 of 11');
+    await expect(page.locator('h2')).toContainText('Strategy Cheatsheet');
 
-        // Verify HeyMax Guide (Slide 10) on mobile
-        await page.goto(`file://${basePath}/slides/slide-10-heymax-optimization-guide.html`);
-        await expect(page.locator(".heymax-pillars")).toBeVisible();
-        await expect(page.locator(".heymax-step-card")).toHaveCount(3);
+    // Exit deck mode
+    await page.locator('.exit-deck-btn').first().click();
+    await expect(page.locator('.deck-view-container')).not.toBeVisible();
+    await expect(page.locator('.search-input')).toBeVisible();
+  });
 
-        // Verify Strategy Cheatsheet (Slide 11) on mobile
-        await page.goto(`file://${basePath}/slides/slide-11-strategy-cheatsheet.html`);
-        await expect(page.locator(".table-scroll-hint")).toBeVisible();
-        await expect(page.locator(".table-container")).toBeVisible();
+  test('responsive mobile layout with bottom navigation', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
 
-        // Swiping inside the table container should NOT navigate away from slide 11
-        await page.evaluate(() => {
-            const tableEl = document.querySelector(".table-container");
-            const createTouchEvent = (type: string, screenX: number, screenY: number, target: Element) => {
-                const touchObj = {
-                    identifier: Date.now(),
-                    target,
-                    screenX,
-                    screenY,
-                    clientX: screenX,
-                    clientY: screenY,
-                    pageX: screenX,
-                    pageY: screenY,
-                };
-                const event = new CustomEvent(type, { bubbles: true, cancelable: true }) as CustomEvent & {
-                    touches: (typeof touchObj)[];
-                    changedTouches: (typeof touchObj)[];
-                };
-                event.touches = type === "touchend" ? [] : [touchObj];
-                event.changedTouches = [touchObj];
-                return event;
-            };
+    const bottomNav = page.locator('.bottom-nav');
+    await expect(bottomNav).toBeVisible();
 
-            if (tableEl) {
-                tableEl.dispatchEvent(createTouchEvent("touchstart", 300, 400, tableEl));
-                setTimeout(() => {
-                    tableEl.dispatchEvent(createTouchEvent("touchend", 100, 400, tableEl));
-                }, 60);
-            }
-        });
+    // Tap Caps tab on bottom nav
+    await bottomNav.locator('.bottom-nav-item', { hasText: 'Caps' }).click();
+    await expect(page.locator('h2')).toContainText('Bobo & Bubba Monthly Cap Tracker');
 
-        await page.waitForTimeout(150);
-        // Remains on slide 11
-        await expect(page).toHaveURL(/slides\/slide-11-strategy-cheatsheet\.html/);
-        await expect(page.locator(".slide-counter-badge")).toHaveText("Slide 11 of 11");
-    });
+    // Tap HeyMax tab
+    await bottomNav.locator('.bottom-nav-item', { hasText: 'HeyMax' }).click();
+    await expect(page.locator('h2')).toContainText('HeyMax Max Miles Optimization');
+  });
 });

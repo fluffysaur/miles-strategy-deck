@@ -1,0 +1,78 @@
+import React from 'react';
+import { Presentation, Sparkles, PieChart, Layers } from 'lucide-react';
+import { useSpendTracker } from '../context/SpendTrackerContext';
+
+interface NavbarProps {
+  activeTab: 'finder' | 'cheatsheet' | 'wallet' | 'tracker' | 'heymax';
+  setActiveTab: (tab: 'finder' | 'cheatsheet' | 'wallet' | 'tracker' | 'heymax') => void;
+  onEnterDeckMode: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onEnterDeckMode }) => {
+  const { totalMonthlySpent, totalMonthlyCap } = useSpendTracker();
+  const spendPct = totalMonthlyCap > 0 ? Math.round((totalMonthlySpent / totalMonthlyCap) * 100) : 0;
+
+  return (
+    <header className="app-navbar">
+      <div className="brand-section">
+        <img
+          src="/images/bobo-bubba-cover.jpg"
+          alt="Bobo & Bubba"
+          className="brand-logo"
+          onError={(e) => {
+            (e.target as HTMLElement).style.display = 'none';
+          }}
+        />
+        <div className="brand-text-wrap">
+          <div className="brand-title">Bobo &amp; Bubba Miles Strategy</div>
+          <div className="brand-subtitle">Couple&apos;s Miles Engine ✈️</div>
+        </div>
+      </div>
+
+      {/* Desktop Navigation Tabs (Hidden on mobile via CSS) */}
+      <nav className="desktop-nav-tabs">
+        <button
+          className={`chip-btn ${activeTab === 'finder' ? 'active' : ''}`}
+          onClick={() => setActiveTab('finder')}
+        >
+          <Sparkles size={16} /> Best Card Finder
+        </button>
+        <button
+          className={`chip-btn ${activeTab === 'cheatsheet' ? 'active' : ''}`}
+          onClick={() => setActiveTab('cheatsheet')}
+        >
+          <Layers size={16} /> Cheatsheet
+        </button>
+        <button
+          className={`chip-btn ${activeTab === 'wallet' ? 'active' : ''}`}
+          onClick={() => setActiveTab('wallet')}
+        >
+          💳 Card Wallet
+        </button>
+        <button
+          className={`chip-btn ${activeTab === 'tracker' ? 'active' : ''}`}
+          onClick={() => setActiveTab('tracker')}
+        >
+          <PieChart size={16} /> Cap Tracker ({spendPct}%)
+        </button>
+        <button
+          className={`chip-btn ${activeTab === 'heymax' ? 'active' : ''}`}
+          onClick={() => setActiveTab('heymax')}
+        >
+          🪄 HeyMax Stack
+        </button>
+      </nav>
+
+      <div className="nav-actions">
+        <button
+          className="mode-toggle-btn"
+          onClick={onEnterDeckMode}
+          title="Switch to Slide Presentation Deck"
+        >
+          <Presentation size={16} />
+          <span className="mode-toggle-label">Deck Mode</span>
+        </button>
+      </div>
+    </header>
+  );
+};

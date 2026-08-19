@@ -1,4 +1,6 @@
 
+dist/
+
 # Playwright
 node_modules/
 /test-results/
@@ -6,3 +8,4 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
