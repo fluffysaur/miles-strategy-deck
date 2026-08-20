@@ -1,4 +1,5 @@
-import { CardData } from '../types';
+import { CardData, LadysCategory } from '../types';
+import { LADYS_CATEGORIES } from './ladysCategories';
 
 export const CARDS_DATA: CardData[] = [
   {
@@ -112,7 +113,7 @@ export const CARDS_DATA: CardData[] = [
     name: "UOB Lady's Card",
     shortName: "UOB Lady's Card",
     bank: 'UOB',
-    tagline: 'The dining powerhouse with customizable 4.0 MPD quarterly categories',
+    tagline: 'The travel powerhouse with customizable 4.0 MPD quarterly categories (Currently: Travel)',
     image: '/images/uob-ladys.png',
     mpd: '4.0 MPD (10X UNI$)',
     mpdNumeric: 4.0,
@@ -126,16 +127,16 @@ export const CARDS_DATA: CardData[] = [
     expiry: '2 Years',
     transferFee: 'S$27.25 (SQ / Cathay)',
     transferPartners: 'Singapore Airlines KrisFlyer, Cathay Pacific Asia Miles',
-    primaryUse: 'All restaurant dining, bars, cafes, and food establishments. Can switch category quarterly to Fashion, Travel, Family, Beauty, etc.',
+    primaryUse: 'All online & offline travel bookings, flight tickets, hotel reservations (Agoda, Expedia), and Klook/Trip.com up to S$1,000/mo. Can switch category quarterly.',
     perks: [
-      'Generous S$1,000 monthly cap dedicated to dining / chosen category',
-      'Earns 4.0 MPD on both offline physical tap AND online delivery for chosen category',
+      'Generous S$1,000 monthly cap dedicated to Travel (currently selected category)',
+      'Earns 4.0 MPD on both offline physical bookings AND online flight/hotel checkouts',
       'UNI$ points pool directly with UOB Preferred Platinum Visa (single redemption fee)',
       'Open to both men and women'
     ],
     catches: [
       'Strict $5 rounding blocks apply',
-      'Only 1 category eligible at a time for standard card (choose Dining for maximum utility)',
+      'Only 1 category eligible at a time for standard card (currently set to Travel)',
       'SMART$ merchant exclusions apply'
     ],
     milelionReviewUrl: 'https://milelion.com/2026/03/01/review-uob-ladys-card/',
@@ -244,3 +245,28 @@ export const CARDS_DATA: CardData[] = [
     accentGradient: 'linear-gradient(135deg, #0d9488, #0f766e)'
   }
 ];
+
+export const getCardsData = (category: LadysCategory = 'travel'): CardData[] => {
+  const categoryInfo = LADYS_CATEGORIES[category] || LADYS_CATEGORIES.travel;
+  return CARDS_DATA.map((card) => {
+    if (card.id === 'uob-ladys') {
+      return {
+        ...card,
+        tagline: `The ${categoryInfo.name.toLowerCase()} powerhouse with customizable 4.0 MPD quarterly categories (Currently: ${categoryInfo.name})`,
+        primaryUse: categoryInfo.detailedDesc + ' Can switch category quarterly.',
+        perks: [
+          `Generous S$1,000 monthly cap dedicated to ${categoryInfo.name} (currently active category)`,
+          'Earns 4.0 MPD on both offline physical tap/card AND online checkouts for chosen category',
+          'UNI$ points pool directly with UOB Preferred Platinum Visa (single redemption fee)',
+          'Open to both men and women'
+        ],
+        catches: [
+          'Strict $5 rounding blocks apply',
+          `Only 1 category eligible at a time (currently set to ${categoryInfo.name}). Switch quarterly via UOB TMRW if needed.`,
+          'SMART$ merchant exclusions apply'
+        ]
+      };
+    }
+    return card;
+  });
+};

@@ -8,7 +8,7 @@ const SLIDES = [
     { file: 'slide-3-citi-rewards.html', title: '3. Citi Rewards Card 🛍️', shortName: 'citi-rewards' },
     { file: 'slide-4-citi-premiermiles.html', title: '4. Citi PremierMiles Card ✈️', shortName: 'citi-premiermiles' },
     { file: 'slide-5-uob-preferred-platinum-visa.html', title: '5. UOB Preferred Visa 📱', shortName: 'uob-preferred-platinum-visa' },
-    { file: 'slide-6-uob-ladys-card.html', title: "6. UOB Lady's Card 🍽️", shortName: 'uob-ladys-card' },
+    { file: 'slide-6-uob-ladys-card.html', title: "6. UOB Lady's Card ✈️", shortName: 'uob-ladys-card' },
     { file: 'slide-7-krisflyer-uob.html', title: '7. KrisFlyer UOB Card 🛫', shortName: 'krisflyer-uob' },
     { file: 'slide-8-hsbc-revolution.html', title: '8. HSBC Revolution Card 🏨', shortName: 'hsbc-revolution' },
     { file: 'slide-9-sc-journey.html', title: '9. SC Journey Card 🗺️', shortName: 'sc-journey' },

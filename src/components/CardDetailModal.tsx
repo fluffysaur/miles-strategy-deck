@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, ExternalLink, ShieldCheck, AlertTriangle, Gift, Sparkles } from 'lucide-react';
+import { X, ExternalLink, ShieldCheck, AlertTriangle, Gift, Sparkles, Check } from 'lucide-react';
 import { CardData } from '../types';
+import { useLadysCategory } from '../context/LadysCategoryContext';
 
 interface CardDetailModalProps {
   card: CardData | null;
@@ -8,7 +9,13 @@ interface CardDetailModalProps {
 }
 
 export const CardDetailModal: React.FC<CardDetailModalProps> = ({ card, onClose }) => {
+  const { category, setCategory, categoryInfo, allCategories, cardsData } = useLadysCategory();
+
   if (!card) return null;
+
+  // Use dynamic card data if this is UOB Lady's Card
+  const activeCard = card.id === 'uob-ladys' ? (cardsData.find(c => c.id === 'uob-ladys') || card) : card;
+  const isLadys = card.id === 'uob-ladys';
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -21,67 +28,97 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ card, onClose 
           <div className="modal-header-banner">
             <div className="modal-header-content">
               <img
-                src={card.image}
-                alt={card.name}
+                src={activeCard.image}
+                alt={activeCard.name}
                 className="modal-card-img"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = `https://placehold.co/240x150?text=${encodeURIComponent(card.shortName)}`;
+                  (e.target as HTMLImageElement).src = `https://placehold.co/240x150?text=${encodeURIComponent(activeCard.shortName)}`;
                 }}
               />
               <div className="modal-header-text">
                 <div className="modal-title-row">
-                  <h2 className="modal-card-name">{card.name}</h2>
-                  <span className="badge-mpd" style={{ background: card.accentGradient }}>
-                    {card.mpdNumeric >= 4.0 ? '4.0 MPD' : `${card.mpdNumeric.toFixed(1)} MPD`}
+                  <h2 className="modal-card-name">{activeCard.name}</h2>
+                  <span className="badge-mpd" style={{ background: activeCard.accentGradient }}>
+                    {activeCard.mpdNumeric >= 4.0 ? '4.0 MPD' : `${activeCard.mpdNumeric.toFixed(1)} MPD`}
                   </span>
                 </div>
-                <p className="modal-card-tagline">{card.tagline}</p>
+                <p className="modal-card-tagline">{activeCard.tagline}</p>
               </div>
             </div>
           </div>
 
           <div className="modal-body-content">
+            {/* Category Selector Widget for UOB Lady's Card */}
+            {isLadys && (
+              <div className="modal-category-picker-box">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Sparkles size={16} style={{ color: '#ec4899' }} />
+                    <span style={{ fontWeight: 800, fontSize: '0.88rem', color: '#0f172a' }}>
+                      Active Category: {categoryInfo.name} {categoryInfo.emoji}
+                    </span>
+                  </div>
+                  <span className="tag tag-pink" style={{ fontSize: '0.72rem' }}>Switch Quarterly</span>
+                </div>
+
+                <div className="modal-cat-chips">
+                  {allCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      className={`modal-cat-chip ${cat.id === category ? 'active' : ''}`}
+                      onClick={() => setCategory(cat.id)}
+                    >
+                      <span>{cat.emoji}</span>
+                      <span>{cat.name}</span>
+                      {cat.id === category && <Check size={12} />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Key Specs Grid */}
             <div className="modal-specs-grid">
               <div className="modal-spec-item">
                 <div className="modal-spec-lbl">MONTHLY CAP</div>
-                <div className="modal-spec-val">{card.monthlyCap}</div>
+                <div className="modal-spec-val">{activeCard.monthlyCap}</div>
               </div>
               <div className="modal-spec-item">
                 <div className="modal-spec-lbl">ROUNDING BLOCK</div>
-                <div className="modal-spec-val" style={{ color: card.roundingValue > 1 ? '#b45309' : '#15803d' }}>
-                  {card.rounding}
+                <div className="modal-spec-val" style={{ color: activeCard.roundingValue > 1 ? '#b45309' : '#15803d' }}>
+                  {activeCard.rounding}
                 </div>
               </div>
               <div className="modal-spec-item">
                 <div className="modal-spec-lbl">ANNUAL FEE</div>
-                <div className="modal-spec-val">{card.annualFee}</div>
+                <div className="modal-spec-val">{activeCard.annualFee}</div>
               </div>
               <div className="modal-spec-item">
                 <div className="modal-spec-lbl">POINTS EXPIRY</div>
-                <div className="modal-spec-val">{card.expiry}</div>
+                <div className="modal-spec-val">{activeCard.expiry}</div>
               </div>
               <div className="modal-spec-item">
                 <div className="modal-spec-lbl">TRANSFER FEE</div>
-                <div className="modal-spec-val">{card.transferFee}</div>
+                <div className="modal-spec-val">{activeCard.transferFee}</div>
               </div>
               <div className="modal-spec-item">
                 <div className="modal-spec-lbl">PARTNERS</div>
-                <div className="modal-spec-val" style={{ fontSize: '0.75rem', fontWeight: 600, color: '#334155' }}>{card.transferPartners}</div>
+                <div className="modal-spec-val" style={{ fontSize: '0.75rem', fontWeight: 600, color: '#334155' }}>{activeCard.transferPartners}</div>
               </div>
             </div>
 
             {/* Primary Strategy */}
             <div className="info-box">
               <h4><Sparkles size={16} style={{ color: '#0284c7' }} /> Primary Strategy</h4>
-              <p>{card.primaryUse}</p>
+              <p>{activeCard.primaryUse}</p>
             </div>
 
             {/* Perks */}
             <div className="info-box perk-box">
               <h4><ShieldCheck size={16} /> Key Strengths &amp; Optimizations</h4>
               <ul style={{ paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '6px' }}>
-                {card.perks.map((perk, idx) => (
+                {activeCard.perks.map((perk, idx) => (
                   <li key={idx}>{perk}</li>
                 ))}
               </ul>
@@ -91,24 +128,24 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ card, onClose 
             <div className="info-box alert-box">
               <h4><AlertTriangle size={16} /> Traps &amp; Things to Watch</h4>
               <ul style={{ paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '6px' }}>
-                {card.catches.map((catchItem, idx) => (
+                {activeCard.catches.map((catchItem, idx) => (
                   <li key={idx}>{catchItem}</li>
                 ))}
               </ul>
             </div>
 
             {/* Sign up bonus / Lounge */}
-            {card.signUpBonus && (
+            {activeCard.signUpBonus && (
               <div className="info-box" style={{ background: '#fefce8', borderColor: '#fef08a' }}>
                 <h4 style={{ color: '#854d0e' }}><Gift size={16} /> Sign-Up Bonus</h4>
-                <p style={{ color: '#713f12' }}>{card.signUpBonus}</p>
+                <p style={{ color: '#713f12' }}>{activeCard.signUpBonus}</p>
               </div>
             )}
 
             {/* Footer review link */}
             <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '4px' }}>
               <a
-                href={card.milelionReviewUrl}
+                href={activeCard.milelionReviewUrl}
                 target="_blank"
                 rel="noreferrer"
                 style={{

@@ -88,3 +88,23 @@ export interface HeyMaxStep {
   image: string;
   tips: string[];
 }
+
+export type LadysCategory =
+  | 'travel'
+  | 'dining'
+  | 'fashion'
+  | 'beauty'
+  | 'family'
+  | 'transport'
+  | 'entertainment';
+
+export interface LadysCategoryInfo {
+  id: LadysCategory;
+  name: string;
+  icon: string;
+  emoji: string;
+  shortDesc: string;
+  detailedDesc: string;
+  examples: string[];
+  mccs: string;
+}

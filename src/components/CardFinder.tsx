@@ -1,19 +1,20 @@
 import React, { useState, useMemo } from 'react';
-import { Search, X, AlertTriangle } from 'lucide-react';
-import { MERCHANTS_DATA } from '../data/merchants';
+import { Search, X, AlertTriangle, Sparkles } from 'lucide-react';
 import { CardBadge } from './CardBadge';
 import { CardId } from '../types';
+import { useLadysCategory } from '../context/LadysCategoryContext';
 
 interface CardFinderProps {
   onSelectCard: (cardId: CardId) => void;
 }
 
 export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
+  const { merchantsData, categoryInfo } = useLadysCategory();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
 
   const filteredMerchants = useMemo(() => {
-    return MERCHANTS_DATA.filter((m) => {
+    return merchantsData.filter((m) => {
       const matchesQuery =
         searchQuery === '' ||
         m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -37,7 +38,7 @@ export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
 
       return true;
     });
-  }, [searchQuery, selectedFilter]);
+  }, [merchantsData, searchQuery, selectedFilter]);
 
   return (
     <section className="hero-finder-section">
@@ -64,7 +65,7 @@ export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
           className={`chip-btn ${selectedFilter === 'all' ? 'active' : ''}`}
           onClick={() => setSelectedFilter('all')}
         >
-          All Places ({MERCHANTS_DATA.length})
+          All Places ({merchantsData.length})
         </button>
         <button
           className={`chip-btn ${selectedFilter === 'online' ? 'active' : ''}`}
@@ -102,6 +103,11 @@ export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
           <span className="chip-emoji">⚠️</span>
           <span>SMART$ Warnings</span>
         </button>
+      </div>
+
+      <div className="finder-category-hint">
+        <Sparkles size={14} style={{ color: '#ec4899' }} />
+        <span>UOB Lady&apos;s Card Category: <strong>{categoryInfo.name} {categoryInfo.emoji}</strong> (Switch anytime on Wallet page)</span>
       </div>
 
       {/* Results Grid */}

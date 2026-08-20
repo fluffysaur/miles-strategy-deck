@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { RotateCcw, Plus, AlertCircle, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useSpendTracker } from '../context/SpendTrackerContext';
+import { useLadysCategory } from '../context/LadysCategoryContext';
 
 export const CapTracker: React.FC = () => {
   const { items, currentPeriod, addSpend, resetAll, totalMonthlySpent, totalMonthlyCap } = useSpendTracker();
+  const { categoryInfo } = useLadysCategory();
   const [customAmounts, setCustomAmounts] = useState<Record<string, string>>({});
 
   const handleCustomAdd = (id: string) => {
@@ -93,7 +95,9 @@ export const CapTracker: React.FC = () => {
               <div className="cap-card-header">
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <h3 className="cap-name">{item.name}</h3>
+                    <h3 className="cap-name">
+                      {item.cardId === 'uob-ladys' ? `UOB Lady's Card (${categoryInfo.name})` : item.name}
+                    </h3>
                     <span className={`tag ${item.holder === 'Bobo' ? 'tag-blue' : item.holder === 'Bubba' ? 'tag-pink' : 'tag-indigo'}`}>
                       {item.holder}
                     </span>

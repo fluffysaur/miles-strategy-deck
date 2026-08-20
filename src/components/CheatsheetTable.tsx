@@ -1,14 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { Layers, Search, AlertCircle, Smartphone, Bus, Utensils, Coffee, ShoppingBag, Bike, Plane, Building2, ShoppingCart, CreditCard, Globe, AlertTriangle } from 'lucide-react';
-import { CHEATSHEET_DATA } from '../data/cheatsheet';
+import { Layers, Search, AlertCircle, Smartphone, Bus, Utensils, Coffee, ShoppingBag, Bike, Plane, Building2, ShoppingCart, CreditCard, Globe, AlertTriangle, Sparkles } from 'lucide-react';
 import { CardBadge } from './CardBadge';
 import { CardId } from '../types';
+import { useLadysCategory } from '../context/LadysCategoryContext';
 
 interface CheatsheetTableProps {
   onSelectCard: (cardId: CardId) => void;
 }
 
 export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }) => {
+  const { cheatsheetData, categoryInfo } = useLadysCategory();
   const [filterGroup, setFilterGroup] = useState<string>('all');
   const [tableSearch, setTableSearch] = useState<string>('');
 
@@ -32,7 +33,7 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
   };
 
   const filteredRows = useMemo(() => {
-    return CHEATSHEET_DATA.filter((row) => {
+    return cheatsheetData.filter((row) => {
       if (filterGroup !== 'all' && row.categoryGroup !== filterGroup) {
         return false;
       }
@@ -44,14 +45,20 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
         row.strategyNotes.toLowerCase().includes(q)
       );
     });
-  }, [filterGroup, tableSearch]);
+  }, [cheatsheetData, filterGroup, tableSearch]);
 
   return (
     <div className="table-card-wrapper">
       <div className="table-header-bar">
-        <div className="table-title">
-          <Layers style={{ color: '#0284c7' }} size={22} />
-          <span>Strategy Decision Matrix</span>
+        <div>
+          <div className="table-title">
+            <Layers style={{ color: '#0284c7' }} size={22} />
+            <span>Strategy Decision Matrix</span>
+          </div>
+          <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Sparkles size={13} style={{ color: '#ec4899' }} />
+            <span>UOB Lady&apos;s Card Active Category: <strong>{categoryInfo.name} {categoryInfo.emoji}</strong></span>
+          </div>
         </div>
 
         <div className="table-filter-controls">
@@ -71,7 +78,7 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
               className={`chip-btn ${filterGroup === 'all' ? 'active' : ''}`}
               onClick={() => setFilterGroup('all')}
             >
-              All ({CHEATSHEET_DATA.length})
+              All ({cheatsheetData.length})
             </button>
             <button
               className={`chip-btn ${filterGroup === 'everyday' ? 'active' : ''}`}

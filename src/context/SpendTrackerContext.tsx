@@ -48,7 +48,7 @@ const DEFAULT_ITEMS: CapTrackingItem[] = [
   },
   {
     id: 'uob-ladys',
-    name: "UOB Lady's Card (Dining)",
+    name: "UOB Lady's Card (Travel)",
     holder: 'Joint',
     cardId: 'uob-ladys',
     capAmount: 1000,

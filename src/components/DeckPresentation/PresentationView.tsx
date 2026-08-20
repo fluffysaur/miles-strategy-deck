@@ -1,36 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, ArrowRight, X, ExternalLink, ShieldCheck, AlertTriangle, Table, Wallet, Sparkles, Wand2, Heart, CreditCard, Layers, Smartphone, Bus, Utensils, Coffee, ShoppingBag, Bike, Plane, Building2, ShoppingCart, Globe } from 'lucide-react';
-import { CARDS_DATA } from '../../data/cards';
-import { CHEATSHEET_DATA } from '../../data/cheatsheet';
 import { HEYMAX_STEPS } from '../../data/heymax';
+import { useLadysCategory } from '../../context/LadysCategoryContext';
 
 interface PresentationViewProps {
   onExit: () => void;
   initialSlide?: number;
 }
 
-const SLIDE_TITLES = [
-  '1. Welcome ✨',
-  '2. Our Card Portfolio 💳',
-  '3. Citi Rewards Card 🛍️',
-  '4. Citi PremierMiles Card ✈️',
-  '5. UOB Preferred Visa 📱',
-  "6. UOB Lady's Card 🍽️",
-  '7. KrisFlyer UOB Card 🛫',
-  '8. HSBC Revolution Card 🏨',
-  '9. SC Journey Card 🗺️',
-  '10. HeyMax 🪄',
-  '11. Cheatsheet 📊'
-];
-
 export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, initialSlide = 0 }) => {
+  const { cardsData, cheatsheetData, categoryInfo } = useLadysCategory();
   const [currentSlide, setCurrentSlide] = useState<number>(initialSlide);
   const [cheatsheetFilter, setCheatsheetFilter] = useState<string>('all');
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const isTouchingScrollable = useRef<boolean>(false);
 
-  const totalSlides = SLIDE_TITLES.length;
+  const slideTitles = [
+    '1. Welcome ✨',
+    '2. Our Card Portfolio 💳',
+    '3. Citi Rewards Card 🛍️',
+    '4. Citi PremierMiles Card ✈️',
+    '5. UOB Preferred Visa 📱',
+    `6. UOB Lady's Card ${categoryInfo.emoji}`,
+    '7. KrisFlyer UOB Card 🛫',
+    '8. HSBC Revolution Card 🏨',
+    '9. SC Journey Card 🗺️',
+    '10. HeyMax 🪄',
+    '11. Cheatsheet 📊'
+  ];
+
+  const totalSlides = slideTitles.length;
 
   // Scroll to top of slide and inner scrollables when switching slides
   useEffect(() => {
@@ -51,7 +51,7 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
   };
 
   const handleCardClick = (cardId: string) => {
-    const cardIdx = CARDS_DATA.findIndex((c) => c.id === cardId);
+    const cardIdx = cardsData.findIndex((c) => c.id === cardId);
     if (cardIdx !== -1) {
       setCurrentSlide(cardIdx + 2);
     }
@@ -183,7 +183,7 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
           </div>
 
           <div className="portfolio-grid deck-scrollable">
-            {CARDS_DATA.map((card, idx) => (
+            {cardsData.map((card, idx) => (
               <div
                 key={card.id}
                 onClick={() => setCurrentSlide(idx + 2)}
@@ -242,7 +242,7 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
 
     // Slides 3 to 9: Specific Cards
     if (currentSlide >= 2 && currentSlide <= 8) {
-      const card = CARDS_DATA[currentSlide - 2];
+      const card = cardsData[currentSlide - 2];
       return (
         <div className="slide" id={`slide-${currentSlide + 1}`} key={currentSlide}>
           <div className="slide-header">
@@ -390,7 +390,7 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
 
     // Slide 11: Compact Strategy Cheatsheet Matrix
     if (currentSlide === 10) {
-      const filteredCheatsheet = CHEATSHEET_DATA.filter((r) => {
+      const filteredCheatsheet = cheatsheetData.filter((r) => {
         if (cheatsheetFilter === 'all') return true;
         return r.categoryGroup === cheatsheetFilter;
       });
@@ -532,7 +532,7 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
 
         <div className="slide-indicator-wrap">
           <div className="slide-dots">
-            {SLIDE_TITLES.map((title, idx) => (
+            {slideTitles.map((title, idx) => (
               <div key={idx} className="slide-dot-wrap">
                 <button
                   className={`slide-dot ${currentSlide === idx ? 'active' : ''}`}
