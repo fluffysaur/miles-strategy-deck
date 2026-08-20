@@ -12,6 +12,16 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
     notes: 'Online transaction earns 4.0 MPD (10X Points) with fine $1 rounding.'
   },
   {
+    name: 'Foodpanda / Pandamart',
+    category: 'Food Delivery & Online Groceries',
+    bestCard: 'Citi Rewards',
+    cardId: 'citi-rewards',
+    backupCard: "UOB PPV / UOB Lady's",
+    mpd: 4.0,
+    paymentMethod: 'In-App Card Payment',
+    notes: 'Online food and Pandamart orders earn 4.0 MPD with fine $1 rounding on Citi Rewards.'
+  },
+  {
     name: 'Shopee / ShopeePay',
     category: 'Online Shopping',
     bestCard: 'Citi Rewards',
@@ -64,8 +74,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'Cold Storage / CS Fresh / Jason’s Deli',
     category: 'Supermarket (SMART$ Warning)',
-    bestCard: 'Citi Rewards (via Amaze / Online) / Citi PM',
+    bestCard: 'Citi PM / SC Journey',
     cardId: 'citi-premiermiles',
+    bestCards: [
+      { name: 'Citi PM', cardId: 'citi-premiermiles' },
+      { name: 'SC Journey', cardId: 'sc-journey' }
+    ],
     backupCard: 'SC Journey',
     mpd: 1.2,
     paymentMethod: 'Physical Card / Apple Pay',
@@ -75,8 +89,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'Giant Supermarket',
     category: 'Supermarket (SMART$ Warning)',
-    bestCard: 'Citi PremierMiles',
+    bestCard: 'Citi PM / SC Journey',
     cardId: 'citi-premiermiles',
+    bestCards: [
+      { name: 'Citi PM', cardId: 'citi-premiermiles' },
+      { name: 'SC Journey', cardId: 'sc-journey' }
+    ],
     backupCard: 'SC Journey',
     mpd: 1.2,
     paymentMethod: 'Card Payment',
@@ -88,6 +106,10 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
     category: 'Health & Beauty (SMART$ Warning)',
     bestCard: 'Citi Rewards / Citi PM',
     cardId: 'citi-rewards',
+    bestCards: [
+      { name: 'Citi Rewards', cardId: 'citi-rewards' },
+      { name: 'Citi PM', cardId: 'citi-premiermiles' }
+    ],
     backupCard: 'Citi PM',
     mpd: 1.2,
     paymentMethod: 'Card Payment',
@@ -137,8 +159,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'Other Airlines (Cathay, ANA, Qatar, Emirates, EVA)',
     category: 'Airlines',
-    bestCard: 'HSBC Revo',
+    bestCard: 'HSBC Revo / SC Journey',
     cardId: 'hsbc-revolution',
+    bestCards: [
+      { name: 'HSBC Revo', cardId: 'hsbc-revolution' },
+      { name: 'SC Journey', cardId: 'sc-journey' }
+    ],
     backupCard: 'SC Journey (3.0 MPD FCY)',
     mpd: 4.0,
     paymentMethod: 'Online Booking',
@@ -159,6 +185,10 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
     category: 'Travel & Attractions',
     bestCard: 'Citi Rewards / HSBC Revo',
     cardId: 'citi-rewards',
+    bestCards: [
+      { name: 'Citi Rewards', cardId: 'citi-rewards' },
+      { name: 'HSBC Revo', cardId: 'hsbc-revolution' }
+    ],
     backupCard: 'HSBC Revolution',
     mpd: 4.0,
     paymentMethod: 'Online Checkout',
@@ -167,8 +197,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'Restaurants, Cafes & Fine Dining',
     category: 'Dining',
-    bestCard: "UOB Lady's Card",
+    bestCard: "UOB Lady's / UOB PPV",
     cardId: 'uob-ladys',
+    bestCards: [
+      { name: "UOB Lady's", cardId: 'uob-ladys' },
+      { name: 'UOB PPV', cardId: 'uob-preferred-platinum-visa' }
+    ],
     backupCard: 'UOB PPV (if mobile tap available)',
     mpd: 4.0,
     paymentMethod: 'Physical Card or Apple Pay',
@@ -177,8 +211,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'Starbucks / Coffee Bean / Toast Box',
     category: 'Cafes & Beverage',
-    bestCard: 'UOB PPV',
+    bestCard: "UOB PPV / UOB Lady's",
     cardId: 'uob-preferred-platinum-visa',
+    bestCards: [
+      { name: 'UOB PPV', cardId: 'uob-preferred-platinum-visa' },
+      { name: "UOB Lady's", cardId: 'uob-ladys' }
+    ],
     backupCard: "UOB Lady's",
     mpd: 4.0,
     paymentMethod: 'Apple Pay / Google Pay',
@@ -187,8 +225,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'McDonald\'s / KFC / Subway / Fast Food',
     category: 'Fast Food',
-    bestCard: 'UOB PPV',
+    bestCard: 'UOB PPV / Citi Rewards',
     cardId: 'uob-preferred-platinum-visa',
+    bestCards: [
+      { name: 'UOB PPV', cardId: 'uob-preferred-platinum-visa' },
+      { name: 'Citi Rewards', cardId: 'citi-rewards' }
+    ],
     backupCard: 'Citi Rewards (if mobile app order)',
     mpd: 4.0,
     paymentMethod: 'Apple Pay / In-App Ordering',
@@ -207,8 +249,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'Overseas In-Person Spend (Japan, Europe, USA, etc.)',
     category: 'Foreign Currency Travel',
-    bestCard: 'Citi Rewards + Instarem Amaze',
+    bestCard: 'Citi Rewards (Amaze) / SC Journey',
     cardId: 'citi-rewards',
+    bestCards: [
+      { name: 'Citi Rewards (Amaze)', cardId: 'citi-rewards' },
+      { name: 'SC Journey', cardId: 'sc-journey' }
+    ],
     backupCard: 'SC Journey (3.0 MPD direct)',
     mpd: 4.0,
     paymentMethod: 'Amaze Physical Card / Amaze Apple Pay',
@@ -227,8 +273,12 @@ export const MERCHANTS_DATA: MerchantLookup[] = [
   {
     name: 'Shell / Esso / SPC Petrol',
     category: 'Petrol & Fuel (Watch SMART$)',
-    bestCard: 'Citi PremierMiles / SC Journey',
+    bestCard: 'Citi PM / SC Journey',
     cardId: 'citi-premiermiles',
+    bestCards: [
+      { name: 'Citi PM', cardId: 'citi-premiermiles' },
+      { name: 'SC Journey', cardId: 'sc-journey' }
+    ],
     backupCard: 'SC Journey',
     mpd: 1.2,
     paymentMethod: 'Card Payment',

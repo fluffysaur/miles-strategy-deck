@@ -1,8 +1,10 @@
-import React from 'react';
-import { Wand2, CheckCircle2, Zap, ExternalLink, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Wand2, CheckCircle2, Zap, ExternalLink, Sparkles, ZoomIn, X, Gift, CreditCard, Layers } from 'lucide-react';
 import { HEYMAX_STEPS, HEYMAX_KEY_PARTNERS } from '../data/heymax';
 
 export const HeyMaxGuide: React.FC = () => {
+  const [zoomImage, setZoomImage] = useState<{ src: string; title: string } | null>(null);
+
   return (
     <div className="heymax-page-container">
       {/* Hero Banner */}
@@ -13,8 +15,8 @@ export const HeyMaxGuide: React.FC = () => {
               <Wand2 size={24} />
             </div>
             <div>
-              <h2 className="heymax-hero-title">HeyMax Max Miles Optimization</h2>
-              <div className="heymax-hero-subtitle">Triple-dip rewards on every online purchase</div>
+              <h2 className="heymax-hero-title">HeyMax Stacking Guide</h2>
+              <div className="heymax-hero-subtitle">Triple-dip miles rewards on every online purchase</div>
             </div>
           </div>
 
@@ -29,9 +31,21 @@ export const HeyMaxGuide: React.FC = () => {
             <ExternalLink size={14} />
           </a>
         </div>
-        <p className="heymax-hero-desc">
-          Stack <strong>Max Miles</strong> on top of your 4.0 MPD credit card rewards without spending an extra cent. Convert Max Miles 1:1 to 25+ airline programs with <strong>0 conversion fees</strong>.
-        </p>
+
+        <div className="heymax-stats-row">
+          <div className="heymax-stat-pill">
+            <Gift size={14} style={{ color: '#38bdf8' }} />
+            <span><strong>+1.0 to 10.0</strong> Max Miles / $1</span>
+          </div>
+          <div className="heymax-stat-pill">
+            <CreditCard size={14} style={{ color: '#4ade80' }} />
+            <span><strong>4.0 MPD</strong> Card Rewards Stacked</span>
+          </div>
+          <div className="heymax-stat-pill">
+            <Layers size={14} style={{ color: '#f472b6' }} />
+            <span><strong>25+ Airlines</strong> (1:1 &amp; S$0 Fee)</span>
+          </div>
+        </div>
       </div>
 
       {/* 3-Step Flow Cards */}
@@ -40,11 +54,12 @@ export const HeyMaxGuide: React.FC = () => {
           <div key={step.step} className="heymax-step-card">
             <div className="heymax-step-content">
               <div className="heymax-step-badge-row">
-                <span className="badge-mpd" style={{ background: '#0284c7', fontSize: '0.75rem', padding: '3px 10px' }}>
+                <span className="badge-step-number">
                   STEP {step.step}
                 </span>
-                <h3 className="heymax-step-title">{step.title}</h3>
+                <h3 className="heymax-step-title">{step.title.replace(/^Step \d+:\s*/i, '')}</h3>
               </div>
+
               <p className="heymax-step-description">{step.description}</p>
 
               <div className="heymax-step-tips">
@@ -57,7 +72,11 @@ export const HeyMaxGuide: React.FC = () => {
               </div>
             </div>
 
-            <div className="heymax-step-img-box">
+            <div
+              className="heymax-step-img-box"
+              onClick={() => setZoomImage({ src: step.image, title: step.title })}
+              title="Click to view full image"
+            >
               <img
                 src={step.image}
                 alt={step.title}
@@ -66,6 +85,10 @@ export const HeyMaxGuide: React.FC = () => {
                   (e.target as HTMLElement).style.display = 'none';
                 }}
               />
+              <div className="heymax-img-zoom-hint">
+                <ZoomIn size={14} />
+                <span>Tap to enlarge</span>
+              </div>
             </div>
           </div>
         ))}
@@ -73,19 +96,19 @@ export const HeyMaxGuide: React.FC = () => {
 
       {/* Transfer Partners Grid */}
       <div className="heymax-partners-wrapper">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
-          <h3 className="heymax-partners-title" style={{ margin: 0 }}>
+        <div className="heymax-partners-header">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Zap size={20} style={{ color: '#f59e0b', flexShrink: 0 }} />
-            <span>Direct 1:1 Airline &amp; Hotel Partners (0 Fee)</span>
-          </h3>
+            <h3 className="heymax-partners-title">1:1 Transfer Partners (0 Conversion Fees)</h3>
+          </div>
 
           <a
             href="https://heymax.ai"
             target="_blank"
             rel="noreferrer"
-            style={{ fontSize: '0.82rem', color: '#0284c7', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+            className="heymax-partner-link"
           >
-            Visit heymax.ai <ExternalLink size={14} />
+            Explore all 25+ partners <ExternalLink size={13} />
           </a>
         </div>
 
@@ -93,11 +116,29 @@ export const HeyMaxGuide: React.FC = () => {
           {HEYMAX_KEY_PARTNERS.map((partner, idx) => (
             <div key={idx} className="heymax-partner-item">
               <span className="heymax-partner-name">{partner.name}</span>
-              <span className="tag tag-green">{partner.ratio}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span className="tag tag-green">{partner.ratio}</span>
+                <span className="tag tag-slate" style={{ fontSize: '0.68rem' }}>{partner.fee}</span>
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Image Lightbox Modal */}
+      {zoomImage && (
+        <div className="heymax-lightbox-overlay" onClick={() => setZoomImage(null)}>
+          <div className="heymax-lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <div className="heymax-lightbox-header">
+              <span style={{ fontWeight: 700, fontSize: '0.95rem', color: '#0f172a' }}>{zoomImage.title}</span>
+              <button className="heymax-lightbox-close" onClick={() => setZoomImage(null)}>
+                <X size={18} />
+              </button>
+            </div>
+            <img src={zoomImage.src} alt={zoomImage.title} className="heymax-lightbox-img" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

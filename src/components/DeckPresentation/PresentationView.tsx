@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowLeft, ArrowRight, X, ExternalLink, ShieldCheck, AlertTriangle, Table, Wallet, Sparkles, Wand2, Heart, CreditCard, Layers } from 'lucide-react';
+import { ArrowLeft, ArrowRight, X, ExternalLink, ShieldCheck, AlertTriangle, Table, Wallet, Sparkles, Wand2, Heart, CreditCard, Layers, Smartphone, Bus, Utensils, Coffee, ShoppingBag, Bike, Plane, Building2, ShoppingCart, Globe } from 'lucide-react';
 import { CARDS_DATA } from '../../data/cards';
 import { CHEATSHEET_DATA } from '../../data/cheatsheet';
 import { HEYMAX_STEPS } from '../../data/heymax';
@@ -19,15 +19,28 @@ const SLIDE_TITLES = [
   '7. KrisFlyer UOB Card 🛫',
   '8. HSBC Revolution Card 🏨',
   '9. SC Journey Card 🗺️',
-  '10. HeyMax Guide 🪄',
-  '11. Strategy Cheatsheet 📊'
+  '10. HeyMax 🪄',
+  '11. Cheatsheet 📊'
 ];
 
 export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, initialSlide = 0 }) => {
   const [currentSlide, setCurrentSlide] = useState<number>(initialSlide);
+  const [cheatsheetFilter, setCheatsheetFilter] = useState<string>('all');
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const isTouchingScrollable = useRef<boolean>(false);
 
   const totalSlides = SLIDE_TITLES.length;
+
+  // Scroll to top of slide and inner scrollables when switching slides
+  useEffect(() => {
+    const slideContainer = document.querySelector('.presentation-container');
+    if (slideContainer) slideContainer.scrollTop = 0;
+    const activeSlide = document.querySelector('.slide');
+    if (activeSlide) activeSlide.scrollTop = 0;
+    const scrollables = document.querySelectorAll('.deck-scrollable, .portfolio-grid, .deck-matrix-grid, .deck-heymax-grid, .content-grid');
+    scrollables.forEach((el) => { el.scrollTop = 0; });
+  }, [currentSlide]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => Math.min(totalSlides - 1, prev + 1));
@@ -35,6 +48,32 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
 
   const prevSlide = () => {
     setCurrentSlide((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleCardClick = (cardId: string) => {
+    const cardIdx = CARDS_DATA.findIndex((c) => c.id === cardId);
+    if (cardIdx !== -1) {
+      setCurrentSlide(cardIdx + 2);
+    }
+  };
+
+  const renderIcon = (iconName: string, color: string) => {
+    const props = { size: 16, color };
+    switch (iconName) {
+      case 'Smartphone': return <Smartphone {...props} />;
+      case 'Bus': return <Bus {...props} />;
+      case 'Utensils': return <Utensils {...props} />;
+      case 'Coffee': return <Coffee {...props} />;
+      case 'ShoppingBag': return <ShoppingBag {...props} />;
+      case 'Bike': return <Bike {...props} />;
+      case 'Plane': return <Plane {...props} />;
+      case 'Building2': return <Building2 {...props} />;
+      case 'ShoppingCart': return <ShoppingCart {...props} />;
+      case 'CreditCard': return <CreditCard {...props} />;
+      case 'Globe': return <Globe {...props} />;
+      case 'AlertTriangle': return <AlertTriangle {...props} />;
+      default: return <CreditCard {...props} />;
+    }
   };
 
   // Keyboard navigation
@@ -57,26 +96,35 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Touch Swipe handlers
+  // Touch Swipe handlers with scroll collision avoidance
   const handleTouchStart = (e: React.TouchEvent) => {
+    const target = e.target as HTMLElement;
+    isTouchingScrollable.current = !!target.closest('.deck-scrollable, table, .app-table, .deck-cheatsheet-scroll');
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) nextSlide();
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+
+    // Only swipe if NOT inside a scrollable element and horizontal motion dominates
+    if (!isTouchingScrollable.current && Math.abs(diffX) > 60 && Math.abs(diffX) > 2.2 * Math.abs(diffY)) {
+      if (diffX > 0) nextSlide();
       else prevSlide();
     }
+
     touchStartX.current = null;
+    touchStartY.current = null;
+    isTouchingScrollable.current = false;
   };
 
   const renderSlideContent = () => {
     // Slide 1: Welcome
     if (currentSlide === 0) {
       return (
-        <div className="slide title-slide" id="slide-1">
+        <div className="slide title-slide" id="slide-1" key={currentSlide}>
           <div className="title-mascot-wrap">
             <img
               src="/images/bobo-bubba-cover.jpg"
@@ -135,18 +183,15 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
     // Slide 2: Card Portfolio Overview
     if (currentSlide === 1) {
       return (
-        <div className="slide" id="slide-2">
+        <div className="slide" id="slide-2" key={currentSlide}>
           <div className="slide-header">
             <div className="slide-title-wrap">
               <h2><Wallet style={{ color: '#0284c7' }} /> Our Card Portfolio</h2>
               <p>The 7 key credit cards powering our couple miles engine</p>
             </div>
-            <button className="chip-btn" onClick={() => setCurrentSlide(10)} style={{ color: '#0284c7', fontWeight: 700 }}>
-              <Table size={16} /> Cheatsheet Matrix
-            </button>
           </div>
 
-          <div className="portfolio-grid">
+          <div className="portfolio-grid deck-scrollable">
             {CARDS_DATA.map((card, idx) => (
               <div
                 key={card.id}
@@ -159,12 +204,16 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
                   className="port-card-img"
                   onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/200x120?text=' + encodeURIComponent(card.shortName); }}
                 />
-                <h4>
-                  <span>{card.shortName}</span>
-                  <ArrowRight size={14} style={{ color: '#94a3b8' }} />
-                </h4>
-                <p>{card.tagline.slice(0, 48)}...</p>
-                <span className="rate-tag">{card.mpdNumeric >= 4 ? '4.0 MPD' : `${card.mpdNumeric} MPD`}</span>
+                <div className="port-card-info">
+                  <div className="port-card-title-row">
+                    <h4 className="port-card-name">{card.name}</h4>
+                    <span className="rate-tag">{card.mpdNumeric >= 4 ? '4.0 MPD' : `${card.mpdNumeric.toFixed(1)} MPD`}</span>
+                  </div>
+                  <p className="port-card-desc">{card.tagline}</p>
+                </div>
+                <div className="port-card-arrow">
+                  <ArrowRight size={15} />
+                </div>
               </div>
             ))}
           </div>
@@ -172,27 +221,27 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
           <div className="portfolio-bottom-links">
             <div className="port-feature-link" onClick={() => setCurrentSlide(9)}>
               <div className="port-feature-icon" style={{ background: '#e0e7ff', color: '#4338ca' }}>
-                <Wand2 size={20} />
+                <Wand2 size={18} />
               </div>
               <div className="port-feature-text">
                 <h4>
-                  <span>HeyMax Stacking Guide</span>
+                  <span>HeyMax</span>
                   <ArrowRight size={14} />
                 </h4>
-                <p>Triple-dip miles rewards on every online purchase</p>
+                <p className="port-feature-desc">Triple-dip miles rewards on every online purchase</p>
               </div>
             </div>
 
             <div className="port-feature-link" onClick={() => setCurrentSlide(10)}>
               <div className="port-feature-icon" style={{ background: '#e0f2fe', color: '#0284c7' }}>
-                <Layers size={20} />
+                <Layers size={18} />
               </div>
               <div className="port-feature-text">
                 <h4>
-                  <span>Full Strategy Cheatsheet</span>
+                  <span>Cheatsheet</span>
                   <ArrowRight size={14} />
                 </h4>
-                <p>Complete category-by-category decision matrix</p>
+                <p className="port-feature-desc">Complete category-by-category decision matrix</p>
               </div>
             </div>
           </div>
@@ -204,7 +253,7 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
     if (currentSlide >= 2 && currentSlide <= 8) {
       const card = CARDS_DATA[currentSlide - 2];
       return (
-        <div className="slide" id={`slide-${currentSlide + 1}`}>
+        <div className="slide" id={`slide-${currentSlide + 1}`} key={currentSlide}>
           <div className="slide-header">
             <div className="slide-title-wrap">
               <button
@@ -300,7 +349,7 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
     // Slide 10: HeyMax Optimization Guide
     if (currentSlide === 9) {
       return (
-        <div className="slide" id="slide-10">
+        <div className="slide" id="slide-10" key={currentSlide}>
           <div className="slide-header">
             <div className="slide-title-wrap">
               <button
@@ -309,8 +358,8 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
               >
                 <ArrowLeft size={14} /> Back to Portfolio
               </button>
-              <h2><Wand2 style={{ color: '#0284c7' }} /> HeyMax Optimization Guide</h2>
-              <p>Triple-dip miles rewards on every single online purchase</p>
+              <h2><Wand2 style={{ color: '#0284c7' }} /> HeyMax</h2>
+              <p>Triple-dip rewards: 4.0 MPD Card + Max Miles + Merchant Vouchers</p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <a
@@ -325,20 +374,22 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
             </div>
           </div>
 
-          <div className="heymax-steps-grid">
+          <div className="deck-heymax-grid deck-scrollable">
             {HEYMAX_STEPS.map((s) => (
-              <div key={s.step} className="heymax-step-card">
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <span className="tag tag-blue" style={{ fontSize: '0.74rem' }}>Step {s.step}</span>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#4338ca' }}>{s.title}</span>
+              <div key={s.step} className="deck-heymax-card">
+                <div className="deck-heymax-card-top">
+                  <span className="tag tag-blue" style={{ fontSize: '0.72rem', padding: '2px 8px' }}>Step {s.step}</span>
+                  <span className="deck-heymax-card-title">{s.title.replace(/^Step \d+:\s*/i, '')}</span>
                 </div>
-                <img
-                  src={s.image}
-                  alt={s.title}
-                  className="heymax-step-img"
-                  onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
-                />
-                <p style={{ fontSize: '0.76rem', color: '#475569', lineHeight: 1.35, marginTop: '6px' }}>{s.description}</p>
+                <div className="deck-heymax-img-wrap">
+                  <img
+                    src={s.image}
+                    alt={s.title}
+                    className="deck-heymax-img"
+                    onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
+                  />
+                </div>
+                <p className="deck-heymax-desc">{s.description}</p>
               </div>
             ))}
           </div>
@@ -346,11 +397,16 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
       );
     }
 
-    // Slide 11: Cheatsheet Table
+    // Slide 11: Compact Strategy Cheatsheet Matrix
     if (currentSlide === 10) {
+      const filteredCheatsheet = CHEATSHEET_DATA.filter((r) => {
+        if (cheatsheetFilter === 'all') return true;
+        return r.categoryGroup === cheatsheetFilter;
+      });
+
       return (
-        <div className="slide" id="slide-11">
-          <div className="slide-header">
+        <div className="slide" id="slide-11" key={currentSlide}>
+          <div className="slide-header" style={{ marginBottom: '10px', paddingBottom: '8px' }}>
             <div className="slide-title-wrap">
               <button
                 className="back-portfolio-btn"
@@ -358,47 +414,99 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
               >
                 <ArrowLeft size={14} /> Back to Portfolio
               </button>
-              <h2><Table style={{ color: '#0284c7' }} /> Strategy Cheatsheet</h2>
-              <p>Quick decision matrix for everyday couples spending</p>
+              <h2><Table style={{ color: '#0284c7' }} /> Cheatsheet</h2>
+            </div>
+            <div className="matrix-chips-scroll" style={{ padding: 0 }}>
+              <button
+                className={`chip-btn ${cheatsheetFilter === 'all' ? 'active' : ''}`}
+                onClick={() => setCheatsheetFilter('all')}
+                style={{ fontSize: '0.72rem', padding: '4px 10px' }}
+              >
+                All
+              </button>
+              <button
+                className={`chip-btn ${cheatsheetFilter === 'everyday' ? 'active' : ''}`}
+                onClick={() => setCheatsheetFilter('everyday')}
+                style={{ fontSize: '0.72rem', padding: '4px 10px' }}
+              >
+                📱 Everyday
+              </button>
+              <button
+                className={`chip-btn ${cheatsheetFilter === 'dining' ? 'active' : ''}`}
+                onClick={() => setCheatsheetFilter('dining')}
+                style={{ fontSize: '0.72rem', padding: '4px 10px' }}
+              >
+                🍽️ Dining
+              </button>
+              <button
+                className={`chip-btn ${cheatsheetFilter === 'online' ? 'active' : ''}`}
+                onClick={() => setCheatsheetFilter('online')}
+                style={{ fontSize: '0.72rem', padding: '4px 10px' }}
+              >
+                🛍️ Online
+              </button>
+              <button
+                className={`chip-btn ${cheatsheetFilter === 'travel' ? 'active' : ''}`}
+                onClick={() => setCheatsheetFilter('travel')}
+                style={{ fontSize: '0.72rem', padding: '4px 10px' }}
+              >
+                ✈️ Travel
+              </button>
             </div>
           </div>
 
-          <div style={{ maxHeight: '380px', overflowY: 'auto', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <table className="app-table">
-              <thead>
-                <tr>
-                  <th>Spend Category</th>
-                  <th>Primary Card</th>
-                  <th style={{ textAlign: 'center' }}>MPD</th>
-                  <th style={{ textAlign: 'center' }}>Monthly Cap</th>
-                  <th style={{ textAlign: 'center' }}>Rounding</th>
-                  <th>Strategy &amp; Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {CHEATSHEET_DATA.map((row, idx) => (
-                  <tr key={idx}>
-                    <td style={{ fontWeight: 700 }}>{row.category}</td>
-                    <td style={{ fontWeight: 700, color: '#0284c7' }}>
+          {/* Clean Card-Based Decision Matrix */}
+          <div
+            className="deck-scrollable deck-cheatsheet-scroll"
+            onTouchStart={(e) => e.stopPropagation()}
+          >
+            <div className="deck-matrix-grid">
+              {filteredCheatsheet.map((row, idx) => (
+                <div key={idx} className="deck-matrix-card">
+                  <div className="deck-matrix-card-header">
+                    <div className="deck-matrix-card-cat">
+                      <div className="td-icon-box" style={{ background: `${row.iconColor}15`, width: '28px', height: '28px', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        {renderIcon(row.icon, row.iconColor)}
+                      </div>
+                      <span className="deck-matrix-card-title">{row.category}</span>
+                    </div>
+                    <span className={`tag ${row.mpd >= 4.0 ? 'tag-green' : row.mpd >= 3.0 ? 'tag-blue' : 'tag-slate'}`} style={{ fontSize: '0.72rem', padding: '2px 8px' }}>
+                      {row.mpd.toFixed(1)} MPD
+                    </span>
+                  </div>
+
+                  <div className="deck-matrix-card-footer">
+                    <div className="deck-matrix-cards-wrap">
+                      <span className="deck-matrix-lbl">Best:</span>
                       {row.primaryCards && row.primaryCards.length > 0 ? (
                         row.primaryCards.map((c, cIdx) => (
-                          <span key={cIdx}>
-                            {cIdx > 0 && ' / '}
+                          <button
+                            key={cIdx}
+                            className="deck-card-pill-btn"
+                            onClick={() => handleCardClick(c.cardId)}
+                            title={`Jump to ${c.name} slide`}
+                          >
                             {c.name}
-                          </span>
+                          </button>
                         ))
                       ) : (
-                        row.primaryCard
+                        <button
+                          className="deck-card-pill-btn"
+                          onClick={() => handleCardClick(row.cardId)}
+                          title={`Jump to ${row.primaryCard} slide`}
+                        >
+                          {row.primaryCard}
+                        </button>
                       )}
-                    </td>
-                    <td style={{ textAlign: 'center' }}><span className="tag tag-green">{row.mpd.toFixed(1)}</span></td>
-                    <td style={{ textAlign: 'center' }}><span className="tag tag-slate">{row.monthlyCap}</span></td>
-                    <td style={{ textAlign: 'center' }}><span className={`tag ${row.rounding.includes('$5') ? 'tag-amber' : 'tag-green'}`}>{row.rounding}</span></td>
-                    <td style={{ fontSize: '0.8rem', color: '#475569' }}>{row.strategyNotes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+
+                    <div className="deck-matrix-cap-wrap">
+                      <span className="deck-matrix-cap-text">{row.monthlyCap}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       );
@@ -411,12 +519,11 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
     <div className="deck-view-container" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
       <div className="deck-topbar">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#38bdf8' }}>PRESENTATION MODE</span>
-          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>(Use ← → Arrow Keys or Swipe)</span>
+          <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#38bdf8' }}>DECK MODE</span>
         </div>
 
         <button className="exit-deck-btn" onClick={onExit}>
-          <X size={16} /> Exit Deck Mode
+          <X size={16} /> Exit Deck
         </button>
       </div>
 

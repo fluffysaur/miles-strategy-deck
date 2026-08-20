@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Search, X, Sparkles, AlertTriangle, ArrowRight, ShieldAlert, CreditCard, CheckCircle2 } from 'lucide-react';
+import { Search, X, AlertTriangle } from 'lucide-react';
 import { MERCHANTS_DATA } from '../data/merchants';
-import { CARDS_DATA } from '../data/cards';
+import { CardBadge } from './CardBadge';
 import { CardId } from '../types';
 
 interface CardFinderProps {
@@ -41,56 +41,13 @@ export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
 
   return (
     <section className="hero-finder-section">
-      {/* Quick Summary Ribbon */}
-      <div className="summary-ribbon">
-        <div className="ribbon-stat-card">
-          <div className="stat-icon-wrap" style={{ background: '#e0f2fe', color: '#0284c7' }}>
-            <Sparkles size={24} />
-          </div>
-          <div className="stat-info">
-            <span className="stat-label">Max Earn Rate</span>
-            <span className="stat-value" style={{ color: '#0284c7' }}>4.0 MPD</span>
-          </div>
-        </div>
-
-        <div className="ribbon-stat-card">
-          <div className="stat-icon-wrap" style={{ background: '#dcfce7', color: '#15803d' }}>
-            <CreditCard size={24} />
-          </div>
-          <div className="stat-info">
-            <span className="stat-label">Couple Card Rack</span>
-            <span className="stat-value">{CARDS_DATA.length} Power Cards</span>
-          </div>
-        </div>
-
-        <div className="ribbon-stat-card">
-          <div className="stat-icon-wrap" style={{ background: '#fef3c7', color: '#b45309' }}>
-            <CheckCircle2 size={24} />
-          </div>
-          <div className="stat-info">
-            <span className="stat-label">Contactless Cap</span>
-            <span className="stat-value">S$1,200/mo (Dual)</span>
-          </div>
-        </div>
-
-        <div className="ribbon-stat-card">
-          <div className="stat-icon-wrap" style={{ background: '#fee2e2', color: '#b91c1c' }}>
-            <ShieldAlert size={24} />
-          </div>
-          <div className="stat-info">
-            <span className="stat-label">SMART$ Stores</span>
-            <span className="stat-value" style={{ color: '#b91c1c' }}>Avoid UOB</span>
-          </div>
-        </div>
-      </div>
-
       {/* Big Search Bar */}
       <div className="search-box-wrapper">
         <Search className="search-input-icon" size={22} />
         <input
           type="text"
           className="search-input"
-          placeholder="Where are you spending? (e.g., Grab, Shopee, Uniqlo, Agoda, FairPrice, SimplyGo...)"
+          placeholder="Where are you spending? (e.g., Grab, Foodpanda, Shopee, Uniqlo...)"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -101,7 +58,7 @@ export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
         )}
       </div>
 
-      {/* Filter Chips */}
+      {/* Filter Chips with Spaced Emojis */}
       <div className="quick-chips-wrapper">
         <button
           className={`chip-btn ${selectedFilter === 'all' ? 'active' : ''}`}
@@ -113,32 +70,37 @@ export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
           className={`chip-btn ${selectedFilter === 'online' ? 'active' : ''}`}
           onClick={() => setSelectedFilter('online')}
         >
-          🛍️ Online Shopping
+          <span className="chip-emoji">🛍️</span>
+          <span>Online Shopping</span>
         </button>
         <button
           className={`chip-btn ${selectedFilter === 'dining' ? 'active' : ''}`}
           onClick={() => setSelectedFilter('dining')}
         >
-          🍽️ Dining &amp; Cafes
+          <span className="chip-emoji">🍽️</span>
+          <span>Dining &amp; Cafes</span>
         </button>
         <button
           className={`chip-btn ${selectedFilter === 'transport' ? 'active' : ''}`}
           onClick={() => setSelectedFilter('transport')}
         >
-          ✈️ Transport &amp; Travel
+          <span className="chip-emoji">✈️</span>
+          <span>Transport &amp; Travel</span>
         </button>
         <button
           className={`chip-btn ${selectedFilter === 'groceries' ? 'active' : ''}`}
           onClick={() => setSelectedFilter('groceries')}
         >
-          🛒 Groceries
+          <span className="chip-emoji">🛒</span>
+          <span>Groceries</span>
         </button>
         <button
           className={`chip-btn ${selectedFilter === 'smart' ? 'active' : ''}`}
           onClick={() => setSelectedFilter('smart')}
           style={{ borderColor: '#fca5a5' }}
         >
-          ⚠️ SMART$ Warnings
+          <span className="chip-emoji">⚠️</span>
+          <span>SMART$ Warnings</span>
         </button>
       </div>
 
@@ -158,17 +120,27 @@ export const CardFinder: React.FC<CardFinderProps> = ({ onSelectCard }) => {
               </div>
 
               <div className="merchant-rec">
-                <div>
-                  <div className="rec-badge">Best Card to Use</div>
-                  <div className="rec-card-name">{merchant.bestCard}</div>
+                <div style={{ width: '100%' }}>
+                  <div className="rec-badge">Best Card(s) to Use</div>
+                  <div style={{ marginTop: '4px', display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
+                    {merchant.bestCards && merchant.bestCards.length > 0 ? (
+                      merchant.bestCards.map((c, cIdx) => (
+                        <CardBadge
+                          key={cIdx}
+                          cardId={c.cardId}
+                          cardName={c.name}
+                          onClick={() => onSelectCard(c.cardId)}
+                        />
+                      ))
+                    ) : (
+                      <CardBadge
+                        cardId={merchant.cardId}
+                        cardName={merchant.bestCard}
+                        onClick={() => onSelectCard(merchant.cardId)}
+                      />
+                    )}
+                  </div>
                 </div>
-                <button
-                  onClick={() => onSelectCard(merchant.cardId)}
-                  style={{ marginLeft: 'auto', color: '#0284c7', display: 'flex', alignItems: 'center' }}
-                  title="View Card Specs"
-                >
-                  <ArrowRight size={18} />
-                </button>
               </div>
 
               <p className="merchant-notes">{merchant.notes}</p>

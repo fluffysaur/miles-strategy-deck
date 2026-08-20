@@ -85,7 +85,7 @@ export const CHEATSHEET_DATA: CheatsheetRow[] = [
     iconColor: '#10b981',
     primaryCard: 'Citi Rewards',
     cardId: 'citi-rewards',
-    backupCard: 'UOB PPV / Lady\'s',
+    backupCard: "UOB PPV / UOB Lady's",
     backupCardId: 'uob-preferred-platinum-visa',
     mpd: 4.0,
     monthlyCap: 'S$1,000 / mo',

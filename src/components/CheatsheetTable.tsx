@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Layers, Search, AlertCircle, Smartphone, Bus, Utensils, Coffee, ShoppingBag, Bike, Plane, Building2, ShoppingCart, CreditCard, Globe, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Layers, Search, AlertCircle, Smartphone, Bus, Utensils, Coffee, ShoppingBag, Bike, Plane, Building2, ShoppingCart, CreditCard, Globe, AlertTriangle } from 'lucide-react';
 import { CHEATSHEET_DATA } from '../data/cheatsheet';
+import { CardBadge } from './CardBadge';
 import { CardId } from '../types';
 
 interface CheatsheetTableProps {
@@ -70,38 +71,43 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
               className={`chip-btn ${filterGroup === 'all' ? 'active' : ''}`}
               onClick={() => setFilterGroup('all')}
             >
-              All
+              All ({CHEATSHEET_DATA.length})
             </button>
             <button
               className={`chip-btn ${filterGroup === 'everyday' ? 'active' : ''}`}
               onClick={() => setFilterGroup('everyday')}
             >
-              📱 Everyday
+              <span className="chip-emoji">📱</span>
+              <span>Everyday</span>
             </button>
             <button
               className={`chip-btn ${filterGroup === 'dining' ? 'active' : ''}`}
               onClick={() => setFilterGroup('dining')}
             >
-              🍽️ Dining
+              <span className="chip-emoji">🍽️</span>
+              <span>Dining</span>
             </button>
             <button
               className={`chip-btn ${filterGroup === 'online' ? 'active' : ''}`}
               onClick={() => setFilterGroup('online')}
             >
-              🛍️ Online
+              <span className="chip-emoji">🛍️</span>
+              <span>Online</span>
             </button>
             <button
               className={`chip-btn ${filterGroup === 'travel' ? 'active' : ''}`}
               onClick={() => setFilterGroup('travel')}
             >
-              ✈️ Travel
+              <span className="chip-emoji">✈️</span>
+              <span>Travel</span>
             </button>
             <button
               className={`chip-btn ${filterGroup === 'exclusions' ? 'active' : ''}`}
               onClick={() => setFilterGroup('exclusions')}
               style={{ color: '#ef4444' }}
             >
-              ⚠️ SMART$
+              <span className="chip-emoji">⚠️</span>
+              <span>SMART$</span>
             </button>
           </div>
         </div>
@@ -131,22 +137,22 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
                     {row.primaryCards.map((c, cIdx) => (
                       <React.Fragment key={cIdx}>
                         {cIdx > 0 && <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>/</span>}
-                        <button
+                        <CardBadge
+                          cardId={c.cardId}
+                          cardName={c.name}
+                          size="sm"
                           onClick={() => onSelectCard(c.cardId)}
-                          className="matrix-card-link-btn"
-                        >
-                          {c.name} <ArrowRight size={14} />
-                        </button>
+                        />
                       </React.Fragment>
                     ))}
                   </div>
                 ) : (
-                  <button
+                  <CardBadge
+                    cardId={row.cardId}
+                    cardName={row.primaryCard}
+                    size="sm"
                     onClick={() => onSelectCard(row.cardId)}
-                    className="matrix-card-link-btn"
-                  >
-                    {row.primaryCard} <ArrowRight size={14} />
-                  </button>
+                  />
                 )}
               </div>
 
@@ -203,22 +209,22 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
                       {row.primaryCards.map((c, cIdx) => (
                         <React.Fragment key={cIdx}>
                           {cIdx > 0 && <span style={{ color: '#94a3b8', fontWeight: 600 }}>/</span>}
-                          <button
+                          <CardBadge
+                            cardId={c.cardId}
+                            cardName={c.name}
+                            size="sm"
                             onClick={() => onSelectCard(c.cardId)}
-                            className="matrix-table-card-btn"
-                          >
-                            {c.name}
-                          </button>
+                          />
                         </React.Fragment>
                       ))}
                     </div>
                   ) : (
-                    <button
+                    <CardBadge
+                      cardId={row.cardId}
+                      cardName={row.primaryCard}
+                      size="sm"
                       onClick={() => onSelectCard(row.cardId)}
-                      className="matrix-table-card-btn"
-                    >
-                      {row.primaryCard}
-                    </button>
+                    />
                   )}
                 </td>
                 <td style={{ textAlign: 'center' }}>

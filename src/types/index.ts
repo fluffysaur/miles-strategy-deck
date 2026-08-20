@@ -62,6 +62,7 @@ export interface MerchantLookup {
   category: string;
   bestCard: string;
   cardId: CardId;
+  bestCards?: CheatsheetCardLink[];
   backupCard?: string;
   mpd: number;
   paymentMethod: string;

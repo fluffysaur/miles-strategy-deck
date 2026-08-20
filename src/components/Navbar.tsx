@@ -24,8 +24,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onEnter
           }}
         />
         <div className="brand-text-wrap">
-          <div className="brand-title">Bobo &amp; Bubba Miles Strategy</div>
-          <div className="brand-subtitle">Couple&apos;s Miles Engine ✈️</div>
+          <div className="brand-title">
+            <span className="brand-title-full">Bobo &amp; Bubba Miles Strategy</span>
+            <span className="brand-title-mobile">Bobo &amp; Bubba Miles</span>
+          </div>
+          <div className="brand-subtitle">Couple&apos;s 4.0 MPD Engine ✈️</div>
         </div>
       </div>
 
@@ -59,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onEnter
           className={`chip-btn ${activeTab === 'heymax' ? 'active' : ''}`}
           onClick={() => setActiveTab('heymax')}
         >
-          🪄 HeyMax Stack
+          🪄 HeyMax
         </button>
       </nav>
 
@@ -68,8 +71,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onEnter
           className="mode-toggle-btn"
           onClick={onEnterDeckMode}
           title="Switch to Slide Presentation Deck"
+          aria-label="Switch to Slide Deck Mode"
         >
-          <Presentation size={16} />
+          <Presentation size={18} />
           <span className="mode-toggle-label">Deck Mode</span>
         </button>
       </div>
