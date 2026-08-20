@@ -161,21 +161,12 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
             </span>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              className="start-tour-btn"
-              onClick={nextSlide}
-            >
-              Start Strategy Tour <ArrowRight size={18} />
-            </button>
-            <button
-              className="exit-deck-btn"
-              onClick={onExit}
-              style={{ fontSize: '0.92rem', padding: '10px 22px' }}
-            >
-              Open Web App Hub
-            </button>
-          </div>
+          <button
+            className="start-tour-btn"
+            onClick={nextSlide}
+          >
+            Start Strategy Tour <ArrowRight size={18} />
+          </button>
         </div>
       );
     }
