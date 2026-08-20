@@ -34,20 +34,19 @@ export const CapTracker: React.FC = () => {
   return (
     <div className="tracker-container">
       <div className="tracker-header">
-        <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0f172a' }}>
+        <div className="tracker-header-info">
+          <h2 className="tracker-title">
             Monthly Cap Tracker
           </h2>
-          <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
+          <p className="tracker-subtitle">
             Period: <strong>{currentPeriod}</strong> • Target: Maximize 4.0 MPD without overflowing caps
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="tracker-header-actions">
           <button
-            className="chip-btn"
+            className="chip-btn tracker-celebrate-btn"
             onClick={fireCelebration}
-            style={{ background: '#f0fdf4', color: '#166534', borderColor: '#bbf7d0' }}
           >
             <Sparkles size={16} /> Celebrate
           </button>

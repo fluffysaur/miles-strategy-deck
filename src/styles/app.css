@@ -873,9 +873,42 @@
 
 .tracker-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
+}
+
+.tracker-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tracker-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tracker-subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.tracker-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tracker-celebrate-btn {
+  background: #f0fdf4 !important;
+  color: #166534 !important;
+  border-color: #bbf7d0 !important;
 }
 
 .tracker-reset-btn {
@@ -1551,6 +1584,11 @@
   }
   .matrix-desktop-table {
     display: block;
+  }
+  .tracker-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
   }
   .cap-controls {
     flex-direction: row;
