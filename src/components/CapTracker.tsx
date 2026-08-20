@@ -36,7 +36,7 @@ export const CapTracker: React.FC = () => {
       <div className="tracker-header">
         <div>
           <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0f172a' }}>
-            Bobo &amp; Bubba Monthly Cap Tracker
+            Monthly Cap Tracker
           </h2>
           <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
             Period: <strong>{currentPeriod}</strong> • Target: Maximize 4.0 MPD without overflowing caps
@@ -94,12 +94,15 @@ export const CapTracker: React.FC = () => {
             <div key={item.id} className="cap-card">
               <div className="cap-card-header">
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                     <h3 className="cap-name">
                       {item.cardId === 'uob-ladys' ? `UOB Lady's Card (${categoryInfo.name})` : item.name}
                     </h3>
-                    <span className={`tag ${item.holder === 'Bobo' ? 'tag-blue' : item.holder === 'Bubba' ? 'tag-pink' : 'tag-indigo'}`}>
-                      {item.holder}
+                    <span className="badge-mpd" style={{ fontSize: '0.72rem', padding: '2px 8px' }}>
+                      4.0 MPD
+                    </span>
+                    <span className="tag tag-slate" style={{ fontSize: '0.72rem', padding: '2px 8px' }}>
+                      ${item.capAmount.toLocaleString()} Cap
                     </span>
                   </div>
                   <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '2px' }}>

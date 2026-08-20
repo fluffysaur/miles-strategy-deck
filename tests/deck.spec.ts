@@ -114,18 +114,18 @@ test.describe('Bobo & Bubba Miles Strategy Web App & Deck Mode', () => {
 
   test('updates spend and calculates progress in Cap Tracker', async ({ page }) => {
     await page.locator('button', { hasText: 'Cap Tracker' }).first().click();
-    await expect(page.locator('h2')).toContainText('Bobo & Bubba Monthly Cap Tracker');
+    await expect(page.locator('h2')).toContainText('Monthly Cap Tracker');
 
-    // Click quick add +$100 on Bobo PPV
-    const boboCard = page.locator('.cap-card', { hasText: 'Bobo UOB PPV' });
-    await boboCard.locator('button', { hasText: '+$100' }).click();
-    await expect(boboCard).toContainText('$100.00');
+    // Click quick add +$100 on UOB PPV
+    const ppvCard = page.locator('.cap-card', { hasText: 'UOB Preferred Platinum Visa' });
+    await ppvCard.locator('button', { hasText: '+$100' }).click();
+    await expect(ppvCard).toContainText('$100.00');
 
     // Reload page and verify localStorage persistence
     await page.reload();
     await page.locator('button', { hasText: 'Cap Tracker' }).first().click();
-    const boboCardReloaded = page.locator('.cap-card', { hasText: 'Bobo UOB PPV' });
-    await expect(boboCardReloaded).toContainText('$100.00');
+    const ppvCardReloaded = page.locator('.cap-card', { hasText: 'UOB Preferred Platinum Visa' });
+    await expect(ppvCardReloaded).toContainText('$100.00');
   });
 
   test('switches into Presentation Deck Mode and navigates slides via controls and keyboard', async ({ page }) => {
@@ -165,7 +165,7 @@ test.describe('Bobo & Bubba Miles Strategy Web App & Deck Mode', () => {
 
     // Tap Caps tab on bottom nav
     await bottomNav.locator('.bottom-nav-item', { hasText: 'Caps' }).click();
-    await expect(page.locator('h2')).toContainText('Bobo & Bubba Monthly Cap Tracker');
+    await expect(page.locator('h2')).toContainText('Monthly Cap Tracker');
 
     // Tap HeyMax tab
     await bottomNav.locator('.bottom-nav-item', { hasText: 'HeyMax' }).click();

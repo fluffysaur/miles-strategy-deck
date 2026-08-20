@@ -11,7 +11,7 @@ interface SpendTrackerContextType {
   totalMonthlyCap: number;
 }
 
-const STORAGE_KEY = 'bobo_bubba_miles_spend_tracker_v1';
+const STORAGE_KEY = 'miles_spend_tracker_v2';
 
 const getCurrentPeriodLabel = (): string => {
   const now = new Date();
@@ -20,18 +20,8 @@ const getCurrentPeriodLabel = (): string => {
 
 const DEFAULT_ITEMS: CapTrackingItem[] = [
   {
-    id: 'bobo-uob-ppv',
-    name: 'Bobo UOB PPV (Mobile Contactless)',
-    holder: 'Bobo',
-    cardId: 'uob-preferred-platinum-visa',
-    capAmount: 600,
-    currentSpend: 0,
-    period: getCurrentPeriodLabel()
-  },
-  {
-    id: 'bubba-uob-ppv',
-    name: 'Bubba UOB PPV (Mobile Contactless)',
-    holder: 'Bubba',
+    id: 'uob-preferred-platinum-visa',
+    name: 'UOB Preferred Platinum Visa (Mobile Pay)',
     cardId: 'uob-preferred-platinum-visa',
     capAmount: 600,
     currentSpend: 0,
@@ -39,8 +29,7 @@ const DEFAULT_ITEMS: CapTrackingItem[] = [
   },
   {
     id: 'citi-rewards',
-    name: 'Citi Rewards (Online Shopping / Food)',
-    holder: 'Joint',
+    name: 'Citi Rewards Card (Online / Amaze)',
     cardId: 'citi-rewards',
     capAmount: 1000,
     currentSpend: 0,
@@ -49,7 +38,6 @@ const DEFAULT_ITEMS: CapTrackingItem[] = [
   {
     id: 'uob-ladys',
     name: "UOB Lady's Card (Travel)",
-    holder: 'Joint',
     cardId: 'uob-ladys',
     capAmount: 1000,
     currentSpend: 0,
@@ -57,8 +45,7 @@ const DEFAULT_ITEMS: CapTrackingItem[] = [
   },
   {
     id: 'hsbc-revolution',
-    name: 'HSBC Revolution (Travel & Hotels)',
-    holder: 'Joint',
+    name: 'HSBC Revolution (Travel & Dining)',
     cardId: 'hsbc-revolution',
     capAmount: 1000,
     currentSpend: 0,

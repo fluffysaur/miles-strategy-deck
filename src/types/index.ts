@@ -73,7 +73,7 @@ export interface MerchantLookup {
 export interface CapTrackingItem {
   id: string;
   name: string;
-  holder: 'Bobo' | 'Bubba' | 'Joint';
+  holder?: string;
   cardId: CardId;
   capAmount: number;
   currentSpend: number;
