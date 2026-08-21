@@ -4,7 +4,6 @@ import { BottomNav } from './components/BottomNav';
 import { CardFinder } from './components/CardFinder';
 import { CheatsheetTable } from './components/CheatsheetTable';
 import { CardWallet } from './components/CardWallet';
-import { CapTracker } from './components/CapTracker';
 import { HeyMaxGuide } from './components/HeyMaxGuide';
 import { CardDetailModal } from './components/CardDetailModal';
 import { PresentationView } from './components/DeckPresentation/PresentationView';
@@ -18,7 +17,7 @@ import './styles/deck.css';
 
 const MainApp: React.FC = () => {
   const [isDeckMode, setIsDeckMode] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'finder' | 'cheatsheet' | 'wallet' | 'tracker' | 'heymax'>('finder');
+  const [activeTab, setActiveTab] = useState<'finder' | 'cheatsheet' | 'wallet' | 'heymax'>('finder');
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const { cardsData } = useLadysCategory();
 
@@ -52,7 +51,6 @@ const MainApp: React.FC = () => {
           {activeTab === 'finder' && <CardFinder onSelectCard={handleSelectCard} />}
           {activeTab === 'cheatsheet' && <CheatsheetTable onSelectCard={handleSelectCard} />}
           {activeTab === 'wallet' && <CardWallet onSelectCard={handleSelectCard} />}
-          {activeTab === 'tracker' && <CapTracker />}
           {activeTab === 'heymax' && <HeyMaxGuide />}
         </main>
 

@@ -85,7 +85,7 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ card, onClose 
                 <div className="modal-spec-val">{activeCard.monthlyCap}</div>
               </div>
               <div className="modal-spec-item">
-                <div className="modal-spec-lbl">ROUNDING BLOCK</div>
+                <div className="modal-spec-lbl">ROUNDING</div>
                 <div className="modal-spec-val" style={{ color: activeCard.roundingValue > 1 ? '#b45309' : '#15803d' }}>
                   {activeCard.rounding}
                 </div>
@@ -107,6 +107,29 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ card, onClose 
                 <div className="modal-spec-val" style={{ fontSize: '0.75rem', fontWeight: 600, color: '#334155' }}>{activeCard.transferPartners}</div>
               </div>
             </div>
+
+            {/* Best For Categories */}
+            {activeCard.bestCategories && activeCard.bestCategories.length > 0 && (
+              <div className="modal-best-for-section">
+                <div className="modal-best-for-header">
+                  <Sparkles size={15} style={{ color: '#0284c7' }} />
+                  <span className="modal-best-for-title">Best For Categories</span>
+                </div>
+                <div className="modal-best-for-chips">
+                  {activeCard.bestCategories.map((cat, idx) => (
+                    <span key={idx} className="best-for-chip">
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+                {activeCard.eligibleMccs && (
+                  <div className="modal-mcc-box">
+                    <span className="modal-mcc-title">Eligible Merchant Category Codes (MCCs):</span>
+                    <span className="modal-mcc-text">{activeCard.eligibleMccs}</span>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Primary Strategy */}
             <div className="info-box">

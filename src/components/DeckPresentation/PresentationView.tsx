@@ -311,6 +311,27 @@ export const PresentationView: React.FC<PresentationViewProps> = ({ onExit, init
             </div>
 
             <div className="right-panel">
+              {card.bestCategories && card.bestCategories.length > 0 && (
+                <div className="deck-card-best-for-box">
+                  <div className="deck-best-for-header">
+                    <Sparkles size={14} style={{ color: '#0284c7' }} />
+                    <span>Best For Categories</span>
+                  </div>
+                  <div className="deck-best-for-chips">
+                    {card.bestCategories.map((cat, idx) => (
+                      <span key={idx} className="best-for-chip">
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                  {card.eligibleMccs && (
+                    <div className="deck-card-mcc-row">
+                      <span className="deck-mcc-lbl">MCCs:</span>
+                      <span className="deck-mcc-val">{card.eligibleMccs}</span>
+                    </div>
+                  )}
+                </div>
+              )}
               <div className="info-box">
                 <h4><Sparkles size={16} style={{ color: '#0284c7' }} /> Primary Use</h4>
                 {card.primaryUse}

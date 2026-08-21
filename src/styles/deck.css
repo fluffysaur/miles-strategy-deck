@@ -114,19 +114,22 @@
 /* Slide 1: Cute Title Slide */
 .title-slide {
   text-align: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: var(--bg-title);
-  padding: 20px 20px;
+  padding: 14px 14px 20px 14px;
   min-height: 0;
   height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .title-slide h1 {
-  font-size: 1.95rem;
+  font-size: 1.32rem;
   font-weight: 800;
-  margin-bottom: 8px;
-  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  line-height: 1.25;
+  letter-spacing: -0.4px;
   background: linear-gradient(135deg, #0f172a 20%, #0284c7 60%, #ec4899 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -134,12 +137,12 @@
 }
 
 .title-slide p.title-sub {
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   font-weight: 500;
   max-width: 620px;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .start-tour-btn {
@@ -148,14 +151,15 @@
   gap: 8px;
   background: linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #ec4899 100%);
   color: #ffffff !important;
-  padding: 10px 24px;
+  padding: 8px 20px;
   border-radius: 25px;
-  font-size: 0.92rem;
+  font-size: 0.86rem;
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 6px 20px -3px rgba(2, 132, 199, 0.45);
   transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
   border: none;
+  flex-shrink: 0;
 }
 
 .start-tour-btn:hover {
@@ -169,6 +173,31 @@
 
 .start-tour-btn:hover svg {
   transform: translateX(4px);
+}
+
+@media (min-width: 768px) {
+  .title-slide {
+    justify-content: center;
+    padding: 24px 28px;
+  }
+
+  .title-slide h1 {
+    font-size: 1.95rem;
+    margin-bottom: 8px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .title-slide p.title-sub {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .start-tour-btn {
+    padding: 10px 24px;
+    font-size: 0.92rem;
+  }
 }
 
 /* Slide Header */
@@ -566,6 +595,75 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.deck-card-best-for-box {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.deck-card-best-for-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(2, 132, 199, 0.12);
+}
+
+.deck-best-for-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.deck-best-for-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.deck-best-for-chips .best-for-chip {
+  background: #ffffff;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 12px;
+}
+
+.deck-card-mcc-row {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed #bae6fd;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.deck-mcc-lbl {
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.deck-mcc-val {
+  font-size: 0.68rem;
+  color: #334155;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  line-height: 1.35;
 }
 
 .info-box {

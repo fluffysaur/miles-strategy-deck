@@ -1,17 +1,13 @@
 import React from 'react';
-import { Presentation, Sparkles, PieChart, Layers } from 'lucide-react';
-import { useSpendTracker } from '../context/SpendTrackerContext';
+import { Presentation, Sparkles, Layers } from 'lucide-react';
 
 interface NavbarProps {
-  activeTab: 'finder' | 'cheatsheet' | 'wallet' | 'tracker' | 'heymax';
-  setActiveTab: (tab: 'finder' | 'cheatsheet' | 'wallet' | 'tracker' | 'heymax') => void;
+  activeTab: 'finder' | 'cheatsheet' | 'wallet' | 'heymax';
+  setActiveTab: (tab: 'finder' | 'cheatsheet' | 'wallet' | 'heymax') => void;
   onEnterDeckMode: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onEnterDeckMode }) => {
-  const { totalMonthlySpent, totalMonthlyCap } = useSpendTracker();
-  const spendPct = totalMonthlyCap > 0 ? Math.round((totalMonthlySpent / totalMonthlyCap) * 100) : 0;
-
   return (
     <header className="app-navbar">
       <div className="brand-section">
@@ -51,12 +47,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onEnter
           onClick={() => setActiveTab('wallet')}
         >
           💳 Card Wallet
-        </button>
-        <button
-          className={`chip-btn ${activeTab === 'tracker' ? 'active' : ''}`}
-          onClick={() => setActiveTab('tracker')}
-        >
-          <PieChart size={16} /> Cap Tracker ({spendPct}%)
         </button>
         <button
           className={`chip-btn ${activeTab === 'heymax' ? 'active' : ''}`}

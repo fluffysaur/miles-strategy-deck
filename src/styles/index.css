@@ -212,19 +212,21 @@ button {
 .title-mascot-wrap {
   position: relative;
   display: inline-block;
-  margin-bottom: 14px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
   animation: floatMascot 4.5s ease-in-out infinite;
 }
 
 .title-mascot-img {
-  width: 155px;
-  height: 155px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4.5px solid #ffffff;
+  border: 3.5px solid #ffffff;
   box-shadow:
-    0 14px 32px -6px rgba(236, 72, 153, 0.35),
-    0 8px 18px -6px rgba(2, 132, 199, 0.25);
+    0 10px 24px -4px rgba(236, 72, 153, 0.35),
+    0 6px 14px -4px rgba(2, 132, 199, 0.25);
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: block;
 }
@@ -235,20 +237,41 @@ button {
 
 .title-mascot-badge {
   position: absolute;
-  bottom: -4px;
-  right: -8px;
+  bottom: -2px;
+  right: -4px;
   background: #ffffff;
   border: 1.5px solid #fbcfe8;
   color: #db2777;
-  font-size: 0.74rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .title-mascot-wrap {
+    margin-top: 0;
+    margin-bottom: 14px;
+  }
+  .title-mascot-img {
+    width: 155px;
+    height: 155px;
+    border-width: 4.5px;
+    box-shadow:
+      0 14px 32px -6px rgba(236, 72, 153, 0.35),
+      0 8px 18px -6px rgba(2, 132, 199, 0.25);
+  }
+  .title-mascot-badge {
+    bottom: -4px;
+    right: -8px;
+    font-size: 0.74rem;
+    padding: 3px 10px;
+  }
 }
 
 /* Keyframes & Cute Animations */

@@ -28,7 +28,8 @@ export interface CardData {
   transferPartners: string;
   primaryUse: string;
   signUpBonus?: string;
-  loungeAccess?: string;
+  bestCategories: string[];
+  eligibleMccs: string;
   perks: string[];
   catches: string[];
   milelionReviewUrl: string;

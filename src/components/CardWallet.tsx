@@ -63,7 +63,7 @@ export const CardWallet: React.FC<CardWalletProps> = ({ onSelectCard }) => {
           </div>
 
           <div className="ladys-category-badge-desktop">
-            <span className="ladys-cap-pill">S$1,000 / mo Cap • 4.0 MPD</span>
+            <span className="ladys-cap-pill">S$1,000 Cap • 4.0 MPD</span>
           </div>
         </div>
 
@@ -179,6 +179,25 @@ export const CardWallet: React.FC<CardWalletProps> = ({ onSelectCard }) => {
                     <span className="spec-val">{card.annualFee}</span>
                   </div>
                 </div>
+
+                {card.bestCategories && card.bestCategories.length > 0 && (
+                  <div className="wallet-card-best-for">
+                    <span className="wallet-best-for-lbl">Best for:</span>
+                    <div className="wallet-best-for-chips">
+                      {card.bestCategories.map((cat, idx) => (
+                        <span key={idx} className="best-for-chip">
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                    {card.eligibleMccs && (
+                      <div className="wallet-card-mcc-row">
+                        <span className="wallet-mcc-lbl">Eligible MCCs:</span>
+                        <span className="wallet-mcc-val">{card.eligibleMccs}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div style={{ marginTop: '14px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '4px', color: '#0284c7', fontSize: '0.85rem', fontWeight: 700 }}>
                   <span>View Full Strategy</span>

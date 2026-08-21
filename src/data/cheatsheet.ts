@@ -19,8 +19,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'Citi Rewards (Amaze)',
       backupCardId: 'citi-rewards',
       mpd: 4.0,
-      monthlyCap: 'S$600 (Shared/Card)',
-      rounding: 'S$5.00 blocks',
+      monthlyCap: 'S$600',
+      rounding: 'S$5.00',
       strategyNotes: 'Tap phone via Apple/Google Pay in retail stores. Never tap physical card. Avoid SMART$ stores.',
       categoryGroup: 'everyday'
     },
@@ -39,8 +39,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'KrisFlyer UOB',
       backupCardId: 'krisflyer-uob',
       mpd: 4.0,
-      monthlyCap: isTransport ? 'S$600 (PPV) / S$1,000 (Lady\'s)' : 'S$600 (Shared)',
-      rounding: 'S$5 agg.',
+      monthlyCap: isTransport ? 'S$600 (PPV) / S$1,000 (Lady\'s)' : 'S$600',
+      rounding: 'S$5 (Agg.)',
       strategyNotes: isTransport
         ? "UOB Lady's (Transport category) & UOB PPV both earn 4.0 MPD on SimplyGo. Monthly fares aggregated before rounding."
         : 'Monthly bus & MRT fares are aggregated before applying the S$5 rounding block.',
@@ -64,7 +64,7 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'KrisFlyer UOB (3.0 MPD)',
       backupCardId: 'krisflyer-uob',
       mpd: 4.0,
-      monthlyCap: isDining ? 'S$1,000 / mo' : 'S$600 (PPV) / S$1,000 (Revo)',
+      monthlyCap: isDining ? 'S$1,000' : 'S$600 (PPV) / S$1,000 (Revo)',
       rounding: isDining ? 'S$5 / S$1' : 'S$5 / S$1',
       strategyNotes: isDining
         ? "Use UOB Lady's for dining category (4.0 MPD up to S$1,000). HSBC Revo as alternative online dining card."
@@ -86,8 +86,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'Citi Rewards',
       backupCardId: 'citi-rewards',
       mpd: 4.0,
-      monthlyCap: isDining ? 'S$600 / S$1,000' : 'S$600 (Shared/Card)',
-      rounding: 'S$5.00 blocks',
+      monthlyCap: isDining ? 'S$600 / S$1,000' : 'S$600',
+      rounding: 'S$5.00',
       strategyNotes: 'Mobile contactless tap at cashier. Ensure total meets $5 threshold for rounding.',
       categoryGroup: 'dining'
     },
@@ -100,8 +100,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'UOB PPV',
       backupCardId: 'uob-preferred-platinum-visa',
       mpd: 4.0,
-      monthlyCap: 'S$1,000 / mo',
-      rounding: 'S$1.00 blocks',
+      monthlyCap: 'S$1,000',
+      rounding: 'S$1.00',
       strategyNotes: 'Direct card checkout online. Fine S$1 rounding captures max miles on every dollar.',
       categoryGroup: 'online'
     },
@@ -114,8 +114,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: isDining ? "UOB PPV / UOB Lady's" : 'UOB PPV',
       backupCardId: 'uob-preferred-platinum-visa',
       mpd: 4.0,
-      monthlyCap: 'S$1,000 / mo',
-      rounding: 'S$1.00 blocks',
+      monthlyCap: 'S$1,000',
+      rounding: 'S$1.00',
       strategyNotes: 'Save Citi Rewards in app wallet. S$1 rounding gives maximum miles on smaller delivery orders.',
       categoryGroup: 'online'
     },
@@ -137,7 +137,7 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: isTravel ? 'KrisFlyer UOB (3.0 MPD uncapped) / SC Journey' : 'SC Journey / Citi PM',
       backupCardId: isTravel ? 'krisflyer-uob' : 'sc-journey',
       mpd: 4.0,
-      monthlyCap: isTravel ? 'S$1,000 each ($2,000 combined)' : 'S$1,000 (Revo)',
+      monthlyCap: isTravel ? 'S$1,000 each' : 'S$1,000 (Revo)',
       rounding: 'S$1.00 / S$5.00',
       strategyNotes: isTravel
         ? "UOB Lady's (Travel category) and HSBC Revo both earn 4.0 MPD up to S$1,000 cap each ($2,000/mo travel capacity!). KF UOB for uncapped SQ/Scoot."
@@ -159,7 +159,7 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'Citi Rewards (Amaze)',
       backupCardId: 'citi-rewards',
       mpd: 4.0,
-      monthlyCap: isTravel ? 'S$1,000 each ($2,000 combined)' : 'S$1,000 / mo',
+      monthlyCap: isTravel ? 'S$1,000 each' : 'S$1,000',
       rounding: 'S$1.00 / S$5.00',
       strategyNotes: isTravel
         ? "Book online hotels via UOB Lady's (Travel category) or HSBC Revo (4.0 MPD up to S$1,000 cap each). Stack HeyMax portal for extra Max Miles!"
@@ -185,7 +185,7 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'SC Journey (3.0 MPD)',
       backupCardId: 'sc-journey',
       mpd: 4.0,
-      monthlyCap: 'S$1,000 / mo per card',
+      monthlyCap: 'S$1,000',
       rounding: 'S$1.00 / S$5.00',
       strategyNotes: isTravel
         ? "4.0 MPD on Klook/Trip.com using UOB Lady's (Travel), HSBC Revo, or Citi Rewards. Stack HeyMax for Max Miles."
@@ -207,8 +207,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'Citi Rewards (Online)',
       backupCardId: 'citi-rewards',
       mpd: 4.0,
-      monthlyCap: isFashion ? 'S$1,000 (Lady\'s) / S$600 (PPV)' : 'S$600 (Shared)',
-      rounding: 'S$5.00 blocks',
+      monthlyCap: isFashion ? 'S$1,000 (Lady\'s) / S$600 (PPV)' : 'S$600',
+      rounding: 'S$5.00',
       strategyNotes: isFashion
         ? "UOB Lady's (Fashion category) earns 4.0 MPD up to S$1,000 cap! UOB PPV mobile tap as secondary."
         : 'Tap mobile phone (Apple Pay / Google Pay) for 4.0 MPD. Citi Rewards for online fashion checkouts.',
@@ -229,8 +229,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'Citi PM (1.2 MPD)',
       backupCardId: 'citi-premiermiles',
       mpd: 4.0,
-      monthlyCap: isFamily ? 'S$1,000 (Lady\'s) / S$600 (PPV)' : 'S$600 (Shared)',
-      rounding: 'S$5.00 blocks',
+      monthlyCap: isFamily ? 'S$1,000 (Lady\'s) / S$600 (PPV)' : 'S$600',
+      rounding: 'S$5.00',
       strategyNotes: isFamily
         ? "UOB Lady's (Family category) earns 4.0 MPD at supermarkets up to S$1,000 cap! Or tap phone via UOB PPV."
         : 'Tap phone at FairPrice/Sheng Siong. Check total spend is multiple of $5.',
@@ -296,7 +296,7 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCardId: 'sc-journey',
       mpd: 1.2,
       monthlyCap: 'Uncapped',
-      rounding: 'S$1.00 blocks',
+      rounding: 'S$1.00',
       strategyNotes: 'Use when all 4.0 MPD caps are exhausted or for single transactions exceeding caps.',
       categoryGroup: 'general'
     },
@@ -309,8 +309,8 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCard: 'SC Journey (3.0 MPD)',
       backupCardId: 'sc-journey',
       mpd: 4.0,
-      monthlyCap: 'S$1,000 / mo',
-      rounding: 'S$1.00 blocks',
+      monthlyCap: 'S$1,000',
+      rounding: 'S$1.00',
       strategyNotes: 'Amaze converts offline foreign spend to online spend for Citi Rewards = 4.0 MPD + 0% bank FX!',
       categoryGroup: 'travel'
     },
@@ -328,7 +328,7 @@ export const getCheatsheetData = (category: LadysCategory = 'travel'): Cheatshee
       backupCardId: 'citi-premiermiles',
       mpd: 1.2,
       monthlyCap: 'Uncapped',
-      rounding: 'S$1.00 blocks',
+      rounding: 'S$1.00',
       strategyNotes: 'NEVER use UOB cards here! SMART$ overrides UNI$ earning completely. Use Citi or SC.',
       categoryGroup: 'exclusions'
     }

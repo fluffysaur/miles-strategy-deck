@@ -142,15 +142,13 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
                 {row.primaryCards && row.primaryCards.length > 0 ? (
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
                     {row.primaryCards.map((c, cIdx) => (
-                      <React.Fragment key={cIdx}>
-                        {cIdx > 0 && <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>/</span>}
-                        <CardBadge
-                          cardId={c.cardId}
-                          cardName={c.name}
-                          size="sm"
-                          onClick={() => onSelectCard(c.cardId)}
-                        />
-                      </React.Fragment>
+                      <CardBadge
+                        key={cIdx}
+                        cardId={c.cardId}
+                        cardName={c.name}
+                        size="sm"
+                        onClick={() => onSelectCard(c.cardId)}
+                      />
                     ))}
                   </div>
                 ) : (
@@ -169,7 +167,7 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
               </div>
 
               <div className="matrix-card-row">
-                <span className="matrix-card-lbl">Rounding Block:</span>
+                <span className="matrix-card-lbl">Rounding:</span>
                 <span className={`tag ${row.rounding.includes('$5') ? 'tag-amber' : 'tag-green'}`} style={{ fontSize: '0.72rem' }}>
                   {row.rounding}
                 </span>
@@ -191,12 +189,12 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
         <table className="app-table">
           <thead>
             <tr>
-              <th>Spend Category</th>
-              <th>Primary Card</th>
-              <th style={{ textAlign: 'center' }}>MPD</th>
-              <th style={{ textAlign: 'center' }}>Monthly Cap</th>
-              <th style={{ textAlign: 'center' }}>Rounding</th>
-              <th>Strategy &amp; Traps</th>
+              <th style={{ width: '18%' }}>Spend Category</th>
+              <th style={{ width: '20%' }}>Primary Card</th>
+              <th style={{ width: '8%', textAlign: 'center' }}>MPD</th>
+              <th style={{ width: '12%', textAlign: 'center' }}>Monthly Cap</th>
+              <th style={{ width: '9%', textAlign: 'center' }}>Rounding</th>
+              <th style={{ width: '33%' }}>Strategy &amp; Traps</th>
             </tr>
           </thead>
           <tbody>
@@ -214,15 +212,13 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
                   {row.primaryCards && row.primaryCards.length > 0 ? (
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
                       {row.primaryCards.map((c, cIdx) => (
-                        <React.Fragment key={cIdx}>
-                          {cIdx > 0 && <span style={{ color: '#94a3b8', fontWeight: 600 }}>/</span>}
-                          <CardBadge
-                            cardId={c.cardId}
-                            cardName={c.name}
-                            size="sm"
-                            onClick={() => onSelectCard(c.cardId)}
-                          />
-                        </React.Fragment>
+                        <CardBadge
+                          key={cIdx}
+                          cardId={c.cardId}
+                          cardName={c.name}
+                          size="sm"
+                          onClick={() => onSelectCard(c.cardId)}
+                        />
                       ))}
                     </div>
                   ) : (
@@ -247,7 +243,7 @@ export const CheatsheetTable: React.FC<CheatsheetTableProps> = ({ onSelectCard }
                     {row.rounding}
                   </span>
                 </td>
-                <td style={{ color: '#334155', maxWidth: '340px' }}>
+                <td style={{ color: '#334155' }}>
                   {row.categoryGroup === 'exclusions' && (
                     <AlertCircle size={14} style={{ color: '#ef4444', display: 'inline', marginRight: '4px', verticalAlign: '-2px' }} />
                   )}

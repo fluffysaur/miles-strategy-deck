@@ -1,6 +1,16 @@
 import { CardData, LadysCategory } from '../types';
 import { LADYS_CATEGORIES } from './ladysCategories';
 
+const LADYS_BEST_CATEGORIES: Record<LadysCategory, string[]> = {
+  travel: ['Flights & Airlines', 'Hotels (Agoda/Expedia)', 'Travel (Klook/Trip.com)'],
+  dining: ['Restaurants & Cafes', 'Fine Dining', 'Fast Food & Bars'],
+  fashion: ['Fashion Retail', 'Dept Stores (Uniqlo/Zara)', 'Online Fashion'],
+  beauty: ['Pharmacies (Watsons)', 'Spas & Massage', 'Salons & Cosmetics'],
+  family: ['Supermarkets (NTUC/Sheng Siong)', 'Groceries', 'Kids & Family'],
+  transport: ['SimplyGo Bus / MRT', 'Petrol & Fuel', 'Taxis & Ride-Hailing'],
+  entertainment: ['Nightclubs & Bars', 'Cinemas', 'Concerts & SISTIC']
+};
+
 export const CARDS_DATA: CardData[] = [
   {
     id: 'citi-rewards',
@@ -11,11 +21,11 @@ export const CARDS_DATA: CardData[] = [
     image: '/images/citi-rewards.png',
     mpd: '4.0 MPD (10X Points)',
     mpdNumeric: 4.0,
-    monthlyCap: 'S$1,000 / statement mo',
+    monthlyCap: 'S$1,000 (Statement Mo)',
     monthlyCapValue: 1000,
     capType: 'statement_month',
     dualCap: false,
-    rounding: 'S$1.00 blocks',
+    rounding: 'S$1.00',
     roundingValue: 1.0,
     annualFee: 'S$196.20 (First yr free)',
     expiry: '5 Years',
@@ -23,6 +33,8 @@ export const CARDS_DATA: CardData[] = [
     transferPartners: 'KrisFlyer, Asia Miles, Qatar Privilege, Flying Blue, Turkish, Etihad + 5 more',
     primaryUse: 'Default for all online shopping, online food delivery (GrabFood, Foodpanda), Grab rides, and in-person overseas spend via Amaze pairing.',
     signUpBonus: 'Up to 30,000 bonus Citi Miles / ThankYou points with qualifying sign-up spend.',
+    bestCategories: ['Online Shopping', 'Food Delivery', 'Grab & Rides', 'Overseas via Amaze'],
+    eligibleMccs: 'MCC 5311, 5611-5699, 5732-5735, 5814, 4121, 5942-5999 (Online Checkouts)',
     perks: [
       'Top tier 4.0 MPD on almost all online retail and fashion',
       'Pairs with Instarem Amaze for 4.0 MPD overseas with 0% bank FX fees',
@@ -50,7 +62,7 @@ export const CARDS_DATA: CardData[] = [
     monthlyCap: 'Uncapped',
     capType: 'uncapped',
     dualCap: false,
-    rounding: 'S$1.00 blocks',
+    rounding: 'S$1.00',
     roundingValue: 1.0,
     annualFee: 'S$196.20 (10k renewal miles)',
     expiry: 'Never Expire',
@@ -58,7 +70,8 @@ export const CARDS_DATA: CardData[] = [
     transferPartners: 'KrisFlyer, Asia Miles, Qatar, Turkish, Flying Blue + 6 more',
     primaryUse: 'Sign-up reward harvesting and reliable general catch-all card when specialized 4.0 MPD monthly caps are exhausted.',
     signUpBonus: 'Up to 30,000 bonus miles with annual fee payment and qualifying spend in first 2 months.',
-    loungeAccess: '2 complimentary airport lounge visits annually via Priority Pass for the cardholder.',
+    bestCategories: ['General Catch-All', 'Lounge Access (2x/yr)', 'Sign-Up Bonuses', 'Uncapped Spend'],
+    eligibleMccs: 'All MCCs (Excluding standard Citibank exclusion list)',
     perks: [
       'Citi Miles never expire — perfect long-term holding card',
       '2 free Priority Pass airport lounge visits every year',
@@ -82,17 +95,19 @@ export const CARDS_DATA: CardData[] = [
     image: '/images/uob-ppv.jpg',
     mpd: '4.0 MPD (10X UNI$)',
     mpdNumeric: 4.0,
-    monthlyCap: 'S$600 / cal mo (2x = S$1,200/mo for Bobo & Bubba)',
+    monthlyCap: 'S$600 (S$1,200 Duo)',
     monthlyCapValue: 600,
     capType: 'calendar_month',
     dualCap: true,
-    rounding: 'S$5.00 blocks',
+    rounding: 'S$5.00',
     roundingValue: 5.0,
     annualFee: 'S$196.20 (First yr free, easy waiver)',
     expiry: '2 Years',
     transferFee: 'S$27.25 (SQ / Cathay)',
     transferPartners: 'Singapore Airlines KrisFlyer, Cathay Pacific Asia Miles',
     primaryUse: 'Everyday physical shopping via Apple Pay/Google Pay mobile contactless, SimplyGo bus/train rides, Shopee, and food delivery.',
+    bestCategories: ['Mobile Contactless (Apple/Google Pay)', 'SimplyGo Bus / MRT', 'Everyday Retail', 'Shopee'],
+    eligibleMccs: 'Offline: All Mobile Tap (except SMART$). Online Whitelist: MCC 4111, 4121, 5311, 5411, 5814, 7832',
     perks: [
       'Highest offline utility: 4.0 MPD everywhere you can tap your phone',
       'Bobo & Bubba dual-holding unlocks S$1,200/month combined 4.0 MPD contactless spend',
@@ -117,17 +132,19 @@ export const CARDS_DATA: CardData[] = [
     image: '/images/uob-ladys.png',
     mpd: '4.0 MPD (10X UNI$)',
     mpdNumeric: 4.0,
-    monthlyCap: 'S$1,000 / calendar mo',
+    monthlyCap: 'S$1,000',
     monthlyCapValue: 1000,
     capType: 'calendar_month',
     dualCap: false,
-    rounding: 'S$5.00 blocks',
+    rounding: 'S$5.00',
     roundingValue: 5.0,
     annualFee: 'S$196.20 (First yr free)',
     expiry: '2 Years',
     transferFee: 'S$27.25 (SQ / Cathay)',
     transferPartners: 'Singapore Airlines KrisFlyer, Cathay Pacific Asia Miles',
     primaryUse: 'All online & offline travel bookings, flight tickets, hotel reservations (Agoda, Expedia), and Klook/Trip.com up to S$1,000/mo. Can switch category quarterly.',
+    bestCategories: ['Flights & Airlines', 'Hotels (Agoda/Expedia)', 'Travel (Klook/Trip.com)'],
+    eligibleMccs: 'MCC 3000-3350, 4511 (Airlines), 4722 (Travel Agencies), 7011 (Hotels)',
     perks: [
       'Generous S$1,000 monthly cap dedicated to Travel (currently selected category)',
       'Earns 4.0 MPD on both offline physical bookings AND online flight/hotel checkouts',
@@ -152,16 +169,18 @@ export const CARDS_DATA: CardData[] = [
     image: '/images/uob-krisflyer.jpg',
     mpd: '3.0 MPD (with SQ spend) / 1.2 Local',
     mpdNumeric: 3.0,
-    monthlyCap: 'Uncapped (Direct KF Deposit)',
+    monthlyCap: 'Uncapped',
     capType: 'uncapped',
     dualCap: false,
-    rounding: 'S$5.00 blocks',
+    rounding: 'S$5.00',
     roundingValue: 5.0,
     annualFee: 'S$196.20 (10k renewal miles or waiver)',
     expiry: '3 Years (From deposit into KF account)',
     transferFee: 'S$0 (Automatic monthly deposit)',
     transferPartners: 'Singapore Airlines KrisFlyer (Direct deposit)',
     primaryUse: 'Booking flights on Singapore Airlines & Scoot, KrisShop purchases, and uncapped backup for dining/transport/online spend.',
+    bestCategories: ['Singapore Airlines & Scoot', 'KrisShop', 'Uncapped Dining (3.0 MPD)', 'Transport (3.0 MPD)'],
+    eligibleMccs: 'SIA Group direct + MCC 4111, 4121, 4722, 5311, 5611-5699, 5811, 5812, 5814',
     perks: [
       'S$0 transfer fee: Miles credit straight into Singapore Airlines KrisFlyer monthly',
       'Uncapped 3.0 MPD on Dining, Food Delivery, Online Shopping, and Transport (with S$800 annual SQ Group spend)',
@@ -186,17 +205,19 @@ export const CARDS_DATA: CardData[] = [
     image: '/images/hsbc-revolution.png',
     mpd: '4.0 MPD (10X Reward Points)',
     mpdNumeric: 4.0,
-    monthlyCap: 'S$1,000 / calendar mo',
+    monthlyCap: 'S$1,000',
     monthlyCapValue: 1000,
     capType: 'calendar_month',
     dualCap: false,
-    rounding: 'S$1.00 blocks',
+    rounding: 'S$1.00',
     roundingValue: 1.0,
     annualFee: 'S$0 (Free for Life)',
     expiry: '3 Years',
     transferFee: 'S$0 with TravelOne / S$27.25',
     transferPartners: 'Singapore Airlines KrisFlyer, Cathay Asia Miles, British Airways, EVA Air + more',
     primaryUse: 'Booking online air tickets, hotel reservations (Agoda, Expedia, Booking.com), and online travel packages up to S$1,000/month.',
+    bestCategories: ['Online Flights', 'Online Hotels (Agoda/Expedia)', 'Online Travel Bookings', 'Online Dining'],
+    eligibleMccs: 'Online Whitelist: MCC 3000-3299, 4511 (Airlines), 3501-3999, 7011 (Hotels), 4722 (Travel), 5812, 5814 (Dining)',
     perks: [
       'S$0 annual fee permanently for life',
       'Fine S$1.00 rounding blocks for maximum reward capture',
@@ -223,13 +244,15 @@ export const CARDS_DATA: CardData[] = [
     monthlyCap: 'Uncapped',
     capType: 'uncapped',
     dualCap: false,
-    rounding: 'S$1.00 blocks',
+    rounding: 'S$1.00',
     roundingValue: 1.0,
     annualFee: 'S$196.20 (First yr free or bonus miles)',
     expiry: 'Never Expire',
     transferFee: 'S$27.25 (Multiple partners)',
     transferPartners: 'Singapore Airlines KrisFlyer, Cathay Asia Miles, Qatar, Emirates',
     primaryUse: '2 free annual airport lounge visits, booking overseas airlines, hotels, and general foreign currency dining/travel spend.',
+    bestCategories: ['Foreign Currency Spend (3.0 MPD)', 'Overseas Travel & Dining', 'Lounge Access (2x/yr)', 'Uncapped FCY'],
+    eligibleMccs: '3.0 MPD FCY: MCC 3000-3350, 4511, 4722, 7011, 5812, 5814. All other: 1.2 Local / 2.0 FCY',
     perks: [
       '360 Rewards Points NEVER expire',
       '2 complimentary airport lounge visits per membership year via DragonPass',
@@ -248,12 +271,16 @@ export const CARDS_DATA: CardData[] = [
 
 export const getCardsData = (category: LadysCategory = 'travel'): CardData[] => {
   const categoryInfo = LADYS_CATEGORIES[category] || LADYS_CATEGORIES.travel;
+  const bestFor = LADYS_BEST_CATEGORIES[category] || LADYS_BEST_CATEGORIES.travel;
+
   return CARDS_DATA.map((card) => {
     if (card.id === 'uob-ladys') {
       return {
         ...card,
         tagline: `The ${categoryInfo.name.toLowerCase()} powerhouse with customizable 4.0 MPD quarterly categories (Currently: ${categoryInfo.name})`,
         primaryUse: categoryInfo.detailedDesc + ' Can switch category quarterly.',
+        bestCategories: bestFor,
+        eligibleMccs: categoryInfo.mccs,
         perks: [
           `Generous S$1,000 monthly cap dedicated to ${categoryInfo.name} (currently active category)`,
           'Earns 4.0 MPD on both offline physical tap/card AND online checkouts for chosen category',

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Sparkles, Layers, CreditCard, PieChart, Wand2 } from 'lucide-react';
+import { Sparkles, Layers, CreditCard, Wand2 } from 'lucide-react';
 
 interface BottomNavProps {
-  activeTab: 'finder' | 'cheatsheet' | 'wallet' | 'tracker' | 'heymax';
-  setActiveTab: (tab: 'finder' | 'cheatsheet' | 'wallet' | 'tracker' | 'heymax') => void;
+  activeTab: 'finder' | 'cheatsheet' | 'wallet' | 'heymax';
+  setActiveTab: (tab: 'finder' | 'cheatsheet' | 'wallet' | 'heymax') => void;
 }
 
 export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab }) => {
@@ -31,14 +31,6 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
       >
         <CreditCard size={20} />
         <span>Wallet</span>
-      </button>
-
-      <button
-        className={`bottom-nav-item ${activeTab === 'tracker' ? 'active' : ''}`}
-        onClick={() => setActiveTab('tracker')}
-      >
-        <PieChart size={20} />
-        <span>Caps</span>
       </button>
 
       <button

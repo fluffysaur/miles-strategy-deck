@@ -358,6 +358,81 @@ body {
     align-content: stretch;
 }
 
+.deck-card-best-for-box {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    grid-column: span 2;
+    box-shadow: var(--shadow-card);
+}
+
+.deck-best-for-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #0284c7;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.deck-best-for-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.best-for-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #ffffff;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 12px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.best-for-chip:hover {
+    background: #e0f2fe;
+    border-color: #7dd3fc;
+    transform: translateY(-1px);
+}
+
+.deck-card-mcc-row {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px dashed #bae6fd;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.deck-mcc-lbl {
+    font-size: 10px;
+    font-weight: 800;
+    color: #0284c7;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.deck-mcc-val {
+    font-size: 11px;
+    color: #334155;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace, sans-serif;
+    line-height: 1.35;
+}
+
 .info-box {
     background: #ffffff;
     border: 1px solid var(--border-color);
@@ -1487,7 +1562,10 @@ tr:last-child td {
 
     /* Title Slide (Slide 1) */
     .title-slide {
-        padding: 22px 14px;
+        padding: 14px 14px 20px 14px;
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .title-mascot-img {
